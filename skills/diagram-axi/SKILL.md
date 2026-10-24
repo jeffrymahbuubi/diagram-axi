@@ -1,11 +1,11 @@
 ---
 name: diagram-axi
-description: "Create an Excalidraw diagram, architecture diagram, flowchart or hand-drawn style diagram from a compact text DSL: writes an editable .excalidraw file and renders PNG/SVG offline. Also draws sequence, class, ER, state, timeline, commit-history and mind-map diagrams (D2, Mermaid). Use when asked to draw, diagram or sketch boxes and arrows, system or cloud architecture, pipelines, flows, org charts, or Mermaid for a README."
+description: "Create an Excalidraw diagram, architecture diagram, flowchart or hand-drawn style diagram from a compact text DSL: writes an editable .excalidraw file and renders PNG/SVG offline. Also draws sequence, class, ER, state, timeline, commit-history and mind-map diagrams (D2, Mermaid). Use when asked to draw, diagram or sketch boxes and arrows, system or cloud architecture, pipelines, flows, org charts, Mermaid for a README, or how a TS/JS codebase's modules import each other."
 ---
 
 # diagram-axi
 
-Turn a compact text description of boxes and arrows into an editable diagram file (Excalidraw, D2 or Mermaid) plus PNG/SVG renders, offline (built against AXI spec axi/1.0-2026-07). Run everything with npx; no install, no account.
+Turn a compact text description of boxes and arrows into an editable diagram file (Excalidraw, D2 or Mermaid) plus PNG/SVG renders, offline. Run everything with npx; no install, no account.
 
 ## Golden path
 
@@ -70,4 +70,4 @@ help[3]:
   npx -y diagram-axi syntax edges
 ```
 
-Every command supports `--help`. Exit codes: 0 success/no-op, 1 error, 2 usage error. All output is TOON on stdout.
+Every command has `--help`; exit codes 0 ok, 1 error, 2 usage; output is TOON.

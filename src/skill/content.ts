@@ -16,7 +16,7 @@ export const SPEC_VERSION = "axi/1.0-2026-07";
 
 /** Skill trigger text: what the model matches on to load SKILL.md. */
 export const SKILL_DESCRIPTION =
-  "Create an Excalidraw diagram, architecture diagram, flowchart or hand-drawn style diagram from a compact text DSL: writes an editable .excalidraw file and renders PNG/SVG offline. Also draws sequence, class, ER, state, timeline, commit-history and mind-map diagrams (D2, Mermaid). Use when asked to draw, diagram or sketch boxes and arrows, system or cloud architecture, pipelines, flows, org charts, or Mermaid for a README.";
+  "Create an Excalidraw diagram, architecture diagram, flowchart or hand-drawn style diagram from a compact text DSL: writes an editable .excalidraw file and renders PNG/SVG offline. Also draws sequence, class, ER, state, timeline, commit-history and mind-map diagrams (D2, Mermaid). Use when asked to draw, diagram or sketch boxes and arrows, system or cloud architecture, pipelines, flows, org charts, Mermaid for a README, or how a TS/JS codebase's modules import each other.";
 
 /** Three short lines of DSL shown on the home view; test/guide.test.ts parses them. */
 export const DSL_TEASER = ["api[API] -> db[(Postgres)] : SQL", "web[Web], mobile[Mobile] -> api : HTTPS", "api[API] :purple,bold"];
@@ -68,7 +68,7 @@ export function renderSkill(): string {
   const body = [
     "# diagram-axi",
     "",
-    `${DESCRIPTION} (built against AXI spec ${SPEC_VERSION}). Run everything with npx; no install, no account.`,
+    `${DESCRIPTION}. Run everything with npx; no install, no account.`,
     "",
     "## Golden path",
     "",
@@ -114,7 +114,7 @@ export function renderSkill(): string {
     example,
     "```",
     "",
-    "Every command supports `--help`. Exit codes: 0 success/no-op, 1 error, 2 usage error. All output is TOON on stdout.",
+    "Every command has `--help`; exit codes 0 ok, 1 error, 2 usage; output is TOON.",
   ].join("\n");
   return [frontmatter, "", body, ""].join("\n");
 }

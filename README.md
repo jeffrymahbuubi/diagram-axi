@@ -245,6 +245,17 @@ Large graphs are cut to the node budget (big folders collapse to `layout/ (17 fi
 
 ## For agents
 
+**Give an agent the skill.** The skill is one folder, `skills/diagram-axi/` (it ships in the npm package too). For Claude Code, copy it to `~/.claude/skills/diagram-axi/` (every project) or `<project>/.claude/skills/diagram-axi/` (one project); other agents that read `SKILL.md` files take the same folder.
+
+```sh
+# from a checkout of this repo
+mkdir -p ~/.claude/skills && cp -r skills/diagram-axi ~/.claude/skills/
+# or from a global npm install
+cp -r "$(npm root -g)/diagram-axi/skills/diagram-axi" ~/.claude/skills/
+```
+
+The skill runs every command as `npx -y diagram-axi ...`, so the agent's machine needs Node >= 20.19. PNG/SVG need an installed Chrome, Edge, Chromium or Firefox; without one, `draw` still writes the editable `.excalidraw`. Until the package is on npm, build from a checkout (`npm ci && npm run build && npm link`) so `diagram-axi` is on the PATH, and tell the agent to run `diagram-axi` instead of `npx -y diagram-axi`.
+
 `skills/diagram-axi/SKILL.md` is generated from `src/skill/content.ts` (`npm run skill:gen`; `npm run skill:check` fails when stale). It carries the golden path (`syntax example`, write a `.exd`, `check`, `draw x.exd --png`, `inspect`) and the engine choice table, in under 1,400 tokens.
 
 ## Develop

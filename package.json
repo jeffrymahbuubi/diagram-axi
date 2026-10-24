@@ -2,7 +2,26 @@
   "name": "diagram-axi",
   "version": "0.1.0",
   "description": "Token-efficient AXI CLI: turn a compact boxes-and-arrows text DSL into an editable diagram file (Excalidraw today) plus PNG/SVG renders, offline.",
-  "keywords": ["axi", "cli", "diagram", "diagrams", "excalidraw", "ai-agents"],
+  "keywords": [
+    "axi",
+    "cli",
+    "diagram",
+    "diagrams",
+    "excalidraw",
+    "ai-agents",
+    "d2",
+    "mermaid",
+    "import-graph",
+    "toon"
+  ],
+  "homepage": "https://github.com/jeffrymahbuubi/diagram-axi#readme",
+  "bugs": {
+    "url": "https://github.com/jeffrymahbuubi/diagram-axi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffrymahbuubi/diagram-axi.git"
+  },
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -45,7 +64,8 @@
     "vision-score": "node scripts/qa/vision-score.mjs",
     "extract-eval": "node scripts/extract-eval.mjs",
     "extract-eval:emit": "node scripts/extract-eval.mjs emit",
-    "qa:compliance": "node scripts/qa/compliance.mjs --report out/fuzz-s3/report.json,out/fuzz-s4/report.json"
+    "qa:compliance": "node scripts/qa/compliance.mjs --report out/fuzz-s3/report.json,out/fuzz-s4/report.json",
+    "prepublishOnly": "npm run build && npm run skill:check"
   },
   "dependencies": {
     "@d2lang/d2": "0.1.34",
