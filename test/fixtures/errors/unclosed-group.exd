@@ -1,0 +1,5 @@
+group g "G" {
+  a[A]
+  group h {
+    b[B]
+  }

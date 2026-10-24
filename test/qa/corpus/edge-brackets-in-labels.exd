@@ -1,0 +1,10 @@
+# Edge case [X7, M]: node and edge labels containing other brackets, parens, arrows and colons; one edge label quoted to keep '#'. Parser robustness plus label measurement with punctuation.
+dir DOWN
+f[f(x) -> y]
+g(see [1] and [2])
+h{is x in [0, 1)?}
+k[(table (shard 1))]
+f -> g : call f(x) [fast]
+g -> h : x -> y: maybe
+h -> k : "issue #5"
+k -> f : read (a) [b]

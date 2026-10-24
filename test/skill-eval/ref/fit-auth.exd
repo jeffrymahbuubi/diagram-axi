@@ -1,0 +1,5 @@
+title "Sign-in flow"
+form[Login form] -> valid{Credentials valid?}
+valid -> dash[Dashboard] : yes
+valid -> err[Error message] : no
+err -> form

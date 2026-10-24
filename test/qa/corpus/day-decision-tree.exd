@@ -1,0 +1,20 @@
+# Day-to-day: decision tree: choosing a database, nested yes/no diamonds ending in leaf nodes.
+title "Which database?"
+dir DOWN
+q1{Relational data?} :yellow
+q2{Need strong consistency?} :yellow
+q3{Mostly key lookups?} :yellow
+q4{Graph queries?} :yellow
+pg[(PostgreSQL)] :teal
+spanner[(Distributed SQL)] :teal
+kv[(Key-value store)] :teal
+graph[(Graph DB)] :teal
+doc[(Document DB)] :teal
+q1 -> q2 : yes
+q1 -> q3 : no
+q2 -> pg : single node
+q2 -> spanner : global
+q3 -> kv : yes
+q3 -> q4 : no
+q4 -> graph : yes
+q4 -> doc : no

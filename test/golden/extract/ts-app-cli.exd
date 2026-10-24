@@ -1,0 +1,47 @@
+title "imports: src (14 of 15 files)"
+dir DOWN
+
+group g_app "app/" {
+  f_app_app_ts[app.ts]
+  f_app_cycle_a_ts[cycle-a.ts] :red
+  f_app_cycle_b_ts[cycle-b.ts] :red
+  f_app_router_ts[router.ts]
+  group g_app_plugins "plugins/" {
+    f_app_plugins_legacy_cjs[legacy.cjs]
+    f_app_plugins_loader_ts[loader.ts]
+  }
+}
+group g_core "core/" {
+  f_core_config_ts[config.ts]
+  f_core_index_ts[core/index.ts]
+  f_core_logger_ts[logger.ts]
+}
+group g_deep_a_b_c "deep/a/b/c/" {
+  f_deep_a_b_c_leaf_ts[leaf.ts]
+}
+group g_ui "ui/" {
+  f_ui_button_tsx[button.tsx]
+}
+group g_util "util/" {
+  f_util_format_ts[format.ts]
+  f_util_helpers_mjs[helpers.mjs]
+}
+f_index_ts[index.ts\nentry] :green
+
+f_app_app_ts -> f_app_cycle_a_ts
+f_app_app_ts --> f_app_plugins_loader_ts
+f_app_app_ts -> f_app_router_ts
+f_app_app_ts -> f_core_index_ts
+f_app_app_ts -> f_core_logger_ts
+f_app_app_ts -> f_deep_a_b_c_leaf_ts
+f_app_cycle_a_ts <-> f_app_cycle_b_ts
+f_app_plugins_loader_ts -> f_app_plugins_legacy_cjs
+f_core_config_ts -> f_util_format_ts
+f_core_index_ts -> f_core_config_ts
+f_core_index_ts -> f_core_logger_ts
+f_deep_a_b_c_leaf_ts -> f_util_format_ts
+f_index_ts -> f_app_app_ts
+f_index_ts -> f_core_index_ts
+f_ui_button_tsx -> f_core_config_ts
+f_ui_button_tsx -> f_util_format_ts
+f_util_format_ts -> f_util_helpers_mjs

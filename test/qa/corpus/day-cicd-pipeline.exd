@@ -1,0 +1,26 @@
+# Day-to-day: CI/CD pipeline grouped into build/test/deploy stages with a manual gate and rollback.
+title "CI/CD pipeline"
+dir RIGHT
+commit(Push)
+group build "Build" :blue {
+  lint[Lint]
+  compile[Compile]
+  image[Docker image]
+}
+group test "Test" :green {
+  unit[Unit tests]
+  e2e[E2E tests]
+}
+gate{Approve?} :yellow
+group deploy "Deploy" :purple {
+  staging[Staging]
+  prod[Production] :red
+}
+commit -> lint -> compile -> image
+image -> unit
+image -> e2e
+unit, e2e -> gate
+gate -> staging : yes
+staging -> prod
+prod --> staging : rollback
+gate --> commit : rejected

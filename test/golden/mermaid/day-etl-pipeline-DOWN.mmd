@@ -1,0 +1,41 @@
+---
+title: "ETL pipeline"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_crm[("CRM")]:::c_teal
+  n_erp[("ERP")]:::c_teal
+  n_logs["Clickstream logs"]:::c_blue
+  n_stage["Staging area"]:::c_orange
+  n_clean["Clean and dedupe"]:::c_blue
+  n_join["Join and enrich"]:::c_blue
+  n_wh[("Data warehouse")]:::c_teal
+  n_bi["BI dashboards"]:::c_green
+  n_ml["ML features"]:::c_purple
+  n_crm -->|"extract"| n_stage
+  n_erp -->|"extract"| n_stage
+  n_logs -->|"extract"| n_stage
+  n_stage -->|"transform"| n_clean
+  n_clean -->|"transform"| n_join
+  n_join -->|"load"| n_wh
+  n_wh --> n_bi
+  n_wh --> n_ml
+  n_join -.->|"rejects"| n_stage
+  linkStyle 8 stroke-dasharray:8 5

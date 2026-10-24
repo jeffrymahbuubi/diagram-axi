@@ -1,0 +1,37 @@
+{
+  "name": "excalidraw-qa-dashboard",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Local Astro + Starlight QA review dashboard for diagram-axi (not part of the npm package)",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "gen:pages": "node scripts/gen-pages.mjs && node scripts/gen-bakeoff.mjs",
+    "bakeoff:aggregate": "node scripts/bakeoff-aggregate.mjs",
+    "predev": "npm run gen:pages",
+    "dev": "astro dev",
+    "prebuild": "npm run gen:pages",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check:fixtures": "node scripts/run-with-fixtures.mjs",
+    "fixtures:make": "node scripts/make-fixtures.mjs",
+    "check": "npm run gen:pages && astro check && astro build && node scripts/check-dashboard.mjs && node scripts/check-bakeoff.mjs"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.1.1",
+    "@astrojs/starlight": "0.42.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "astro": "7.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "5.9.3"
+  }
+}

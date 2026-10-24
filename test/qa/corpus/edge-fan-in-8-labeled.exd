@@ -1,0 +1,19 @@
+# Edge case: fan-in 8 -> 1 with a distinct label on every edge.
+dir DOWN
+sink[(Metrics store)]
+s1[Service 1]
+s2[Service 2]
+s3[Service 3]
+s4[Service 4]
+s5[Service 5]
+s6[Service 6]
+s7[Service 7]
+s8[Service 8]
+s1 -> sink : cpu
+s2 -> sink : memory
+s3 -> sink : disk
+s4 -> sink : network
+s5 -> sink : latency
+s6 -> sink : errors
+s7 -> sink : traffic
+s8 -> sink : saturation

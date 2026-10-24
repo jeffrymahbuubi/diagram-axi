@@ -1,0 +1,381 @@
+{
+  "schema": 1,
+  "meta": {
+    "root": "ts-app",
+    "langs": [
+      "js",
+      "ts"
+    ],
+    "extractor": {
+      "name": "oxc-ts",
+      "version": "0.155.0"
+    },
+    "tsconfig": "tsconfig.json"
+  },
+  "files": [
+    {
+      "path": "src/app/app.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 22,
+      "exports": 2
+    },
+    {
+      "path": "src/app/cycle-a.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 5,
+      "exports": 1
+    },
+    {
+      "path": "src/app/cycle-b.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 5,
+      "exports": 1
+    },
+    {
+      "path": "src/app/plugins/legacy.cjs",
+      "lang": "js",
+      "test": false,
+      "loc": 3,
+      "exports": 0
+    },
+    {
+      "path": "src/app/plugins/loader.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 4,
+      "exports": 1
+    },
+    {
+      "path": "src/app/router.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 9,
+      "exports": 2
+    },
+    {
+      "path": "src/core/config.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 15,
+      "exports": 2
+    },
+    {
+      "path": "src/core/index.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 4,
+      "exports": 2
+    },
+    {
+      "path": "src/core/logger.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 9,
+      "exports": 2
+    },
+    {
+      "path": "src/deep/a/b/c/leaf.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 3,
+      "exports": 1
+    },
+    {
+      "path": "src/index.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 6,
+      "exports": 2
+    },
+    {
+      "path": "src/ui/button.tsx",
+      "lang": "ts",
+      "test": false,
+      "loc": 6,
+      "exports": 1
+    },
+    {
+      "path": "src/util/format.test.ts",
+      "lang": "ts",
+      "test": true,
+      "loc": 6,
+      "exports": 0
+    },
+    {
+      "path": "src/util/format.ts",
+      "lang": "ts",
+      "test": false,
+      "loc": 5,
+      "exports": 1
+    },
+    {
+      "path": "src/util/helpers.mjs",
+      "lang": "js",
+      "test": false,
+      "loc": 1,
+      "exports": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": "src/app/app.ts",
+      "to": "src/app/cycle-a.ts",
+      "specifier": "./cycle-a.js",
+      "line": 8,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/app/plugins/loader.ts",
+      "specifier": "./plugins/loader.js",
+      "line": 19,
+      "typeOnly": false,
+      "dynamic": true,
+      "kind": "dynamic"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/app/router.ts",
+      "specifier": "./router.js",
+      "line": 6,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/app/router.ts",
+      "specifier": "./router",
+      "line": 7,
+      "typeOnly": true,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/core/index.ts",
+      "specifier": "../core/index.js",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/core/logger.ts",
+      "specifier": "@core/logger.js",
+      "line": 5,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/app.ts",
+      "to": "src/deep/a/b/c/leaf.ts",
+      "specifier": "../deep/a/b/c/leaf.js",
+      "line": 9,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/cycle-a.ts",
+      "to": "src/app/cycle-b.ts",
+      "specifier": "./cycle-b.js",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/cycle-b.ts",
+      "to": "src/app/cycle-a.ts",
+      "specifier": "./cycle-a.js",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/app/plugins/loader.ts",
+      "to": "src/app/plugins/legacy.cjs",
+      "specifier": "./legacy.cjs",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "require"
+    },
+    {
+      "from": "src/app/router.ts",
+      "to": "src/app/app.ts",
+      "specifier": "./app.js",
+      "line": 1,
+      "typeOnly": true,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/core/config.ts",
+      "to": "src/util/format.ts",
+      "specifier": "../util/format.js",
+      "line": 5,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/core/index.ts",
+      "to": "src/core/config.ts",
+      "specifier": "./config.js",
+      "line": 2,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "reexport"
+    },
+    {
+      "from": "src/core/index.ts",
+      "to": "src/core/config.ts",
+      "specifier": "./config.js",
+      "line": 4,
+      "typeOnly": true,
+      "dynamic": false,
+      "kind": "reexport"
+    },
+    {
+      "from": "src/core/index.ts",
+      "to": "src/core/logger.ts",
+      "specifier": "./logger.js",
+      "line": 3,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "reexport"
+    },
+    {
+      "from": "src/deep/a/b/c/leaf.ts",
+      "to": "src/util/format.ts",
+      "specifier": "../../../../util/format.js",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/app/app.ts",
+      "specifier": "./app/app.js",
+      "line": 2,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/core/config.ts",
+      "specifier": "@core/config",
+      "line": 3,
+      "typeOnly": true,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/core/index.ts",
+      "specifier": "./core/index.js",
+      "line": 4,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "reexport"
+    },
+    {
+      "from": "src/ui/button.tsx",
+      "to": "src/core/config.ts",
+      "specifier": "../core/config",
+      "line": 2,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/ui/button.tsx",
+      "to": "src/util/format.ts",
+      "specifier": "../util/format.js",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/util/format.test.ts",
+      "to": "src/util/format.ts",
+      "specifier": "./format.js",
+      "line": 2,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    },
+    {
+      "from": "src/util/format.ts",
+      "to": "src/util/helpers.mjs",
+      "specifier": "./helpers.mjs",
+      "line": 1,
+      "typeOnly": false,
+      "dynamic": false,
+      "kind": "import"
+    }
+  ],
+  "externals": [
+    {
+      "name": "@fixture/scoped",
+      "count": 1,
+      "files": 1
+    },
+    {
+      "name": "optional-peer-fixture",
+      "count": 1,
+      "files": 1
+    },
+    {
+      "name": "picocolors-fixture",
+      "count": 1,
+      "files": 1
+    },
+    {
+      "name": "vitest",
+      "count": 1,
+      "files": 1
+    }
+  ],
+  "builtins": [
+    {
+      "name": "fs",
+      "count": 1,
+      "files": 1
+    },
+    {
+      "name": "path",
+      "count": 2,
+      "files": 2
+    }
+  ],
+  "unresolved": [],
+  "skipped": [
+    {
+      "file": "src/app/app.ts",
+      "specifier": "name",
+      "line": 20,
+      "reason": "non-literal"
+    },
+    {
+      "file": "src/core/config.ts",
+      "specifier": "../types/globals",
+      "line": 4,
+      "reason": "not-source"
+    }
+  ],
+  "warnings": []
+}

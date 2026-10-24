@@ -1,0 +1,104 @@
+direction: down
+hub: "Hub" {
+  shape: rectangle
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+  style.stroke-width: 4
+}
+n1: "Blue" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+n2: "Green" {
+  shape: oval
+  style.fill: "#b2f2bb"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+n3: "Orange" {
+  shape: diamond
+  style.fill: "#ffd8a8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 2
+}
+n4: "Purple" {
+  shape: cylinder
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+n5: "Red" {
+  shape: rectangle
+  style.fill: "#ffc9c9"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+  style.stroke-width: 4
+}
+n6: "Yellow" {
+  shape: oval
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+n7: "Teal" {
+  shape: rectangle
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+n8: "Pink" {
+  shape: rectangle
+  style.fill: "#eebefa"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+hub -> n1: "solid" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+hub -> n2: "dashed" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+hub -> n3: "dotted" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 2
+}
+hub -- n4: "plain" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+hub <-> n5: "both" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+n6 -> hub: "in" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+n7 -> hub: "in dashed" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+n8 -> hub: "in dotted" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 2
+}

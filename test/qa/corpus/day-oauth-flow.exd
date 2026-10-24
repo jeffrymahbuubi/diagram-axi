@@ -1,0 +1,16 @@
+# Day-to-day: OAuth2 authorization-code sequence drawn as a flow; reciprocal request/response labeled edges.
+title "OAuth2 authorization code"
+dir DOWN
+user(User)
+app[Client app]
+authz[Authorization server] :purple
+api[Resource API] :green
+user -> app : click login
+app -> authz : redirect with client_id
+authz -> user : consent screen
+user -> authz : approve
+authz -> app : code
+app -> authz : code + secret
+authz -> app : access token
+app -> api : request + token
+api -> app : data

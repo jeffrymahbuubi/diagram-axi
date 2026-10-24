@@ -1,0 +1,11 @@
+title "Order and payment"
+order[Order service]
+pay[Payment service]
+db[(Orders DB)]
+bus[Event bus]
+order -> pay : authorize
+order -> pay : capture
+order -> pay : refund
+pay -> order : webhook
+order -> db
+order -> bus

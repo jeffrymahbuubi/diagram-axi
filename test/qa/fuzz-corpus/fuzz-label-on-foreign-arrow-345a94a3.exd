@@ -1,0 +1,7 @@
+# Fuzz repro (auto-promoted): label-on-foreign-arrow in DOWN; profile labels-heavy, seed 2969937290, run seed 2, base ddb7a4b.
+# Minimal: 5 nodes, 5 edges, 0 groups. signature label-on-foreign-arrow:345a94a3
+a -> b
+b -> c : cache hit notify on error yes poll route validate enqueue response cache hit
+c -> d
+d -> e
+b -> e

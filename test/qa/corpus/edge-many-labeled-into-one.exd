@@ -1,0 +1,18 @@
+# Edge case: many labeled edges into one hub node from different directions, including a reciprocal pair.
+dir DOWN
+core[Core service] :purple
+a[Source A]
+b[Source B]
+c[Source C]
+d[Source D]
+e[Source E]
+out[Output]
+a -> core : events
+b -> core : metrics
+c -> core : logs
+d -> core : traces
+e -> core : alerts
+core -> e : acks
+core -> out : results
+a -> b : sync
+c -> d : sync

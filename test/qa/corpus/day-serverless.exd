@@ -1,0 +1,20 @@
+# Day-to-day: serverless app: API gateway, functions, queue, object storage and a table.
+title "Serverless"
+dir RIGHT
+user(User)
+apigw[API Gateway] :purple
+fn1[Function: upload]
+fn2[Function: thumbnail]
+fn3[Function: notify]
+s3[(Object storage)] :teal
+ddb[(Metadata table)] :teal
+q{Queue} :yellow
+user -> apigw : POST /upload
+apigw -> fn1
+fn1 -> s3 : put object
+fn1 -> ddb : record
+s3 -> q : created event
+q -> fn2
+fn2 -> s3 : write thumbnail
+q -> fn3
+fn3 -> user : email

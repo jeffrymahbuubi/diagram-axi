@@ -1,0 +1,77 @@
+title "imports: src (300 of 300 files)"
+dir DOWN
+
+group g_pkg00 "pkg00/" {
+  d_pkg00_s0[pkg00/s0/ (5 files)\nused by 120] :red
+  d_pkg00_s1[pkg00/s1/ (5 files)\nused by 25] :red
+  d_pkg00_s2[pkg00/s2/ (5 files)\nused by 33] :red
+  d_pkg00_s3[pkg00/s3/ (5 files)\nused by 26] :red
+  d_pkg00_s4[pkg00/s4/ (5 files)\nused by 23] :yellow
+}
+group g_pkg01 "pkg01/" {
+  d_pkg01_s0[pkg01/s0/ (5 files)\nused by 9] :yellow
+  d_pkg01_s1[pkg01/s1/ (5 files)]
+  d_pkg01_s2[pkg01/s2/ (5 files)\nused by 15] :yellow
+  d_pkg01_s3[pkg01/s3/ (5 files)]
+  d_pkg01_s4[pkg01/s4/ (5 files)]
+}
+group g_pkg02 "pkg02/" {
+  d_pkg02_s0[pkg02/s0/ (5 files)]
+  d_pkg02_s1[pkg02/s1/ (5 files)]
+  d_pkg02_s2[pkg02/s2/ (5 files)\nused by 14] :yellow
+  d_pkg02_s3[pkg02/s3/ (5 files)\nused by 20] :yellow
+  d_pkg02_s4[pkg02/s4/ (5 files)\nused by 19] :yellow
+}
+d_pkg03[pkg03/ (25 files)\nused by 21, 13 uses hidden] :yellow
+d_pkg04[pkg04/ (25 files)\nused by 24, 10 uses hidden] :yellow
+d_pkg05[pkg05/ (25 files)]
+d_pkg06[pkg06/ (25 files)]
+d_pkg07[pkg07/ (25 files)]
+d_pkg08[pkg08/ (25 files)\nused by 16] :yellow
+d_pkg09[pkg09/ (25 files)]
+d_pkg10[pkg10/ (25 files)]
+d_pkg11[pkg11/ (25 files)]
+
+d_pkg01_s0 -> d_pkg01_s1 : x3
+d_pkg01_s0 -> d_pkg01_s3 : x2
+d_pkg01_s0 -> d_pkg01_s4 : x4
+d_pkg01_s1 -> d_pkg01_s3
+d_pkg01_s1 -> d_pkg01_s4 : x6
+d_pkg01_s2 -> d_pkg01_s3 : x6
+d_pkg01_s2 -> d_pkg01_s4 : x7
+d_pkg01_s3 -> d_pkg01_s4 : x8
+d_pkg02_s2 -> d_pkg01_s3
+d_pkg02_s2 -> d_pkg01_s4
+d_pkg02_s3 -> d_pkg01_s1
+d_pkg03 -> d_pkg02_s1 : x3
+d_pkg04 -> d_pkg02_s0 : x3
+d_pkg05 -> d_pkg01_s3
+d_pkg06 -> d_pkg02_s0 : x2
+d_pkg06 -> d_pkg02_s1 : x4
+d_pkg06 -> d_pkg05 : x2
+d_pkg07 -> d_pkg01_s1
+d_pkg07 -> d_pkg05 : x4
+d_pkg07 -> d_pkg06 : x4
+d_pkg08 -> d_pkg01_s4
+d_pkg08 -> d_pkg02_s0 : x2
+d_pkg08 -> d_pkg02_s1
+d_pkg08 -> d_pkg05 : x6
+d_pkg08 -> d_pkg06 : x6
+d_pkg08 -> d_pkg07 : x3
+d_pkg09 -> d_pkg01_s3
+d_pkg09 -> d_pkg01_s4
+d_pkg09 -> d_pkg02_s0 : x2
+d_pkg09 -> d_pkg05 : x3
+d_pkg09 -> d_pkg06 : x3
+d_pkg09 -> d_pkg07 : x4
+d_pkg10 -> d_pkg02_s1
+d_pkg10 -> d_pkg05 : x2
+d_pkg10 -> d_pkg06 : x5
+d_pkg10 -> d_pkg07 : x2
+d_pkg10 -> d_pkg09 : x2
+d_pkg11 -> d_pkg01_s3
+d_pkg11 -> d_pkg05 : x3
+d_pkg11 -> d_pkg06
+d_pkg11 -> d_pkg07 : x2
+d_pkg11 -> d_pkg09
+d_pkg11 -> d_pkg10 : x4

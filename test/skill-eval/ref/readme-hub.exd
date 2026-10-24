@@ -1,0 +1,4 @@
+title "Message broker"
+broker[Message broker]
+orders[Orders], payments[Payments], inventory[Inventory], shipping[Shipping], email[Email] -> broker
+broker -> sms[SMS], search[Search], analytics[Analytics], audit[Audit]

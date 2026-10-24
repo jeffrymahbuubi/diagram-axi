@@ -1,0 +1,19 @@
+title "Cloud layout"
+dir LEFT
+group cloud "Cloud" :blue {
+  lb[Load balancer]
+  group app "App tier" :green,dashed {
+    api[API]
+    worker[Worker]
+    group cache "Cache" {
+      redis[(Redis)]
+    }
+  }
+  group data "Data tier" :purple {
+    db[(Postgres)]
+  }
+}
+user(User)
+user -> lb -> api
+api -> redis
+api, worker -> db

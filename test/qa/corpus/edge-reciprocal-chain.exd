@@ -1,0 +1,12 @@
+# Edge case: a chain where every consecutive pair has both a forward and a back edge, all labeled.
+dir DOWN
+a[Client]
+b[Proxy]
+c[Server]
+d[Storage]
+a -> b : req
+b -> a : resp
+b -> c : forward
+c -> b : reply
+c -> d : read
+d -> c : bytes

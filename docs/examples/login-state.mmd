@@ -1,0 +1,13 @@
+stateDiagram-v2
+  [*] --> SignedOut
+  SignedOut --> Checking: submit
+  Checking --> SignedIn: valid
+  Checking --> SignedOut: invalid
+  state SignedIn {
+    [*] --> Browsing
+    Browsing --> Checkout: add to cart
+    Checkout --> Browsing: cancel
+  }
+  SignedIn --> SignedOut: logout
+  SignedIn --> [*]
+  note right of Checking : rate limited

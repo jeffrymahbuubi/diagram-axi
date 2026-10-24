@@ -1,0 +1,107 @@
+direction: right
+d2_title: "Microservices" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+client: "Client" {
+  shape: oval
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+gw: "API Gateway" {
+  shape: rectangle
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+auth: "Auth service" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+orders: "Order service" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+billing: "Billing service" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+inventory: "Inventory service" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+bus: "Event bus" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+odb: "Orders DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+bdb: "Billing DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+idb: "Inventory DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+client -> gw: "REST" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+gw -> auth: "verify token" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+gw -> orders: {
+  style.stroke: "#1e1e1e"
+}
+gw -> inventory: {
+  style.stroke: "#1e1e1e"
+}
+orders -> odb: {
+  style.stroke: "#1e1e1e"
+}
+billing -> bdb: {
+  style.stroke: "#1e1e1e"
+}
+inventory -> idb: {
+  style.stroke: "#1e1e1e"
+}
+orders -> bus: "OrderPlaced" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+bus -> billing: "OrderPlaced" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+bus -> inventory: "OrderPlaced" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}

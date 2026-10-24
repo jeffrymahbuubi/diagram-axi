@@ -1,0 +1,65 @@
+{
+ "summary": {
+  "engine": "excalidraw",
+  "seed": 3,
+  "renders": 2,
+  "hard": 1,
+  "gatedRenders": 1,
+  "gatedPassed": 0,
+  "gatedPassRate": 0,
+  "reportOnly": [
+   "dense"
+  ],
+  "synthetic": true
+ },
+ "byCode": [
+  {
+   "code": "arrow-through-node",
+   "severity": "hard",
+   "count": 1,
+   "cases": 1
+  }
+ ],
+ "profiles": [
+  {
+   "profile": "dense",
+   "renders": 1,
+   "passed": 1,
+   "passRate": 100,
+   "topCode": "",
+   "gated": false
+  },
+  {
+   "profile": "realistic-small",
+   "renders": 1,
+   "passed": 0,
+   "passRate": 0,
+   "topCode": "arrow-through-node",
+   "gated": true
+  }
+ ],
+ "cases": [
+  {
+   "case": "dense/101",
+   "dir": "UP",
+   "profile": "dense",
+   "seed": 101
+  },
+  {
+   "case": "realistic-small/202",
+   "dir": "LEFT",
+   "profile": "realistic-small",
+   "seed": 202
+  }
+ ],
+ "findings": [
+  {
+   "case": "realistic-small/202",
+   "dir": "LEFT",
+   "code": "arrow-through-node",
+   "severity": "hard",
+   "elements": [],
+   "detail": "synthetic fixture finding"
+  }
+ ]
+}

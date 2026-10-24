@@ -1,0 +1,27 @@
+# Edge case [T9, X9, H]: 12 services each with a distinct labeled edge into one cylinder sink. Ports on the cylinder top cap with 12 labels; expect label crowding and arrowheads hidden by the cap.
+dir DOWN
+db[(Metrics DB)]
+svc1[Service 1]
+svc2[Service 2]
+svc3[Service 3]
+svc4[Service 4]
+svc5[Service 5]
+svc6[Service 6]
+svc7[Service 7]
+svc8[Service 8]
+svc9[Service 9]
+svc10[Service 10]
+svc11[Service 11]
+svc12[Service 12]
+svc1 -> db : metric 1
+svc2 -> db : metric 2
+svc3 -> db : metric 3
+svc4 -> db : metric 4
+svc5 -> db : metric 5
+svc6 -> db : metric 6
+svc7 -> db : metric 7
+svc8 -> db : metric 8
+svc9 -> db : metric 9
+svc10 -> db : metric 10
+svc11 -> db : metric 11
+svc12 -> db : metric 12

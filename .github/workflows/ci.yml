@@ -1,0 +1,71 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    # Three OSes: the @d2lang/d2 WASM load, the Mermaid determinism test and the render suite all run on each.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # Renders drive an installed Chrome (src/render/browser.ts: --browser-path, then
+      # DIAGRAM_AXI_BROWSER_PATH, then discovery). Install one explicitly so test/render.test.ts and the
+      # engine render tests run instead of auto-skipping; the same path is passed to every later step.
+      # macOS uses the Google Chrome.app preinstalled on the runner image instead: setup-chrome@v1 unpacks
+      # the dmg into a bare Contents/ directory with no .app wrapper, and that copy of Chrome cannot start
+      # its helper processes (every child dies with "bootstrap_look_up ... MachPortRendezvousServer:
+      # Permission denied", the network service crash-loops, and each render stalls until its timeout).
+      - name: Install Chrome
+        id: chrome
+        if: runner.os != 'macOS'
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Locate Chrome (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          chrome="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+          "$chrome" --version
+          echo "DIAGRAM_AXI_BROWSER_PATH=$chrome" >> "$GITHUB_ENV"
+      - run: npm ci
+      - run: npm run build
+      - name: Test (unit, WASM load, Mermaid determinism, render suite)
+        run: npm test
+        env:
+          DIAGRAM_AXI_BROWSER_PATH: ${{ runner.os == 'macOS' && env.DIAGRAM_AXI_BROWSER_PATH || steps.chrome.outputs.chrome-path }}
+      - run: npm run skill:check
+      # axi-axi exits non-zero on any `fail` check. Ubuntu only: the target is platform-independent, and
+      # axi-axi's V12 probe spawns `npm` without a shell, which warns (never fails) on Windows.
+      - name: AXI validate
+        if: matrix.os == 'ubuntu-latest'
+        run: npx axi-axi validate "node bin/diagram-axi.js" --dir . --timeout 30000
+      # Optional d2 binary (PNG without a browser). The download is checked against the sha256 committed in
+      # src/engines/d2/release.json (also compiled into src/engines/d2/release.ts and kept identical by a
+      # test); a mismatch fails the install. Non-blocking: a GitHub download hiccup must not fail the build.
+      - name: Cache d2 binary
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/diagram-axi-cache
+          key: d2-binary-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('src/engines/d2/release.json') }}
+      - name: Install d2 binary (optional, sha256-verified)
+        continue-on-error: true
+        run: node bin/diagram-axi.js engines install d2
+        env:
+          DIAGRAM_AXI_CACHE_DIR: ${{ runner.temp }}/diagram-axi-cache
+      - name: Engines status
+        continue-on-error: true
+        run: node bin/diagram-axi.js engines
+        env:
+          DIAGRAM_AXI_CACHE_DIR: ${{ runner.temp }}/diagram-axi-cache

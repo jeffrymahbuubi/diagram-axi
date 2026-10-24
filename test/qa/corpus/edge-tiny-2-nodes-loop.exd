@@ -1,0 +1,6 @@
+# Edge case [T14, T5, D2, M]: two nodes, a self-loop on one and a bidirectional edge with a label. Tiny diagram where loop and pair label compete for the same space.
+dir DOWN
+a[A]
+b[B]
+a -> a : self
+a <-> b : pair

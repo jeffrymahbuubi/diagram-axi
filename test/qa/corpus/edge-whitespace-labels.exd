@@ -1,0 +1,10 @@
+# Edge case [X6, M]: node labels with leading/trailing/double spaces and leading/trailing newlines; an edge label that is a newline followed by one line. Measurement of whitespace-only lines.
+dir DOWN
+a[  padded  ]
+b[\nleading newline]
+c[trailing\n]
+d[two  spaces]
+a -> b : \nsecond line only
+b -> c
+c -> d : x  y
+a -> d

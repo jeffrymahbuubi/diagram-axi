@@ -1,0 +1,32 @@
+---
+title: "Cache-aside"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_app["Application"]:::c_purple
+  n_hit{"Cache hit?"}:::c_yellow
+  n_cache[("Cache")]:::c_orange
+  n_db[("Database")]:::c_teal
+  n_app -->|"GET key"| n_cache
+  n_cache -->|"value or nil"| n_hit
+  n_hit -->|"hit, return"| n_app
+  n_hit -->|"miss, query"| n_db
+  n_db -->|"row"| n_app
+  n_app -->|"SET key"| n_cache

@@ -1,0 +1,10 @@
+direction: right
+a: Client
+b: Server { shape: hexagon }
+db: DB { shape: cylinder }
+a -> b: request
+b -> db: query
+g: Group {
+  x -> y
+}
+b -> g.x

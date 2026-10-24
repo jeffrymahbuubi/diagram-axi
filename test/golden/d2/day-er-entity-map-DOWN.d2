@@ -1,0 +1,84 @@
+direction: down
+d2_title: "Shop entities" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+customer: "Customer" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+order: "Order" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+item: "Order item" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+product: "Product" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+category: "Category" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+address: "Address" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+payment: "Payment" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+customer -> order: "places" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+order -> item: "contains" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+item -> product: "refers to" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+product -> category: "in" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+customer -> address: "has" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+order -> address: "ships to" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+order <-> payment: "settled by" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}

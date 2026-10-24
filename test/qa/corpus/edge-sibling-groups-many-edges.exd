@@ -1,0 +1,21 @@
+# Edge case [G3, H]: two sibling groups of 3 nodes each with 9 cross edges (3x3) all labeled, two of them reversed. Many labeled edges crossing the gap between zones.
+dir DOWN
+group left "Left side" :blue {
+  l1[Left 1]
+  l2[Left 2]
+  l3[Left 3]
+}
+group right "Right side" :orange {
+  r1[Right 1]
+  r2[Right 2]
+  r3[Right 3]
+}
+l1 -> r1 : e11
+l1 -> r2 : e12
+r3 -> l1 : back 13
+l2 -> r1 : e21
+r2 -> l2 : back 22
+l2 -> r3 : e23
+l3 -> r1 : e31
+l3 -> r2 : e32
+l3 -> r3 : e33

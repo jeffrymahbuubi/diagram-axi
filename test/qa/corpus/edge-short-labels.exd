@@ -1,0 +1,13 @@
+# Edge case: all labels very short (1-2 chars): node boxes hit their minimum size, labels barely wider than arrows.
+dir DOWN
+a[A]
+b[B]
+c[C]
+d[D]
+e[E]
+a -> b : 1
+a -> c : 2
+b -> d : x
+c -> d : y
+d -> e : Z
+e -> a : ok

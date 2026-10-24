@@ -1,0 +1,8 @@
+stage <-> step : dispatch no commit
+step -> stage : reject
+stage --> mq : every 5s
+stage -.-> mq : commit
+stage --> mq
+db -> stage : on error batch dispatch
+step -> mq : trigger rollback ack
+mq -> db : response

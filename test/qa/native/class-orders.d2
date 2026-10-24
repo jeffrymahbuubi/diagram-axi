@@ -1,0 +1,25 @@
+# kind: class
+Order: {
+  shape: class
+  +id: int
+  +total(): float
+  +cancel(): void
+}
+Customer: {
+  shape: class
+  +name: string
+  +email: string
+  +place(order): Order
+}
+Item: {
+  shape: class
+  +sku: string
+  +price: float
+}
+Invoice: {
+  shape: class
+  +issue(): void
+}
+Customer -> Order: places
+Order -> Item: contains
+Order -> Invoice: billed by

@@ -1,0 +1,27 @@
+# kind: erd
+customers: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  name: varchar(120)
+}
+orders: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  customer_id: int {constraint: foreign_key}
+  placed_at: timestamp
+}
+order_lines: {
+  shape: sql_table
+  order_id: int {constraint: foreign_key}
+  product_id: int {constraint: foreign_key}
+  qty: int
+}
+products: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  title: text
+  price: numeric
+}
+orders.customer_id -> customers.id
+order_lines.order_id -> orders.id
+order_lines.product_id -> products.id

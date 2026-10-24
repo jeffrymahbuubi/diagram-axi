@@ -1,0 +1,23 @@
+# Day-to-day: login flowchart with diamonds, retries and lockout.
+title "Login"
+dir DOWN
+start(Start)
+form[Show login form]
+submit[Submit credentials]
+valid{Valid?} :yellow
+mfa{MFA enabled?} :yellow
+code[Enter MFA code]
+codeok{Code OK?} :yellow
+home[Dashboard] :green
+fail[Show error]
+lock[Account locked] :red
+start -> form -> submit -> valid
+valid -> mfa : yes
+valid -> fail : no
+fail -> form : retry
+fail -> lock : 5 failures
+mfa -> code : yes
+mfa -> home : no
+code -> codeok
+codeok -> home : yes
+codeok -> code : no

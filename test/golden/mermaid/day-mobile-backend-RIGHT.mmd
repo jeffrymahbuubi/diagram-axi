@@ -1,0 +1,39 @@
+---
+title: "Mobile app + backend"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart LR
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  subgraph g_device ["Phone"]
+    n_ui["App UI"]:::c_blue
+    n_local[("Local cache")]:::c_teal
+  end
+  n_api["Backend API"]:::c_purple
+  n_db[("Main DB")]:::c_teal
+  n_push{"Push service"}:::c_yellow
+  n_analytics["Analytics"]:::c_blue
+  n_ui -->|"request"| n_api
+  n_api -->|"response"| n_ui
+  n_ui -->|"read/write"| n_local
+  n_api --> n_db
+  n_api -->|"notify"| n_push
+  n_push -->|"push"| n_ui
+  n_ui -.->|"events"| n_analytics
+  style g_device fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e
+  linkStyle 6 stroke-dasharray:2 4

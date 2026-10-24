@@ -1,0 +1,8 @@
+# Edge case [T3, H]: four same-direction edges between one pair (k=4), each labeled. Lanes at PAIR_GAP 46 need 138 px but the side span is only 0.7 x 120 = 84 px; expect parallel-edges-close / label-on-foreign-arrow.
+dir DOWN
+a[Producer]
+b[Consumer]
+a -> b : one
+a -> b : two
+a -> b : three
+a -> b : four

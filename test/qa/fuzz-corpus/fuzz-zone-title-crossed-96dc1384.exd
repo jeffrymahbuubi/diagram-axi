@@ -1,0 +1,22 @@
+# Fuzz repro (auto-promoted): zone-title-crossed in DOWN; profile realistic-medium, seed 1117251261, run seed 2, base ddb7a4b.
+# Minimal: 7 nodes, 8 edges, 3 groups. signature zone-title-crossed:96dc1384
+group g1 {
+  a[A]
+  b[A]
+  group g2 "Zone Data layer" {
+    c(Shipping Report)
+    d[A]
+  }
+  group g3 {
+    e[A]
+    f[A]
+  }
+}
+c -> a
+c -> d
+d -> b
+a -> g : ack
+b -> e
+g -> f
+c -> f : timeout
+f -> c

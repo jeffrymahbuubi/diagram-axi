@@ -1,0 +1,13 @@
+title "imports: src (11 of 15 files)"
+dir DOWN
+
+d_cli[cli/ (3 files)]
+d_core[core/ (4 files)]
+f_index_ts[index.ts]
+d_util[util/ (3 files)]
+
+d_cli -> d_core
+d_cli -> d_util : x3
+d_core -> d_util : x3
+f_index_ts -> d_cli
+f_index_ts -> d_core

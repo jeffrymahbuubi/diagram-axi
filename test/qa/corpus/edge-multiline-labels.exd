@@ -1,0 +1,10 @@
+# Edge case: multi-line labels via \n on nodes of every shape and on edge labels.
+dir RIGHT
+a[Line one\nLine two\nLine three]
+b(Ellipse\nwith two lines)
+c{Diamond\nquestion\nhere?}
+d[(Database\nprimary\nreplica)]
+a -> b : first\nsecond
+b -> c : one\ntwo\nthree
+c -> d : yes
+d -> a : sync\nback

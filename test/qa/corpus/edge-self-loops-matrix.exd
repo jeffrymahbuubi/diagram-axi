@@ -1,0 +1,11 @@
+# Edge case [T5, H]: a labeled self-loop on every node shape (rect, ellipse, diamond, cylinder) in one chain. Self-loops fall back to dagre points (arrow-detached suspected); also checks loop vs next-rank edge.
+dir DOWN
+r[Rect]
+e(Ellipse)
+d{Diamond?}
+c[(Cyl)]
+r -> r : retry
+e -> e : retry
+d -> d : retry
+c -> c : retry
+r -> e -> d -> c

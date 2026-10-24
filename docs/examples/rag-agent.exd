@@ -1,0 +1,13 @@
+title "RAG agent"
+dir DOWN
+user(User)
+agent[Agent loop] :purple
+group tools "Tools" :green {
+  search[Web search]
+  vdb[(Vector DB)]
+}
+user -> agent : question
+agent -> search : query
+agent -> vdb : embed + retrieve
+search, vdb --> agent : context
+agent -> user : answer

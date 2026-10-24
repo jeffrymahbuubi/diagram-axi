@@ -1,0 +1,13 @@
+# Fuzz repro (auto-promoted): arrows-collinear-overlap in UP; profile groups-nested, seed 2519250972, run seed 2, base ddb7a4b.
+# Minimal: 5 nodes, 4 edges, 2 groups. signature arrows-collinear-overlap:bd0ff4ee
+group g1 {
+  a(Broker Logger)
+  b[Token Queue]
+  group g2 "Frontend Platform" {
+    c[Registry Proxy Payments]
+  }
+}
+c -> d
+c -> e
+c -> b : store write sync
+c -> a : no

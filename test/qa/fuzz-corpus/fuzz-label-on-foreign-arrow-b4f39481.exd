@@ -1,0 +1,5 @@
+# Fuzz repro (auto-promoted): label-on-foreign-arrow in DOWN; profile multi-edge, seed 1598682088, run seed 1, base a16c189.
+# Minimal: 2 nodes, 3 edges, 0 groups. signature label-on-foreign-arrow:b4f39481
+a -> b : every 5s approve query
+a -> b
+a -> b : retry subscribe

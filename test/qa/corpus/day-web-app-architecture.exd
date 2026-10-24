@@ -1,0 +1,21 @@
+# Day-to-day: classic 3-tier web app with a CDN, cache and DB; one zone, labeled edges, mixed shapes.
+title "Web app architecture"
+dir DOWN
+user(User)
+cdn[CDN] :orange
+group backend "Backend" :blue {
+  lb[Load balancer]
+  api[API server] :purple
+  worker[Background worker]
+}
+group data "Data" :green {
+  db[(Postgres)]
+  cache[(Redis)]
+}
+user -> cdn : static assets
+user -> lb : HTTPS
+lb -> api
+api -> db : SQL
+api -> cache : get/set
+api -> worker : enqueue
+worker -> db : write results

@@ -1,0 +1,5 @@
+title "CI pipeline"
+dir RIGHT
+push[Push] -> lint[Lint], tests[Unit tests]
+lint, tests -> build[Build]
+build -> image[Docker image] -> staging[Staging] -> prod[Production]

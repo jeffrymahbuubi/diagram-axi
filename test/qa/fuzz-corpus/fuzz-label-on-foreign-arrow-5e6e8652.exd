@@ -1,0 +1,7 @@
+# Fuzz repro (auto-promoted): label-on-foreign-arrow in DOWN; profile multi-edge, seed 1134599725, run seed 1, base a16c189.
+# Minimal: 2 nodes, 4 edges, 0 groups. signature label-on-foreign-arrow:5e6e8652
+a{Reviewer Mailer Scheduler}
+a -> b : x
+a -> b : cache hit reject yes
+a -> b : subscribe request yes
+a -> b

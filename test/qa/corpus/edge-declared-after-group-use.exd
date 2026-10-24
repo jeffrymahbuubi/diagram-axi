@@ -1,0 +1,8 @@
+# Edge case [D7, G8, M]: edge between x and y at top level before group g declares y (y is first used outside, then declared inside the group). Membership is first-group-wins; checks zone content and that the early edge still routes correctly. Warns implicit-node on x (intended).
+dir DOWN
+x -> y : early
+group g "G" :blue {
+  y[Y]
+  z[Z]
+}
+y -> z

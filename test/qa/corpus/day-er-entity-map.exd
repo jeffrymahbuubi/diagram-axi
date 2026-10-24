@@ -1,0 +1,17 @@
+# Day-to-day: ER-ish entity map: entities as rectangles, relationships as labeled edges, one bidirectional.
+title "Shop entities"
+dir RIGHT
+customer[Customer]
+order[Order]
+item[Order item]
+product[Product]
+category[Category]
+address[Address]
+payment[Payment]
+customer -> order : places
+order -> item : contains
+item -> product : refers to
+product -> category : in
+customer -> address : has
+order -> address : ships to
+order <-> payment : settled by

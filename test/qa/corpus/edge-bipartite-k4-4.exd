@@ -1,0 +1,26 @@
+# Edge case [T11, M]: complete bipartite K4,4 with all 16 edges labeled (a1-b3 style). Dense crossing; stresses label placement and ports on both rows.
+dir DOWN
+a1[Source 1]
+a2[Source 2]
+a3[Source 3]
+a4[Source 4]
+b1[Sink 1]
+b2[Sink 2]
+b3[Sink 3]
+b4[Sink 4]
+a1 -> b1 : a1-b1
+a1 -> b2 : a1-b2
+a1 -> b3 : a1-b3
+a1 -> b4 : a1-b4
+a2 -> b1 : a2-b1
+a2 -> b2 : a2-b2
+a2 -> b3 : a2-b3
+a2 -> b4 : a2-b4
+a3 -> b1 : a3-b1
+a3 -> b2 : a3-b2
+a3 -> b3 : a3-b3
+a3 -> b4 : a3-b4
+a4 -> b1 : a4-b1
+a4 -> b2 : a4-b2
+a4 -> b3 : a4-b3
+a4 -> b4 : a4-b4

@@ -1,0 +1,27 @@
+# kind: erd
+authors: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  name: varchar(120)
+}
+books: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  title: varchar(255)
+  author_id: int {constraint: foreign_key}
+}
+loans: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  book_id: int {constraint: foreign_key}
+  member_id: int {constraint: foreign_key}
+  due: date
+}
+members: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  email: varchar(255)
+}
+books.author_id -> authors.id
+loans.book_id -> books.id
+loans.member_id -> members.id

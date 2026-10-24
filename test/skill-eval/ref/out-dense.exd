@@ -1,0 +1,20 @@
+title "Service mesh"
+auth[Auth]
+billing[Billing]
+catalog[Catalog]
+search[Search]
+notify[Notify]
+audit[Audit]
+auth <-> billing
+auth <-> catalog
+auth <-> search
+auth <-> notify
+auth <-> audit
+billing <-> catalog
+billing <-> search
+billing <-> notify
+billing <-> audit
+catalog <-> search
+catalog <-> notify
+search <-> notify
+notify <-> audit

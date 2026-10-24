@@ -1,0 +1,123 @@
+direction: down
+d2_title: "CI/CD pipeline" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+commit: "Push" {
+  shape: oval
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+gate: "Approve?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+build: "Build" {
+  label.near: top-left
+  style.font-size: 16
+  style.fill: "#dbe4ff"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  lint: "Lint" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  compile: "Compile" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  image: "Docker image" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+test: "Test" {
+  label.near: top-left
+  style.font-size: 16
+  style.fill: "#d3f9d8"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  unit: "Unit tests" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  e2e: "E2E tests" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+deploy: "Deploy" {
+  label.near: top-left
+  style.font-size: 16
+  style.fill: "#e5dbff"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  staging: "Staging" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  prod: "Production" {
+    shape: rectangle
+    style.fill: "#ffc9c9"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+commit -> build.lint: {
+  style.stroke: "#1e1e1e"
+}
+build.lint -> build.compile: {
+  style.stroke: "#1e1e1e"
+}
+build.compile -> build.image: {
+  style.stroke: "#1e1e1e"
+}
+build.image -> test.unit: {
+  style.stroke: "#1e1e1e"
+}
+build.image -> test.e2e: {
+  style.stroke: "#1e1e1e"
+}
+test.unit -> gate: {
+  style.stroke: "#1e1e1e"
+}
+test.e2e -> gate: {
+  style.stroke: "#1e1e1e"
+}
+gate -> deploy.staging: "yes" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+deploy.staging -> deploy.prod: {
+  style.stroke: "#1e1e1e"
+}
+deploy.prod -> deploy.staging: "rollback" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+gate -> commit: "rejected" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}

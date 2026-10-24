@@ -1,0 +1,4 @@
+# Edge case [X10, M]: three-line diagram title (\n in title) above a small diagram; title height must not overlap the first rank.
+dir DOWN
+title "Line one\nLine two\nLine three"
+a[A] -> b[B] : go

@@ -1,0 +1,25 @@
+# kind: class
+Figure: {
+  shape: class
+  +name: string
+  +area(): float
+  +draw(): void
+}
+Circle: {
+  shape: class
+  -radius: float
+  +area(): float
+}
+Square: {
+  shape: class
+  -side: float
+  +area(): float
+}
+Canvas: {
+  shape: class
+  +shapes: "Figure[]"
+  +render(): void
+}
+Circle -> Figure: extends
+Square -> Figure: extends
+Canvas -> Figure: holds

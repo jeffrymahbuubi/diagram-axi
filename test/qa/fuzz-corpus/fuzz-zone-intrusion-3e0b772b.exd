@@ -1,0 +1,50 @@
+# Fuzz repro (auto-promoted): zone-intrusion in DOWN; profile stress-60, seed 1096349048, run seed 2, base ddb7a4b.
+# Minimal: 23 nodes, 17 edges, 4 groups. signature zone-intrusion:3e0b772b
+group g0 "Data layer" {
+  queue[A]
+  job[Logger Broker]
+  cdn2[Session Session Parser]
+  group g1 "Frontend Frontend" {
+    log[A]
+    mon4[A]
+    store[A]
+    edge_b2[Report Orders]
+    mon-5[Worker Users]
+  }
+}
+group g2 "Platform Tenant" {
+  web-3[A]
+  dns2[A]
+  web4[A]
+  auth2[A]
+  step-3[Registry]
+  edge_b-3[Gateway Token Metrics]
+  group g3 "Region Zone Zone" {
+    step[A]
+    ui2[Parser Report Router]
+    app[Worker Stream]
+    web-5[Notifier Session]
+  }
+}
+mon-3[A]
+cdn[A]
+node_a2[A]
+dns-3[A]
+log-3[A]
+store -> web4
+dns-3 -> log-3
+dns2 -> auth2
+app -> step-3
+cdn2 -> web-5
+ui2 -> mon-5
+edge_b2 -> edge_b-3
+dns-3 -> auth2
+node_a2 -> store
+cdn -> dns2
+web-3 -> node_a2
+mon-3 -> log
+mon-3 -> step
+log-3 -> job
+job -> cdn2
+mon4 -> cdn
+node_a2 -> queue

@@ -1,0 +1,7 @@
+# Fuzz repro (auto-promoted): arrowheads-crowded in RIGHT; profile tiny, seed 1781507385, run seed 1, base ddb7a4b.
+# Minimal: 1 nodes, 2 edges, 1 groups. signature arrowheads-crowded:8b7e06da
+group g1 "Zone Cluster" {
+  a(A)
+}
+a -> a : notify route
+a -> a

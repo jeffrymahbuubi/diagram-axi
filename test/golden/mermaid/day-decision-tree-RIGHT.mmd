@@ -1,0 +1,39 @@
+---
+title: "Which database?"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart LR
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_q1{"Relational data?"}:::c_yellow
+  n_q2{"Need strong consistency?"}:::c_yellow
+  n_q3{"Mostly key lookups?"}:::c_yellow
+  n_q4{"Graph queries?"}:::c_yellow
+  n_pg[("PostgreSQL")]:::c_teal
+  n_spanner[("Distributed SQL")]:::c_teal
+  n_kv[("Key-value store")]:::c_teal
+  n_graph[("Graph DB")]:::c_teal
+  n_doc[("Document DB")]:::c_teal
+  n_q1 -->|"yes"| n_q2
+  n_q1 -->|"no"| n_q3
+  n_q2 -->|"single node"| n_pg
+  n_q2 -->|"global"| n_spanner
+  n_q3 -->|"yes"| n_kv
+  n_q3 -->|"no"| n_q4
+  n_q4 -->|"yes"| n_graph
+  n_q4 -->|"no"| n_doc

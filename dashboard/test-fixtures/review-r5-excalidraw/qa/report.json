@@ -1,0 +1,49 @@
+{
+ "summary": {
+  "engine": "excalidraw",
+  "synthetic": true
+ },
+ "rules": [],
+ "byCode": [],
+ "suites": [],
+ "cases": [
+  {
+   "case": "day-order-flow",
+   "dir": "DOWN",
+   "exit": 0,
+   "hard": 0,
+   "soft": 0
+  },
+  {
+   "case": "day-order-flow",
+   "dir": "RIGHT",
+   "exit": 0,
+   "hard": 0,
+   "soft": 0
+  },
+  {
+   "case": "edge-self-loop",
+   "dir": "DOWN",
+   "exit": 0,
+   "hard": 1,
+   "soft": 0
+  },
+  {
+   "case": "fuzz-label-clash",
+   "dir": "DOWN",
+   "exit": 0,
+   "hard": 0,
+   "soft": 0
+  }
+ ],
+ "findings": [
+  {
+   "case": "edge-self-loop",
+   "dir": "DOWN",
+   "code": "self-loop-shape",
+   "severity": "hard",
+   "elements": [],
+   "detail": "synthetic fixture finding"
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+# Day-to-day: incident response runbook: detect, triage severity, mitigate, communicate, post-mortem.
+title "Incident runbook"
+dir DOWN
+alert(Alert fires) :red
+ack[Acknowledge page]
+sev{Severity?} :yellow
+sev1[Declare SEV1; open bridge] :red
+sev2[Investigate in-channel] :orange
+mitigate[Mitigate: rollback or failover]
+verify{Recovered?} :yellow
+comms[Status page update]
+pm[Post-mortem] :green
+alert -> ack -> sev
+sev -> sev1 : SEV1
+sev -> sev2 : SEV2+
+sev1 -> mitigate
+sev2 -> mitigate
+mitigate -> verify
+verify -> mitigate : no
+verify -> comms : yes
+comms -> pm
+sev1 -> comms : every 30 min

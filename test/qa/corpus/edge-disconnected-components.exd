@@ -1,0 +1,9 @@
+# Edge case: several disconnected components (a chain, a loop, a lone node and a labeled pair) in one diagram.
+dir DOWN
+a1[A1] -> a2[A2] -> a3[A3]
+b1[B1] -> b2[B2] : to
+b2 -> b3[B3]
+b3 -> b1 : loop
+lonely(Lonely node)
+c1{C1?} -> c2[C2] : yes
+c2 -> c1 : again

@@ -1,0 +1,5 @@
+# Fuzz repro (auto-promoted): arrowheads-crowded in DOWN; profile tiny, seed 3739478845, run seed 2, base ddb7a4b.
+# Minimal: 1 nodes, 3 edges, 0 groups. signature arrowheads-crowded:f2bf5ed2
+a -> a
+a -> a
+a -> a : stream

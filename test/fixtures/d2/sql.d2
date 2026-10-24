@@ -1,0 +1,12 @@
+users: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  name: varchar(255)
+  org_id: int {constraint: foreign_key}
+}
+orgs: {
+  shape: sql_table
+  id: int {constraint: primary_key}
+  title: text
+}
+users.org_id -> orgs.id

@@ -1,0 +1,9 @@
+# Edge case [D4, H]: the same fan-out cross product written twice with different labels (every pair has k=2 same-direction edges, 8 edges) plus a back fan-in. Mixes multi-edge pairs with reciprocal pairs.
+dir DOWN
+a[A]
+b[B]
+c[C]
+d[D]
+a, b -> c, d : first
+a, b -> c, d : second
+c, d -> a : back

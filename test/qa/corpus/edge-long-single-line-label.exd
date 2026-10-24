@@ -1,0 +1,8 @@
+# Edge case: 60-character single-line labels on a node and on edges (overflow, wide label boxes).
+dir DOWN
+a[Validate incoming webhook payloads against the registered JSON schema]
+b[Short]
+c[Another quite long node label that keeps going and going and going]
+a -> b : This is a very long edge label with exactly sixty chars in it
+b -> c : This is a very long edge label with exactly sixty chars in it
+c -> a : back

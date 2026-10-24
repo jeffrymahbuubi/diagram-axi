@@ -1,0 +1,37 @@
+---
+title: "RAG agent"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart LR
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_user(["User"]):::c_blue
+  n_agent["Agent loop"]:::c_purple
+  subgraph g_tools ["Tools"]
+    n_search["Web search"]:::c_blue
+    n_vdb[("Vector DB")]:::c_teal
+  end
+  n_user -->|"question"| n_agent
+  n_agent -->|"query"| n_search
+  n_agent -->|"embed + retrieve"| n_vdb
+  n_search -.->|"context"| n_agent
+  n_vdb -.->|"context"| n_agent
+  n_agent -->|"answer"| n_user
+  style g_tools fill:#b2f2bb55,stroke:#628567,color:#1e1e1e
+  linkStyle 3 stroke-dasharray:8 5
+  linkStyle 4 stroke-dasharray:8 5

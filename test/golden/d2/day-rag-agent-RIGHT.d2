@@ -1,0 +1,70 @@
+direction: right
+d2_title: "RAG agent" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+user: "User" {
+  shape: oval
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+agent: "Agent loop" {
+  shape: rectangle
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+tools: "Tools" {
+  label.near: top-left
+  style.font-size: 16
+  style.fill: "#d3f9d8"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  search: "Web search" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  vdb: "Vector DB" {
+    shape: cylinder
+    style.fill: "#c3fae8"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+user -> agent: "question" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+agent -> tools.search: "query" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+agent -> tools.vdb: "embed +\nretrieve" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+tools.search -> agent: "context" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+tools.vdb -> agent: "context" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}
+agent -> user: "answer" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}

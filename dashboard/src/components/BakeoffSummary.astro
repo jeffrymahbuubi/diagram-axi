@@ -1,0 +1,169 @@
+---
+// Static summary of the three-engine bake-off: acceptance per engine and set, failure classes, V-check fails,
+// best engine per diagram kind. Data: src/generated/bakeoff/summary.json (scripts/gen-bakeoff.mjs). No client JS.
+import type { BakeoffSummaryData, EngineId } from '../lib/types';
+
+// Glob import: the file is absent when kit.config has no `bakeoff` block (no bake-off pages use this component then).
+const summaryJson = Object.values(import.meta.glob('../generated/bakeoff/summary.json', { eager: true, import: 'default' }))[0];
+const s = summaryJson as BakeoffSummaryData;
+const ids: EngineId[] = ['excalidraw', 'd2', 'mermaid'];
+const fmt = (p: number | null | undefined) => (p === null || p === undefined ? '-' : `${p.toFixed(1)}%`);
+const sets = [
+  { id: 'realistic', label: 'Realistic (day-*, DOWN)' },
+  { id: 'edge', label: 'Edge cases (edge-*)' },
+  { id: 'fuzz', label: 'Fuzz repros (fuzz-*)' },
+];
+const classNames = [...new Set(ids.flatMap((e) => Object.keys(s.engines[e].classes)))].sort(
+  (a, b) => ids.reduce((t, e) => t + (s.engines[e].classes[b] ?? 0), 0) - ids.reduce((t, e) => t + (s.engines[e].classes[a] ?? 0), 0),
+);
+const maxClass = Math.max(1, ...ids.flatMap((e) => Object.values(s.engines[e].classes)));
+const vIds = Array.from({ length: 9 }, (_, i) => `V${i + 1}`);
+const maxV = Math.max(1, ...ids.flatMap((e) => vIds.map((v) => s.engines[e].fails[v] ?? 0)));
+const kinds = Object.entries(s.kinds).sort((a, b) => b[1].scenarios - a[1].scenarios || a[0].localeCompare(b[0]));
+const label = (id: string) => (id === 'tie' || id === 'none' ? id : id.split('+').map((x) => s.engines[x as EngineId]?.label ?? x).join(' + '));
+---
+
+<p class="ov-lead">
+  The same {s.scenarios} scenarios were rendered by three engines (Excalidraw is this project's tool; D2 uses the elk layout; Mermaid
+  is plain) and each of the {s.renders} renders was reviewed against the same V1 to V10 checklist, then the best engine per scenario
+  was picked. See <a href="../scenarios/">Scenarios</a> for the side-by-side images.
+</p>
+
+<div class="ov-stats">
+  {
+    ids.map((e) => (
+      <div class="ov-stat">
+        <span class="ov-stat-n">{fmt(s.engines[e].pct)}</span>
+        <span class="ov-stat-l">{s.engines[e].label} accepted ({s.engines[e].accepted}/{s.engines[e].n})</span>
+      </div>
+    ))
+  }
+  <div class="ov-stat"><span class="ov-stat-n">{s.allAccepted}</span><span class="ov-stat-l">scenarios accepted by all three</span></div>
+  <div class="ov-stat"><span class="ov-stat-n">{s.noneAccepted}</span><span class="ov-stat-l">scenarios rejected by all three</span></div>
+</div>
+
+<h2 id="acceptance">Acceptance per set</h2>
+<div class="table-wrap">
+  <table class="ov-table">
+    <caption class="sr-only">Reviewer-accepted share per engine and per set</caption>
+    <thead>
+      <tr>
+        <th scope="col">Set</th>
+        {ids.map((e) => <th scope="col" class="num">{s.engines[e].label}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        sets.map((set) => (
+          <tr>
+            <th scope="row">{set.label}</th>
+            {ids.map((e) => {
+              const x = s.engines[e].sets[set.id]!;
+              return <td class="num">{fmt(x.pct)} <span class="ov-sub">{x.accepted}/{x.n}</span></td>;
+            })}
+          </tr>
+        ))
+      }
+      <tr class="ov-total">
+        <th scope="row">All</th>
+        {ids.map((e) => <td class="num">{fmt(s.engines[e].pct)} <span class="ov-sub">{s.engines[e].accepted}/{s.engines[e].n}</span></td>)}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="winners">Best engine per diagram kind</h2>
+<p class="ov-note">
+  Overall: Excalidraw {s.wins.excalidraw}, D2 {s.wins.d2}, Mermaid {s.wins.mermaid}, tie {s.wins.tie}, none {s.wins.none}.
+  The winner column is the engine with most wins in that kind.
+</p>
+<div class="table-wrap">
+  <table class="ov-table">
+    <caption class="sr-only">Wins per engine by diagram kind</caption>
+    <thead>
+      <tr>
+        <th scope="col">Kind</th>
+        <th scope="col" class="num">Scenarios</th>
+        <th scope="col" class="num">Excalidraw</th>
+        <th scope="col" class="num">D2</th>
+        <th scope="col" class="num">Mermaid</th>
+        <th scope="col" class="num">Tie</th>
+        <th scope="col" class="num">None</th>
+        <th scope="col">Winner</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        kinds.map(([k, v]) => (
+          <tr>
+            <th scope="row">{k}</th>
+            <td class="num">{v.scenarios}</td>
+            <td class="num">{v.wins.excalidraw}</td>
+            <td class="num">{v.wins.d2}</td>
+            <td class="num">{v.wins.mermaid}</td>
+            <td class="num">{v.tie}</td>
+            <td class="num">{v.none}</td>
+            <td>{label(v.winner)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<h2 id="classes">Failure classes</h2>
+<p class="ov-note">Renders carrying each class, per engine (a render counts once per class, accepted or not).</p>
+<div class="table-wrap">
+  <table class="ov-table ov-heat">
+    <caption class="sr-only">Failure class counts per engine</caption>
+    <thead>
+      <tr>
+        <th scope="col">Class</th>
+        {ids.map((e) => <th scope="col" class="num">{s.engines[e].label}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        classNames.map((c) => (
+          <tr>
+            <th scope="row"><code>{c}</code></th>
+            {ids.map((e) => {
+              const n = s.engines[e].classes[c] ?? 0;
+              return <td class="num" style={n ? `--heat:${n / maxClass}` : undefined}>{n || '-'}</td>;
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<h2 id="vchecks">Reviewer fail count per V-check</h2>
+<div class="table-wrap">
+  <table class="ov-table ov-heat">
+    <caption class="sr-only">Renders where V1 to V9 were marked fail, per engine</caption>
+    <thead>
+      <tr>
+        <th scope="col">V-check</th>
+        {ids.map((e) => <th scope="col" class="num">{s.engines[e].label}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        vIds.map((v) => (
+          <tr>
+            <th scope="row">{v}</th>
+            {ids.map((e) => {
+              const n = s.engines[e].fails[v] ?? 0;
+              return <td class="num" style={n ? `--heat:${n / maxV}` : undefined}>{n || '-'}</td>;
+            })}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<p class="ov-note">
+  Caveats: D2 renders are capped at 2048 px (small text on big diagrams is counted as <code>illegible-small</code>); Mermaid cannot
+  tell dotted from dashed edges and drops the sketchy style; Excalidraw renders are the round 3 PNGs.
+</p>

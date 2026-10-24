@@ -1,0 +1,8 @@
+direction: DOWN
+start(Start) :green
+check{Valid input?} :yellow,bold
+start -> check
+check -> process[Process request] : yes
+check --> reject[Reject] : no
+process -> done(Done)
+reject -> done

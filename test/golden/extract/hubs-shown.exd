@@ -1,0 +1,41 @@
+title "imports: src (15 of 15 files)"
+dir DOWN
+
+group g_feat "feat/" {
+  f_feat_u00_ts[u00.ts] :red
+  f_feat_u01_ts[u01.ts] :red
+  f_feat_u02_ts[u02.ts]
+  f_feat_u03_ts[u03.ts]
+  f_feat_u04_ts[u04.ts]
+  f_feat_u05_ts[u05.ts]
+  f_feat_u06_ts[u06.ts]
+  f_feat_u07_ts[u07.ts]
+  f_feat_u08_ts[u08.ts]
+  f_feat_u09_ts[u09.ts]
+  f_feat_u10_ts[u10.ts]
+  f_feat_u11_ts[u11.ts]
+}
+group g_shared "shared/" {
+  f_shared_ast_ts[ast.ts\nused by 12] :yellow
+  f_shared_util_ts[util.ts]
+}
+f_main_ts[main.ts]
+
+f_feat_u00_ts <-> f_feat_u01_ts
+f_feat_u00_ts -> f_shared_ast_ts
+f_feat_u00_ts -> f_shared_util_ts
+f_feat_u01_ts -> f_shared_ast_ts
+f_feat_u01_ts -> f_shared_util_ts
+f_feat_u02_ts -> f_shared_ast_ts
+f_feat_u02_ts -> f_shared_util_ts
+f_feat_u03_ts -> f_shared_ast_ts
+f_feat_u04_ts -> f_shared_ast_ts
+f_feat_u05_ts -> f_shared_ast_ts
+f_feat_u06_ts -> f_shared_ast_ts
+f_feat_u07_ts -> f_shared_ast_ts
+f_feat_u08_ts -> f_shared_ast_ts
+f_feat_u09_ts -> f_shared_ast_ts
+f_feat_u10_ts -> f_shared_ast_ts
+f_feat_u11_ts -> f_shared_ast_ts
+f_main_ts -> f_feat_u00_ts
+f_main_ts -> f_feat_u01_ts

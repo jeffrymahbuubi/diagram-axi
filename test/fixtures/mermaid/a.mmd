@@ -1,0 +1,9 @@
+flowchart LR
+  A[Client] -->|request| B{Gateway}
+  B --> C[(DB)]
+  B --> D((Cache))
+  subgraph Backend
+    C
+    E[Worker] --> C
+  end
+  D -.-> E

@@ -1,0 +1,48 @@
+---
+title: "Kubernetes deployment"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_internet(["Internet"]):::c_blue
+  subgraph g_cluster ["Cluster"]
+    n_ingress["Ingress"]:::c_blue
+    subgraph g_ns ["Namespace: prod"]
+      n_svc["Service"]:::c_blue
+      n_pod1["Pod A"]:::c_blue
+      n_pod2["Pod B"]:::c_blue
+      n_pod3["Pod C"]:::c_blue
+      n_cfg["ConfigMap"]:::c_yellow
+      n_pvc[("PersistentVolume")]:::c_teal
+    end
+  end
+  n_internet -->|"443"| n_ingress
+  n_ingress --> n_svc
+  n_svc --> n_pod1
+  n_svc --> n_pod2
+  n_svc --> n_pod3
+  n_cfg -.-> n_pod1
+  n_cfg -.-> n_pod2
+  n_cfg -.-> n_pod3
+  n_pod1 -->|"mount"| n_pvc
+  style g_ns fill:#b2f2bb55,stroke:#628567,color:#1e1e1e
+  style g_cluster fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e
+  linkStyle 5 stroke-dasharray:2 4
+  linkStyle 6 stroke-dasharray:2 4
+  linkStyle 7 stroke-dasharray:2 4

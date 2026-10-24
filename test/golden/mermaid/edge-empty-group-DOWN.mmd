@@ -1,0 +1,34 @@
+---
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  subgraph g_empty ["Nothing here"]
+    eg_empty[" "]
+  end
+  subgraph g_full ["Has members"]
+    n_a["A node"]:::c_blue
+    n_b["B node"]:::c_blue
+  end
+  n_c["Outside"]:::c_blue
+  n_a -->|"link"| n_b
+  n_c --> n_a
+  style eg_empty fill:none,stroke:none
+  style g_empty fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e
+  style g_full fill:#b2f2bb55,stroke:#628567,color:#1e1e1e

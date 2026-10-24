@@ -1,0 +1,68 @@
+[
+ {
+  "src": "img/qa/day-order-flow-DOWN.png",
+  "name": "day-order-flow",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": true,
+  "fails": [],
+  "notes": "no issues found",
+  "checker": []
+ },
+ {
+  "src": "img/qa/day-order-flow-RIGHT.png",
+  "name": "day-order-flow",
+  "dir": "RIGHT",
+  "cat": "Realistic",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: clean",
+  "checker": []
+ },
+ {
+  "src": "img/qa/edge-self-loop-DOWN.png",
+  "name": "edge-self-loop",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": false,
+  "fails": [
+   "V9"
+  ],
+  "notes": "fixture: loop clipped by the node border",
+  "checker": []
+ },
+ {
+  "src": "img/qa/fuzz-label-clash-DOWN.png",
+  "name": "fuzz-label-clash",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: ok",
+  "checker": []
+ },
+ {
+  "src": "img/fuzz/dense-101-UP.png",
+  "name": "dense-101",
+  "dir": "UP",
+  "cat": "Held-out",
+  "ok": false,
+  "fails": [
+   "V1"
+  ],
+  "notes": "fixture: arrow ends short of its node",
+  "checker": [
+   "arrow-detached"
+  ]
+ },
+ {
+  "src": "img/fuzz/realistic-small-202-LEFT.png",
+  "name": "realistic-small-202",
+  "dir": "LEFT",
+  "cat": "Held-out",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: ok",
+  "checker": []
+ }
+]

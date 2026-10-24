@@ -1,0 +1,4 @@
+title "Request pipeline"
+dir RIGHT
+client[Client] -> lb[Load balancer] -> app[App server] -> db[(Database)]
+app -> cache[(Cache)]

@@ -1,0 +1,57 @@
+/*
+ * Dashboard design tokens. Explainers use ONLY --dash-* and --ease-* tokens; Starlight's
+ * --sl-color-* stay in dashboard.css. Starlight sets data-theme="dark" | "light" on <html>;
+ * dark is the default, so dark values live on :root and the light override on [data-theme='light'].
+ * This file declares no transition/animation, so it needs no motion gate.
+ */
+
+:root {
+  color-scheme: dark;
+
+  --dash-bg: hsl(220deg 20% 12%);
+  --dash-surface: hsl(220deg 18% 18%);
+  --dash-fg: hsl(220deg 25% 94%);
+  --dash-muted: hsl(220deg 14% 72%);
+  --dash-border: hsl(220deg 16% 28%);
+  --dash-accent: hsl(165deg 70% 62%);
+  --dash-accent-fg: hsl(165deg 40% 10%);
+  --dash-accent-soft: hsl(165deg 40% 20%);
+  --dash-warn: hsl(35deg 90% 65%);
+  --dash-ok: hsl(140deg 60% 60%);
+  --dash-bad: hsl(0deg 70% 68%);
+  --dash-soft: hsl(265deg 80% 78%);
+  --dash-focus: hsl(205deg 100% 70%);
+  --dash-shadow: 0 0.125rem 0.25rem hsl(220deg 50% 3% / 0.4), 0 0.5rem 1rem hsl(220deg 50% 3% / 0.35);
+
+  --dash-space-1: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+  --dash-space-2: clamp(0.75rem, 0.6rem + 0.8vw, 1.25rem);
+  --dash-space-3: clamp(1rem, 0.8rem + 1.2vw, 2rem);
+  --dash-radius: 0.75rem;
+
+  --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Wider content column than Starlight's 45rem: the overview tables and the card grid need the room. */
+:root {
+  --sl-content-width: 72rem;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --dash-bg: hsl(220deg 30% 96%);
+  --dash-surface: hsl(0deg 0% 100%);
+  --dash-fg: hsl(220deg 30% 14%);
+  --dash-muted: hsl(220deg 14% 38%);
+  --dash-border: hsl(220deg 18% 82%);
+  --dash-accent: hsl(165deg 60% 32%);
+  --dash-accent-fg: hsl(0deg 0% 100%);
+  --dash-accent-soft: hsl(165deg 50% 90%);
+  --dash-warn: hsl(35deg 90% 38%);
+  --dash-ok: hsl(140deg 60% 32%);
+  --dash-bad: hsl(0deg 70% 45%);
+  --dash-soft: hsl(265deg 55% 42%);
+  --dash-focus: hsl(215deg 100% 40%);
+  --dash-shadow: 0 0.125rem 0.25rem hsl(220deg 40% 30% / 0.1), 0 0.5rem 1rem hsl(220deg 40% 30% / 0.1);
+}

@@ -1,0 +1,15 @@
+# Day-to-day: LLM tool-calling loop with a cycle (model -> tool -> model) and a termination decision.
+title "Tool-calling loop"
+dir RIGHT
+prompt(User prompt)
+llm[LLM] :purple
+decide{Tool call?} :yellow
+tool[Tool runtime] :orange
+result[Tool result]
+final(Final answer) :green
+prompt -> llm
+llm -> decide : response
+decide -> tool : yes
+tool -> result
+result -> llm : append to context
+decide -> final : no

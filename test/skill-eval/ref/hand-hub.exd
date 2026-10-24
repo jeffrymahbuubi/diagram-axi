@@ -1,0 +1,4 @@
+title "Event bus"
+orders[Order service] -> bus[Event bus]
+bus -> billing[Billing], shipping[Shipping], email[Email], sms[SMS], indexer[Search indexer], analytics[Analytics]
+bus -> audit[Audit log], fraud[Fraud], recs[Recommendations], cache[Cache invalidator], webhooks[Webhooks], lake[(Data lake)]

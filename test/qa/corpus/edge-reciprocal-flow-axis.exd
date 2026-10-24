@@ -1,0 +1,6 @@
+# Edge case: reciprocal labeled edges between nodes stacked on the flow axis (the rag-agent bug class, minimal).
+dir DOWN
+a(Alpha)
+b[Beta]
+a -> b : question
+b -> a : answer

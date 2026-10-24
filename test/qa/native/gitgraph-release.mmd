@@ -1,0 +1,14 @@
+%% kind: gitgraph
+gitGraph
+  commit id: "init"
+  branch develop
+  checkout develop
+  commit id: "api"
+  branch hotfix
+  checkout hotfix
+  commit id: "patch"
+  checkout develop
+  merge hotfix
+  commit id: "ui"
+  checkout main
+  merge develop tag: "v1.0"

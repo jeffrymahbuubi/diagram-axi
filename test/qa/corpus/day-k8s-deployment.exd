@@ -1,0 +1,24 @@
+# Day-to-day: Kubernetes deployment: ingress, service, pods inside a namespace zone, config and storage.
+title "Kubernetes deployment"
+dir DOWN
+internet(Internet)
+group cluster "Cluster" :blue {
+  ingress[Ingress]
+  group ns "Namespace: prod" :green {
+    svc[Service]
+    pod1[Pod A]
+    pod2[Pod B]
+    pod3[Pod C]
+    cfg[ConfigMap] :yellow
+    pvc[(PersistentVolume)] :teal
+  }
+}
+internet -> ingress : 443
+ingress -> svc
+svc -> pod1
+svc -> pod2
+svc -> pod3
+cfg -.-> pod1
+cfg -.-> pod2
+cfg -.-> pod3
+pod1 -> pvc : mount

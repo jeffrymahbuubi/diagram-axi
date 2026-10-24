@@ -1,0 +1,4 @@
+# Edge case: fan-out 1 -> 8 where the whole statement shares one label.
+dir DOWN
+hub[Dispatcher]
+hub -> w1[Worker 1], w2[Worker 2], w3[Worker 3], w4[Worker 4], w5[Worker 5], w6[Worker 6], w7[Worker 7], w8[Worker 8] : task

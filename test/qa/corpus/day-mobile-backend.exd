@@ -1,0 +1,18 @@
+# Day-to-day: mobile app talking to a backend, with push notifications and analytics (reciprocal API calls).
+title "Mobile app + backend"
+dir RIGHT
+group device "Phone" :blue {
+  ui[App UI]
+  local[(Local cache)]
+}
+api[Backend API] :purple
+db[(Main DB)]
+push{Push service} :yellow
+analytics[Analytics]
+ui -> api : request
+api -> ui : response
+ui -> local : read/write
+api -> db
+api -> push : notify
+push -> ui : push
+ui -.-> analytics : events

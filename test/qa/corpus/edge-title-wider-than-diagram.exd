@@ -1,0 +1,4 @@
+# Edge case [X10, M]: diagram title much wider than the two small nodes below it; title must not collide with nodes and the canvas must widen to contain it.
+dir DOWN
+title "An unusually long diagram title that is much wider than the two nodes below it"
+a[A] -> b[B]

@@ -1,0 +1,27 @@
+# Edge case [G9, M]: five sibling groups of 1-2 nodes in one rank, fed by one root, with titles of very different lengths (zone-intrusion from inflation slack).
+dir DOWN
+root[Root]
+group g1 "A" :blue {
+  a1[A one]
+}
+group g2 "Medium title" :green {
+  b1[B one]
+  b2[B two]
+}
+group g3 "A rather long group title here" :orange {
+  c1[C one]
+}
+group g4 "Four" :purple {
+  d1[D one]
+  d2[D two]
+}
+group g5 "The fifth group has the longest title of them all" :red {
+  e1[E one]
+}
+root -> a1 : one
+root -> b1 : two
+root -> c1 : three
+root -> d1 : four
+root -> e1 : five
+b1 -> b2
+d1 -> d2

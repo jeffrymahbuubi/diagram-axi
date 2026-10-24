@@ -1,0 +1,15 @@
+shape: sequence_diagram
+shopper; web: Web app; api: API; pay: Payments; db: Orders DB
+shopper.a -> web.a: place order
+web.a -> api.a: POST /orders
+api.a -> db: insert order
+db -> api.a: order id
+api.a -> pay.a: charge card
+pay.a -> api.a: approved
+api.a -> web.a: 201 created
+web.a -> shopper.a: confirmation
+api."idempotency key checked"
+declined: {
+  pay -> api: declined
+  api -> web: 402
+}

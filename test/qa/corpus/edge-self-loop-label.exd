@@ -1,0 +1,9 @@
+# Edge case: self-loops with labels (retry, poll), one on a node that also has normal in/out edges.
+dir DOWN
+start(Start)
+work[Worker]
+done(Done)
+start -> work
+work -> work : retry
+work -> done : ok
+done -> done : idle

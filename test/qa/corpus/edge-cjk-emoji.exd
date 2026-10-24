@@ -1,0 +1,13 @@
+# Edge case: CJK and emoji labels (wide glyphs, metric fallback) on nodes, edges and a group title.
+dir RIGHT
+group zone "中文区域 🌏" :blue {
+  user(用户 👤)
+  api[接口服务 🚀]
+}
+db[(数据库 💾)]
+ok{成功? ✅}
+user -> api : 请求 📨
+api -> db : 查询
+db -> ok : 结果 ✔
+ok -> user : 是 🎉
+ok --> api : 否 ❌

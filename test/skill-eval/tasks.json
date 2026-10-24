@@ -1,0 +1,287 @@
+{
+  "description": "Ground truth for the agent-choice eval (plan 2026-10-24-skill-engine-selection, item C). expect.engine is the engine that ends up rendering. expect.flags lists the accepted routing flags for the answer ('a|b' = alternatives; scoring derives the effective engine from file extension plus flags). expect.alsoOk lists other acceptable file extensions. kind/target feed route(); ref is the faithful .exd graph route() measures; measure names the router measure that must fail; intent marks the one case where the user's wish overrides the router; cue is text the task relies on in SKILL.md.",
+  "bar": { "pass": 22, "total": 24, "perfectCategories": ["kind", "readme"] },
+  "tasks": [
+    {
+      "id": "kind-sequence",
+      "category": "kind",
+      "prompt": "Draw a sequence diagram of the checkout request: the browser calls the web server, the web server asks the payment API to charge the card and then tells the inventory service to reserve stock, the payment API answers the web server, and the web server answers the browser.",
+      "expect": { "engine": "d2", "ext": ".d2", "flags": [] },
+      "kind": "sequence",
+      "cue": "sequence, class, ER/SQL tables",
+      "label_source": "SKILL engine table row 2; route(kind sequence) = d2"
+    },
+    {
+      "id": "kind-class",
+      "category": "kind",
+      "prompt": "Make a class diagram for our payment module: an abstract PaymentProvider with charge() and refund(), implemented by StripeProvider and PaypalProvider, and a PaymentService that holds a PaymentProvider.",
+      "expect": { "engine": "d2", "ext": ".d2", "flags": [] },
+      "kind": "class",
+      "cue": "sequence, class, ER/SQL tables",
+      "label_source": "SKILL engine table row 2; route(kind class) = d2"
+    },
+    {
+      "id": "kind-erd",
+      "category": "kind",
+      "prompt": "Give me an ER diagram of the blog database: users, posts and comments tables with their columns and the foreign keys between them.",
+      "expect": { "engine": "d2", "ext": ".d2", "flags": [] },
+      "kind": "erd",
+      "cue": "sequence, class, ER/SQL tables",
+      "label_source": "SKILL engine table row 2; route(kind erd) = d2"
+    },
+    {
+      "id": "kind-state",
+      "category": "kind",
+      "prompt": "Draw a state machine for a traffic light controller: red, green and yellow in the normal cycle, plus a flashing state it enters on a fault and leaves when the fault clears.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "state",
+      "cue": "state, timeline, commit history, mind map",
+      "label_source": "SKILL engine table row 3; route(kind state) = mermaid"
+    },
+    {
+      "id": "kind-timeline",
+      "category": "kind",
+      "prompt": "I need a timeline of our product history for the all-hands deck: 2021 prototype, 2022 public beta, 2023 v1.0 launch, 2024 enterprise plan, 2025 mobile apps.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "timeline",
+      "cue": "state, timeline, commit history, mind map",
+      "label_source": "SKILL engine table row 3; route(kind timeline) = mermaid"
+    },
+    {
+      "id": "kind-gitgraph",
+      "category": "kind",
+      "prompt": "Show our git branching for the release: main with two commits, a feature branch cut from main with two commits and merged back, then a release tag on main.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "gitgraph",
+      "cue": "state, timeline, commit history, mind map",
+      "label_source": "SKILL engine table row 3; route(kind gitgraph) = mermaid"
+    },
+    {
+      "id": "kind-mindmap",
+      "category": "kind",
+      "prompt": "Make a mind map for planning a conference: venue, speakers, sponsors and marketing, with two or three sub-points under each.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "mindmap",
+      "cue": "state, timeline, commit history, mind map",
+      "label_source": "SKILL engine table row 3; route(kind mindmap) = mermaid"
+    },
+    {
+      "id": "readme-sequence",
+      "category": "readme",
+      "prompt": "The README of our auth library needs a sequence diagram of the login handshake: the client sends credentials to the server, the server asks the identity provider to verify them, and the server returns a token to the client. It has to show up as a diagram on the GitHub page.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "sequence",
+      "target": "markdown",
+      "cue": "diagram for a README or GitHub",
+      "label_source": "SKILL engine table row 5 beats the kind row; route(kind sequence, target markdown) = mermaid"
+    },
+    {
+      "id": "readme-flow",
+      "category": "readme",
+      "prompt": "Put a diagram of our request pipeline in the README so GitHub renders it inline: Client goes to a Load balancer, then an App server, then a Database, and the App server also uses a Cache.",
+      "expect": {
+        "engine": "mermaid",
+        "ext": ".exd",
+        "flags": ["--target markdown|--target github|--engine mermaid"],
+        "alsoOk": [{ "ext": ".mmd" }]
+      },
+      "target": "markdown",
+      "ref": "readme-flow.exd",
+      "cue": "diagram for a README or GitHub",
+      "label_source": "SKILL engine table row 5; route(graph, target markdown) = mermaid"
+    },
+    {
+      "id": "readme-hub",
+      "category": "readme",
+      "prompt": "Our monorepo README needs an architecture picture that GitHub shows inline. A Message broker sits in the middle: orders, payments, inventory, shipping and email publish to it, and it fans out to sms, search, analytics and audit.",
+      "expect": {
+        "engine": "mermaid",
+        "ext": ".exd",
+        "flags": ["--target markdown|--target github|--engine mermaid"],
+        "alsoOk": [{ "ext": ".mmd" }]
+      },
+      "target": "markdown",
+      "ref": "readme-hub.exd",
+      "measure": "busy",
+      "cue": "diagram for a README or GitHub",
+      "label_source": "SKILL engine table row 5 beats the busy-hub d2 suggestion; route(graph, target markdown) = mermaid, unforced it would suggest d2"
+    },
+    {
+      "id": "fit-cicd",
+      "category": "fit",
+      "prompt": "Draw our CI pipeline: a Push triggers Lint and Unit tests in parallel, both feed the Build step, which produces a Docker image, which goes to Staging and then Production.",
+      "expect": { "engine": "excalidraw", "ext": ".exd", "flags": [] },
+      "ref": "fit-cicd.exd",
+      "cue": "boxes and arrows that fit (<= 25 nodes, sparse, short labels)",
+      "label_source": "route(ref/fit-cicd.exd) = excalidraw, no suggestion"
+    },
+    {
+      "id": "fit-auth",
+      "category": "fit",
+      "prompt": "Sketch the sign-in flow of our web app: the user lands on the Login form and submits it, then a Credentials valid? check; yes goes to the Dashboard, no shows an Error message that returns to the Login form.",
+      "expect": { "engine": "excalidraw", "ext": ".exd", "flags": [] },
+      "ref": "fit-auth.exd",
+      "cue": "boxes and arrows that fit (<= 25 nodes, sparse, short labels)",
+      "label_source": "route(ref/fit-auth.exd) = excalidraw, no suggestion"
+    },
+    {
+      "id": "fit-tiers",
+      "category": "fit",
+      "prompt": "Architecture overview for the slide: three tiers. Clients holds a Web app and a Mobile app, Backend holds an API gateway and an Auth service, Data holds Postgres and Redis. Both clients call the gateway, the gateway calls the Auth service and Postgres, and the Auth service uses Redis.",
+      "expect": { "engine": "excalidraw", "ext": ".exd", "flags": [] },
+      "ref": "fit-tiers.exd",
+      "cue": "boxes and arrows that fit (<= 25 nodes, sparse, short labels)",
+      "label_source": "route(ref/fit-tiers.exd) = excalidraw, 4 cross-group edges <= 6"
+    },
+    {
+      "id": "fit-etl",
+      "category": "fit",
+      "prompt": "Show how data moves in our nightly ETL: Orders DB and Event log are both pulled by an Airflow job into a Staging area, a Spark job transforms it, the result is loaded into the Warehouse, and the Warehouse feeds the Dashboard.",
+      "expect": { "engine": "excalidraw", "ext": ".exd", "flags": [] },
+      "ref": "fit-etl.exd",
+      "cue": "boxes and arrows that fit (<= 25 nodes, sparse, short labels)",
+      "label_source": "route(ref/fit-etl.exd) = excalidraw, no suggestion"
+    },
+    {
+      "id": "out-hub",
+      "category": "outgrow",
+      "prompt": "Draw how our API gateway fits in: Clients call the API gateway, and the gateway talks to ten backend services: users, orders, payments, inventory, shipping, search, notifications, reviews, recommendations and analytics. Keep all ten on the one diagram.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-hub.exd",
+      "measure": "busy",
+      "cue": "hubs with > 8 arrows",
+      "label_source": "route(ref/out-hub.exd) suggests d2 (busy: degree 11)"
+    },
+    {
+      "id": "out-parallel",
+      "category": "outgrow",
+      "prompt": "Show how the Order service and the Payment service interact: the Order service calls the Payment service three separate times (authorize, capture and refund), and the Payment service sends a webhook back to the Order service. The Order service also writes to the Orders DB and publishes to the Event bus. Show every call as its own arrow.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-parallel.exd",
+      "measure": "parallel",
+      "cue": "> 2 arrows between one pair",
+      "label_source": "route(ref/out-parallel.exd) suggests d2 (dense: 1 parallel pair)"
+    },
+    {
+      "id": "out-longlabel",
+      "category": "outgrow",
+      "prompt": "Document our order handling flow left to right with the full step descriptions as the box labels, exactly as written and not shortened. It starts at Order placed, then Validate the shipping address against the postal service API, then Reserve inventory for every line item in the closest warehouse, then Charge the saved payment method and email the receipt, and ends at Order shipped.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-longlabel.exd",
+      "measure": "long-label",
+      "cue": "labels over 40 chars per line",
+      "label_source": "route(ref/out-longlabel.exd) suggests d2 (text: 3 long labels)"
+    },
+    {
+      "id": "out-crossgroup",
+      "category": "outgrow",
+      "prompt": "Draw our system as three groups. Frontend: Web app, Mobile app, Admin console. Services: Auth, Orders, Billing, Search. Data: Users DB, Orders DB, Cache. Web app calls Auth, Orders and Search; Mobile app calls Auth and Orders; Admin console calls Billing and Orders. Auth reads Users DB, Orders and Billing both use Orders DB, Search uses the Cache, and Orders calls Billing. Keep the three groups visible.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-crossgroup.exd",
+      "measure": "cross-group",
+      "cue": "> 6 cross-group edges",
+      "label_source": "route(ref/out-crossgroup.exd) suggests d2 (cross-linked: 11 cross-group edges)"
+    },
+    {
+      "id": "out-large",
+      "category": "outgrow",
+      "prompt": "Map our whole platform on one diagram, 28 services: gateway, auth, users, profiles, orders, cart, checkout, payments, invoicing, inventory, catalog, pricing, promotions, search, recommendations, reviews, notifications, email, sms, shipping, tracking, returns, fraud, analytics, reporting, audit, config and scheduler. The gateway fronts auth, users, catalog, cart, checkout and search. Users goes to profiles; catalog goes to pricing then promotions, and to inventory; search goes to recommendations then reviews; cart goes to checkout; checkout goes to orders and payments; payments goes to fraud and invoicing; orders goes to inventory, shipping, notifications and analytics; shipping goes to tracking and returns; notifications goes to email and sms; analytics goes to reporting; audit watches payments and orders; scheduler triggers reporting and config. Do not split it up.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-large.exd",
+      "measure": "large",
+      "cue": "dense or large graph",
+      "label_source": "route(ref/out-large.exd) suggests d2 (large: 28 nodes)"
+    },
+    {
+      "id": "out-dense",
+      "category": "outgrow",
+      "prompt": "Draw our service mesh of six services: Auth, Billing, Catalog, Search, Notify and Audit. Nearly everything talks to everything in both directions: every pair is connected except Audit, which only talks to Auth, Billing and Notify. Draw each connection as one two-way arrow.",
+      "expect": {
+        "engine": "d2",
+        "ext": ".exd",
+        "flags": ["--engine d2|--engine auto"],
+        "alsoOk": [{ "ext": ".d2" }]
+      },
+      "ref": "out-dense.exd",
+      "measure": "dense",
+      "cue": "dense or large graph",
+      "label_source": "route(ref/out-dense.exd) suggests d2 (dense: 13 edges)"
+    },
+    {
+      "id": "hand-large",
+      "category": "hand",
+      "intent": "user-edit-by-hand",
+      "prompt": "I will rearrange this by hand in Excalidraw afterwards, so give me an editable file. It is our org chart: the CEO has five VPs (Engineering, Product, Sales, Marketing, Finance) and each VP has four direct reports, named E1, E2, E3, E4 for Engineering, P1, P2, P3, P4 for Product, S1, S2, S3, S4 for Sales, M1, M2, M3, M4 for Marketing and F1, F2, F3, F4 for Finance.",
+      "expect": {
+        "engine": "excalidraw",
+        "ext": ".exd",
+        "flags": ["--target editable"]
+      },
+      "target": "editable",
+      "ref": "hand-large.exd",
+      "measure": "large",
+      "cue": "unless the user asked for an editable Excalidraw file",
+      "label_source": "router alone suggests d2 (26 nodes); user intent (hand editing in Excalidraw) overrides, route(target editable) = excalidraw"
+    },
+    {
+      "id": "hand-hub",
+      "category": "hand",
+      "intent": "user-edit-by-hand",
+      "prompt": "Model our event bus for me in Excalidraw; I will be dragging boxes around by hand afterwards. The Order service publishes to the Event bus, and the bus feeds twelve consumers: Billing, Shipping, Email, SMS, Search indexer, Analytics, Audit log, Fraud, Recommendations, Cache invalidator, Webhooks and a Data lake.",
+      "expect": {
+        "engine": "excalidraw",
+        "ext": ".exd",
+        "flags": ["--target editable"]
+      },
+      "target": "editable",
+      "ref": "hand-hub.exd",
+      "measure": "busy",
+      "cue": "when the user must edit by hand",
+      "label_source": "router alone suggests d2 (busy: degree 13); user intent (hand editing in Excalidraw) overrides, route(target editable) = excalidraw"
+    },
+    {
+      "id": "trap-erd-readme",
+      "category": "trap",
+      "prompt": "Add an entity-relationship diagram of the users, posts and comments tables to our README, with the keys and the one-to-many relationships, so it displays on the GitHub page.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "erd",
+      "target": "markdown",
+      "cue": "diagram for a README or GitHub",
+      "label_source": "README row beats the ER kind row; route(kind erd, target markdown) = mermaid"
+    },
+    {
+      "id": "trap-state-boxes",
+      "category": "trap",
+      "prompt": "Draw the life of a support ticket as boxes and arrows: New goes to Open; Open goes to Pending when we wait for the customer, and Pending goes back to Open on a reply; Open goes to Resolved; Resolved goes to Closed after 7 days, or back to Open if the customer reopens it.",
+      "expect": { "engine": "mermaid", "ext": ".mmd", "flags": [] },
+      "kind": "state",
+      "cue": "state, timeline, commit history, mind map",
+      "label_source": "a lifecycle with named states and transitions is a state diagram despite the boxes wording; route(kind state) = mermaid"
+    }
+  ]
+}

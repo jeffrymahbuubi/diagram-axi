@@ -1,0 +1,12 @@
+# Edge case [T15, H]: a 5-node chain plus labeled skip-rank edges (a->c, a->e, b->e) and a back edge e->a; skip edges run alongside the intermediate nodes and must not cut through them or put labels on nodes.
+dir DOWN
+a[A]
+b[B]
+c[C]
+d[D]
+e[E]
+a -> b -> c -> d -> e
+a -> c : skip1
+a -> e : skip3
+b -> e : skip2
+e -> a : loop

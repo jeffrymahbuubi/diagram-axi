@@ -1,0 +1,18 @@
+# Day-to-day: e-commerce checkout flow with branching on stock and payment outcome.
+title "Checkout"
+dir RIGHT
+cart[Cart]
+addr[Shipping address]
+stock{In stock?} :yellow
+pay[Payment]
+paid{Payment OK?} :yellow
+confirm[Order confirmation] :green
+backorder[Backorder notice] :orange
+retry[Try another card]
+cart -> addr -> stock
+stock -> pay : yes
+stock -> backorder : no
+pay -> paid
+paid -> confirm : yes
+paid -> retry : no
+retry -> pay

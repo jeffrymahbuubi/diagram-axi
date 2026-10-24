@@ -1,0 +1,41 @@
+---
+title: "Order pipeline"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart LR
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  subgraph g_edge ["Edge"]
+    n_web["Web app"]:::c_blue
+    n_mobile["Mobile app"]:::c_blue
+  end
+  n_api["API Gateway"]:::c_purple
+  n_auth{"Auth?"}:::c_blue
+  n_orders["Order svc"]:::c_blue
+  n_db[("Orders DB")]:::c_teal
+  n_cache[("Redis")]:::c_teal
+  n_web -->|"HTTPS"| n_api
+  n_mobile -->|"HTTPS"| n_api
+  n_api -->|"JWT"| n_auth
+  n_auth -.->|"401"| n_api
+  n_api --> n_orders
+  n_orders --> n_db
+  n_api -.->|"read-through"| n_cache
+  style g_edge fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e
+  linkStyle 3 stroke-dasharray:8 5
+  linkStyle 6 stroke-dasharray:2 4

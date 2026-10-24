@@ -1,0 +1,18 @@
+# Day-to-day: event-driven pub/sub: producers publish to topics; multiple consumers subscribe.
+title "Event-driven pub/sub"
+dir RIGHT
+web[Web checkout]
+mobile[Mobile checkout]
+t1{orders topic} :yellow
+t2{payments topic} :yellow
+mail[Email sender]
+stock[Stock updater]
+fraud[Fraud scorer]
+audit[(Audit log)]
+web, mobile -> t1 : publish
+t1 -> mail : subscribe
+t1 -> stock : subscribe
+t1 -> fraud : subscribe
+fraud -> t2 : score
+t2 -> audit
+stock -> audit

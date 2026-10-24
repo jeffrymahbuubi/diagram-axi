@@ -1,0 +1,18 @@
+title "Three tiers"
+dir RIGHT
+group clients "Clients" :blue {
+  web[Web app]
+  mobile[Mobile app]
+}
+group backend "Backend" :purple {
+  gw[API gateway]
+  auth[Auth service]
+}
+group data "Data" :green {
+  db[(Postgres)]
+  cache[(Redis)]
+}
+web, mobile -> gw
+gw -> auth
+gw -> db
+auth -> cache

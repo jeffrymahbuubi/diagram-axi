@@ -1,0 +1,22 @@
+# Day-to-day: orchestrator delegating to specialist agents, collecting results, with a reviewer feedback loop.
+title "Multi-agent orchestration"
+dir DOWN
+user(User)
+orch[Orchestrator] :purple
+group workers "Specialist agents" :blue {
+  research[Research agent]
+  coder[Coding agent]
+  tester[Test agent]
+}
+review{Review OK?} :yellow
+memory[(Shared memory)] :teal
+user -> orch : task
+orch -> research : find prior art
+orch -> coder : implement
+coder -> tester : patch
+tester -> review : results
+review -> orch : approved
+review --> coder : changes requested
+research -> memory : notes
+coder -> memory : artifacts
+orch -> user : final answer

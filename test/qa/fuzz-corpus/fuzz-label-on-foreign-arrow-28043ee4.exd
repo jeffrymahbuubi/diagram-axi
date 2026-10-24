@@ -1,0 +1,6 @@
+# Fuzz repro (auto-promoted): label-on-foreign-arrow in UP; profile labels-heavy, seed 3771087831, run seed 2, base ddb7a4b.
+# Minimal: 3 nodes, 3 edges, 0 groups. signature label-on-foreign-arrow:28043ee4
+a[Config\nAPI\nLoader Users]
+b -> c
+a -> c
+a -> b : timeout rollback poll reject approve publish fail store write read

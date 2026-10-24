@@ -1,0 +1,18 @@
+# Day-to-day: ETL / data pipeline: sources fan in to staging, transformations, warehouse and BI fan out.
+title "ETL pipeline"
+dir RIGHT
+crm[(CRM)]
+erp[(ERP)]
+logs[Clickstream logs]
+stage[Staging area] :orange
+clean[Clean and dedupe]
+join[Join and enrich]
+wh[(Data warehouse)] :teal
+bi[BI dashboards] :green
+ml[ML features] :purple
+crm, erp, logs -> stage : extract
+stage -> clean -> join : transform
+join -> wh : load
+wh -> bi
+wh -> ml
+join --> stage : rejects

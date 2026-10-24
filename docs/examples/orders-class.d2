@@ -1,0 +1,27 @@
+Order: {
+  shape: class
+  +id: int
+  +status: string
+  -total: decimal
+  +addLine(line)
+  +submit(): bool
+}
+OrderLine: {
+  shape: class
+  +sku: string
+  +qty: int
+  +price: decimal
+}
+Customer: {
+  shape: class
+  +id: int
+  -email: string
+  +placeOrder(): Order
+}
+PriorityOrder: {
+  shape: class
+  +expedite(): void
+}
+Order -> OrderLine: has many
+Customer -> Order: places
+PriorityOrder -> Order: extends

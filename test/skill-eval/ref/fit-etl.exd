@@ -1,0 +1,6 @@
+title "Nightly ETL"
+dir RIGHT
+orders[(Orders DB)]
+events[(Event log)]
+orders, events -> airflow[Airflow job]
+airflow -> staging[Staging area] -> spark[Spark job] -> wh[(Warehouse)] -> dash[Dashboard]

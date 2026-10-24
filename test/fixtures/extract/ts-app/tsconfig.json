@@ -1,0 +1,14 @@
+{
+  // Fixture project for the extract scanner: NodeNext resolution plus one paths alias.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "paths": {
+      "@core/*": ["./src/core/*"],
+    },
+  },
+  "include": ["src"],
+}

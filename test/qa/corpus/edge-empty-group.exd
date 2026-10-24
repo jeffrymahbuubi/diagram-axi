@@ -1,0 +1,11 @@
+# Edge case: a group with no children next to a populated one (zero-size or default-size zone).
+dir DOWN
+group empty "Nothing here" :blue {
+}
+group full "Has members" :green {
+  a[A node]
+  b[B node]
+}
+a -> b : link
+c[Outside]
+c -> a

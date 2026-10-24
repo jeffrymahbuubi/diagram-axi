@@ -1,0 +1,8 @@
+title "Order handling"
+dir RIGHT
+placed[Order placed]
+addr[Validate the shipping address against the postal service API]
+stock[Reserve inventory for every line item in the closest warehouse]
+charge[Charge the saved payment method and email the receipt]
+shipped[Order shipped]
+placed -> addr -> stock -> charge -> shipped

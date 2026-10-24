@@ -1,0 +1,18 @@
+# Edge case [T9, H]: fan-out 1 -> 14 from a diamond hub with one shared label. Ports compress to 0.7 x side span on a curved shape: 14 ports end up under 10 px apart; expect crowded arrowheads / odd entry sides.
+dir DOWN
+hub{Router?}
+w1[Worker 1]
+w2[Worker 2]
+w3[Worker 3]
+w4[Worker 4]
+w5[Worker 5]
+w6[Worker 6]
+w7[Worker 7]
+w8[Worker 8]
+w9[Worker 9]
+w10[Worker 10]
+w11[Worker 11]
+w12[Worker 12]
+w13[Worker 13]
+w14[Worker 14]
+hub -> w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14 : route

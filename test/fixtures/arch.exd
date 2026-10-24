@@ -1,0 +1,12 @@
+dir RIGHT
+title "Order pipeline"
+group edge "Edge" :blue {
+  web[Web app]
+  mobile[Mobile app]
+}
+api[API Gateway] :purple
+web, mobile -> api : HTTPS
+api -> auth{Auth?} : JWT
+auth --> api : 401
+api -> orders[Order svc] -> db[(Orders DB)]
+api -.-> cache[(Redis)] : read-through

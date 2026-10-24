@@ -1,0 +1,12 @@
+# Edge case: a directed cycle of 5 nodes with labels on each edge.
+dir RIGHT
+n1[Plan]
+n2[Build]
+n3[Test]
+n4[Release]
+n5[Operate]
+n1 -> n2 : spec
+n2 -> n3 : artifact
+n3 -> n4 : approved
+n4 -> n5 : live
+n5 -> n1 : feedback

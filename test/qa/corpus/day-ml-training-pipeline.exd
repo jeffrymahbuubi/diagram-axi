@@ -1,0 +1,17 @@
+# Day-to-day: ML training pipeline with an evaluation decision looping back to training.
+title "ML training pipeline"
+dir DOWN
+raw[(Raw data)]
+prep[Preprocess]
+split[Train/val split]
+train[Train model] :purple
+eval{Metric >= target?} :yellow
+tune[Tune hyperparameters]
+reg[(Model registry)] :teal
+serve[Serving endpoint] :green
+raw -> prep -> split -> train -> eval
+eval -> tune : no
+tune -> train
+eval -> reg : yes
+reg -> serve : deploy
+serve --> raw : feedback data

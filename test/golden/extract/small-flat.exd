@@ -1,0 +1,31 @@
+title "imports: src (10 of 15 files)"
+dir DOWN
+
+f_cli_args_ts[cli/args.ts]
+f_cli_help_ts[cli/help.ts]
+f_cli_main_ts[cli/main.ts]
+f_core_emit_ts[core/emit.ts] :red
+f_core_engine_ts[core/engine.ts]
+f_core_parse_ts[core/parse.ts] :red
+f_index_ts[index.ts]
+f_util_fmt_ts[util/fmt.ts]
+f_util_log_ts[util/log.ts]
+f_util_path_ts[util/path.ts]
+
+f_cli_args_ts -> f_util_log_ts
+f_cli_help_ts -> f_util_fmt_ts
+f_cli_main_ts -> f_cli_args_ts
+f_cli_main_ts -> f_cli_help_ts
+f_cli_main_ts -> f_core_engine_ts
+f_cli_main_ts -> f_util_log_ts
+f_core_emit_ts -> f_core_parse_ts
+f_core_emit_ts --> f_util_fmt_ts
+f_core_engine_ts -> f_core_emit_ts
+f_core_engine_ts -> f_core_parse_ts
+f_core_engine_ts -> f_util_log_ts
+f_core_engine_ts -> f_util_path_ts
+f_core_parse_ts -> f_core_emit_ts : x2
+f_index_ts -> f_cli_main_ts
+f_index_ts -> f_core_engine_ts
+f_util_log_ts -> f_util_fmt_ts
+f_util_path_ts -> f_util_fmt_ts

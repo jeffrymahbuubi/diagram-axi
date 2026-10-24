@@ -1,0 +1,19 @@
+# Edge case: every arrow kind (-> --> -.-> -- <->) with labels, plus every node color and style flag.
+dir RIGHT
+hub[Hub] :purple,bold
+n1[Blue] :blue
+n2(Green) :green,dashed
+n3{Orange} :orange,dotted
+n4[(Purple)] :purple,sketchy
+n5[Red] :red,bold
+n6(Yellow) :yellow
+n7[Teal] :teal,dashed
+n8[Pink] :pink
+hub -> n1 : solid
+hub --> n2 : dashed
+hub -.-> n3 : dotted
+hub -- n4 : plain
+hub <-> n5 : both
+n6 -> hub : in
+n7 --> hub : in dashed
+n8 -.-> hub : in dotted

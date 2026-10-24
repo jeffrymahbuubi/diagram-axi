@@ -1,0 +1,65 @@
+{
+ "summary": {
+  "engine": "mermaid",
+  "seed": 3,
+  "renders": 2,
+  "hard": 1,
+  "gatedRenders": 1,
+  "gatedPassed": 1,
+  "gatedPassRate": 100,
+  "reportOnly": [
+   "dense"
+  ],
+  "synthetic": true
+ },
+ "byCode": [
+  {
+   "code": "arrow-detached",
+   "severity": "hard",
+   "count": 1,
+   "cases": 1
+  }
+ ],
+ "profiles": [
+  {
+   "profile": "dense",
+   "renders": 1,
+   "passed": 0,
+   "passRate": 0,
+   "topCode": "arrow-detached",
+   "gated": false
+  },
+  {
+   "profile": "realistic-small",
+   "renders": 1,
+   "passed": 1,
+   "passRate": 100,
+   "topCode": "",
+   "gated": true
+  }
+ ],
+ "cases": [
+  {
+   "case": "dense/101",
+   "dir": "UP",
+   "profile": "dense",
+   "seed": 101
+  },
+  {
+   "case": "realistic-small/202",
+   "dir": "LEFT",
+   "profile": "realistic-small",
+   "seed": 202
+  }
+ ],
+ "findings": [
+  {
+   "case": "dense/101",
+   "dir": "UP",
+   "code": "arrow-detached",
+   "severity": "hard",
+   "elements": [],
+   "detail": "synthetic fixture finding"
+  }
+ ]
+}

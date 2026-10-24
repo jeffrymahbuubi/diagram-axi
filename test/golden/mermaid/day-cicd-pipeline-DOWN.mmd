@@ -1,0 +1,53 @@
+---
+title: "CI/CD pipeline"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_commit(["Push"]):::c_blue
+  subgraph g_build ["Build"]
+    n_lint["Lint"]:::c_blue
+    n_compile["Compile"]:::c_blue
+    n_image["Docker image"]:::c_blue
+  end
+  subgraph g_test ["Test"]
+    n_unit["Unit tests"]:::c_blue
+    n_e2e["E2E tests"]:::c_blue
+  end
+  n_gate{"Approve?"}:::c_yellow
+  subgraph g_deploy ["Deploy"]
+    n_staging["Staging"]:::c_blue
+    n_prod["Production"]:::c_red
+  end
+  n_commit --> n_lint
+  n_lint --> n_compile
+  n_compile --> n_image
+  n_image --> n_unit
+  n_image --> n_e2e
+  n_unit --> n_gate
+  n_e2e --> n_gate
+  n_gate -->|"yes"| n_staging
+  n_staging --> n_prod
+  n_prod -.->|"rollback"| n_staging
+  n_gate -.->|"rejected"| n_commit
+  style g_build fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e
+  style g_test fill:#b2f2bb55,stroke:#628567,color:#1e1e1e
+  style g_deploy fill:#d0bfff55,stroke:#72698c,color:#1e1e1e
+  linkStyle 9 stroke-dasharray:8 5
+  linkStyle 10 stroke-dasharray:8 5

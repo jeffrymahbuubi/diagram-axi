@@ -1,0 +1,4 @@
+# Edge case [T14, M]: a title and a single node, no edges. Smallest possible diagram; checks title placement and canvas bounds.
+dir DOWN
+title "Just one"
+only[Only node]

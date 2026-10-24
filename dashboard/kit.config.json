@@ -1,0 +1,106 @@
+{
+  "$comment": "QA review dashboard config. Relative paths resolve against this folder (dashboard/); absolute paths are accepted everywhere. kit.config.local.json (git-ignored) is shallow-merged over this file, and the QA_REVIEW_ROOT / QA_ANALYZER_PATH env vars override reviewRoot / analyzerPath. To add a round, append an entry to rounds (see README.md). A round may carry an optional engine (excalidraw|d2|mermaid); a round whose data folder is missing is skipped with a warning (DASHBOARD_FIXTURES=1 falls back to test-fixtures/<folder name>).",
+  "siteTitle": "diagram-axi QA review",
+  "reviewRoot": "../out/review",
+  "analyzerPath": "../dist/quality/analyze.js",
+  "visualRules": [
+    "arrowhead-near-tail",
+    "arrowheads-cross",
+    "label-at-crossing",
+    "label-covers-own-arrow",
+    "short-final-segment",
+    "node-edge-graze",
+    "track-spacing"
+  ],
+  "sets": [
+    { "id": "realistic", "label": "Realistic", "title": "Realistic day-* cases", "dir": "qa", "prefix": "day-" },
+    { "id": "edge-cases", "label": "Edge cases", "title": "Edge cases edge-*", "dir": "qa", "prefix": "edge-" },
+    { "id": "fuzz-repros", "label": "Fuzz repros", "title": "Fuzz repros fuzz-*", "dir": "qa", "prefix": "fuzz-" },
+    { "id": "held-out", "label": "Held-out sample", "title": "Held-out fuzz sample", "dir": "fuzz", "prefix": "" },
+    { "id": "native", "label": "Native", "title": "Native class/erd/sequence renders (*-NATIVE)", "dir": "qa", "prefix": "", "direction": "NATIVE" }
+  ],
+  "rounds": [
+    {
+      "id": "round-3",
+      "label": "Round 3",
+      "reviewRoot": "../out/review-r3",
+      "verdicts": "all-verdicts.json",
+      "gallery": "gallery-data.json",
+      "qaDir": "qa",
+      "fuzzDir": "fuzz",
+      "qaReport": "qa/report.json",
+      "fuzzReports": [
+        { "id": "s3", "label": "Fuzz seed 3", "path": "../fuzz-s3/report.json" },
+        { "id": "s4", "label": "Fuzz seed 4", "path": "../fuzz-s4/report.json" }
+      ]
+    },
+    {
+      "id": "round-4",
+      "label": "Round 4",
+      "reviewRoot": "../out/review-r4",
+      "verdicts": "all-verdicts.json",
+      "gallery": "gallery-data.json",
+      "qaDir": "qa",
+      "fuzzDir": "fuzz",
+      "qaReport": "qa/report.json",
+      "fuzzReports": [
+        { "id": "s3", "label": "Fuzz seed 3", "path": "../final-s3/report.json" },
+        { "id": "s4", "label": "Fuzz seed 4", "path": "../final-s4/report.json" }
+      ]
+    },
+    {
+      "id": "round-5-excalidraw",
+      "label": "Round 5 (Excalidraw)",
+      "engine": "excalidraw",
+      "reviewRoot": "../out/review-r5-excalidraw",
+      "verdicts": "all-verdicts.json",
+      "gallery": "gallery-data.json",
+      "qaDir": "qa",
+      "fuzzDir": "fuzz",
+      "qaReport": "qa/report.json",
+      "fuzzReports": [
+        { "id": "s3", "label": "Fuzz seed 3", "path": "../fuzz-excalidraw-s3/report.json" },
+        { "id": "s4", "label": "Fuzz seed 4", "path": "../fuzz-excalidraw-s4/report.json" }
+      ]
+    },
+    {
+      "id": "round-5-d2",
+      "label": "Round 5 (D2)",
+      "engine": "d2",
+      "reviewRoot": "../out/review-r5-d2",
+      "verdicts": "all-verdicts.json",
+      "gallery": "gallery-data.json",
+      "qaDir": "qa",
+      "fuzzDir": "fuzz",
+      "qaReport": "qa/report.json",
+      "fuzzReports": [
+        { "id": "s3", "label": "Fuzz seed 3", "path": "../fuzz-d2-s3/report.json" },
+        { "id": "s4", "label": "Fuzz seed 4", "path": "../fuzz-d2-s4/report.json" }
+      ]
+    },
+    {
+      "id": "round-5-mermaid",
+      "label": "Round 5 (Mermaid)",
+      "engine": "mermaid",
+      "reviewRoot": "../out/review-r5-mermaid",
+      "verdicts": "all-verdicts.json",
+      "gallery": "gallery-data.json",
+      "qaDir": "qa",
+      "fuzzDir": "fuzz",
+      "qaReport": "qa/report.json",
+      "fuzzReports": [
+        { "id": "s3", "label": "Fuzz seed 3", "path": "../fuzz-mermaid-s3/report.json" },
+        { "id": "s4", "label": "Fuzz seed 4", "path": "../fuzz-mermaid-s4/report.json" }
+      ]
+    }
+  ],
+  "bakeoff": {
+    "$comment": "Three-engine bake-off review (Excalidraw vs D2 vs Mermaid). Produced by scripts/bakeoff-aggregate.mjs into root; omit this block to hide the pages.",
+    "label": "Engine bake-off",
+    "root": "../out/bakeoff-review",
+    "verdicts": "verdicts.json",
+    "manifest": "manifest.json",
+    "summary": "summary.json"
+  },
+  "ports": { "dev": 4321 }
+}

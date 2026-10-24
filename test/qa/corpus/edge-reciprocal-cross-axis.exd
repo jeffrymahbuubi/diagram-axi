@@ -1,0 +1,9 @@
+# Edge case: reciprocal labeled edges between two siblings that share a rank (cross axis), under a common parent.
+dir DOWN
+root[Root]
+left[Left peer]
+right[Right peer]
+root -> left
+root -> right
+left -> right : ping
+right -> left : pong

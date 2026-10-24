@@ -1,0 +1,77 @@
+direction: right
+d2_title: "Order pipeline" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+api: "API Gateway" {
+  shape: rectangle
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+auth: "Auth?" {
+  shape: diamond
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+orders: "Order svc" {
+  shape: rectangle
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+db: "Orders DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+cache: "Redis" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+edge: "Edge" {
+  style.fill: "#dbe4ff"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  web: "Web app" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  mobile: "Mobile app" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+edge.web -> api: "HTTPS" {
+  style.stroke: "#1e1e1e"
+}
+edge.mobile -> api: "HTTPS" {
+  style.stroke: "#1e1e1e"
+}
+api -> auth: "JWT" {
+  style.stroke: "#1e1e1e"
+}
+auth -> api: "401" {
+  style.stroke: "#1e1e1e"
+  style.stroke-dash: 5
+}
+api -> orders: {
+  style.stroke: "#1e1e1e"
+}
+orders -> db: {
+  style.stroke: "#1e1e1e"
+}
+api -> cache: "read-through" {
+  style.stroke: "#1e1e1e"
+  style.stroke-dash: 2
+}

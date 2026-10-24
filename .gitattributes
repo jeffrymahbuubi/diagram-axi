@@ -1,0 +1,8 @@
+# Fixtures and goldens are compared byte-for-byte; keep them LF on every checkout.
+*.exd        text eol=lf
+*.mmd        text eol=lf
+*.d2         text eol=lf
+*.svg        text eol=lf
+*.excalidraw text eol=lf
+*.png        binary
+skills/**    text eol=lf

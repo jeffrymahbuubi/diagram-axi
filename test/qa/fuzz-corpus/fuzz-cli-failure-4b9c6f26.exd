@@ -1,0 +1,6 @@
+# Fuzz repro (auto-promoted): cli-failure in DOWN; profile multi-edge, seed 1056367876, run seed 1, base a16c189.
+# Minimal: 3 nodes, 3 edges, 0 groups. signature cli-failure:4b9c6f26
+a[A]
+b -> c
+b -> c
+b -> c

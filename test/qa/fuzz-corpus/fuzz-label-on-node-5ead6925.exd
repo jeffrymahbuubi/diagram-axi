@@ -1,0 +1,15 @@
+# Fuzz repro (auto-promoted): label-on-node in UP; profile labels-heavy, seed 1617567438, run seed 1, base a16c189.
+# Minimal: 7 nodes, 10 edges, 0 groups. signature label-on-node:5ead6925
+a(Loader Shipping Broker Router)
+b[Shipping Logger Report Parser {a, b}]
+c[Auth Queue Loader Broker Gateway Billing Logger Loader Broker Executor]
+d -> a
+a -> b : no rollback stream every 5s write sync every 5s notify
+b -> e : x
+f -> c : emit subscribe batch\nread\nupdate route\nstream every 5s {x}
+e -> g
+d -> b
+a -> e : enqueue retry fetch query fetch f(x)
+f -> e
+d -> c
+f -> b : store rollback query poll query dispatch notify store notify timeout publish stream

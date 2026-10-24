@@ -1,0 +1,8 @@
+# Edge case: three parallel labeled edges between the same ordered pair, plus one reverse edge.
+dir DOWN
+a[Producer]
+b[Consumer]
+a -> b : alpha
+a -> b : bravo
+a -> b : charlie
+b -> a : ack

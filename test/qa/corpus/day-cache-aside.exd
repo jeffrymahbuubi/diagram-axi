@@ -1,0 +1,13 @@
+# Day-to-day: cache-aside read path: hit/miss branch and write-back; reciprocal app<->cache and app<->db.
+title "Cache-aside"
+dir DOWN
+app[Application] :purple
+hit{Cache hit?} :yellow
+cache[(Cache)] :orange
+db[(Database)] :teal
+app -> cache : GET key
+cache -> hit : value or nil
+hit -> app : hit, return
+hit -> db : miss, query
+db -> app : row
+app -> cache : SET key

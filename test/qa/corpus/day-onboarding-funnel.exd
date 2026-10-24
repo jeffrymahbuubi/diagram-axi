@@ -1,0 +1,20 @@
+# Day-to-day: user onboarding funnel: linear stages with drop-off branches at each step and percentage labels.
+title "Onboarding funnel"
+dir RIGHT
+visit[Visit site]
+signup[Sign up]
+verify[Verify email]
+profile[Complete profile]
+first[First project] :green
+active(Active user) :green
+d1(Dropped: bounce) :red
+d2(Dropped: unverified) :red
+d3(Dropped: abandoned) :red
+visit -> signup : 40%
+signup -> verify : 85%
+verify -> profile : 70%
+profile -> first : 60%
+first -> active : 50%
+visit --> d1
+signup --> d2
+verify --> d3

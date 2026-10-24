@@ -1,0 +1,68 @@
+[
+ {
+  "src": "img/qa/day-order-flow-DOWN.png",
+  "name": "day-order-flow",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": true,
+  "fails": [],
+  "notes": "no issues found",
+  "checker": []
+ },
+ {
+  "src": "img/qa/day-order-flow-RIGHT.png",
+  "name": "day-order-flow",
+  "dir": "RIGHT",
+  "cat": "Realistic",
+  "ok": false,
+  "fails": [
+   "V3"
+  ],
+  "notes": "fixture: edge label sits on the neighbouring arrow",
+  "checker": []
+ },
+ {
+  "src": "img/qa/edge-self-loop-DOWN.png",
+  "name": "edge-self-loop",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: loop drawn",
+  "checker": []
+ },
+ {
+  "src": "img/qa/fuzz-label-clash-DOWN.png",
+  "name": "fuzz-label-clash",
+  "dir": "DOWN",
+  "cat": "Realistic",
+  "ok": false,
+  "fails": [
+   "V4"
+  ],
+  "notes": "fixture: two labels overlap",
+  "checker": [
+   "label-overlap"
+  ]
+ },
+ {
+  "src": "img/fuzz/dense-101-UP.png",
+  "name": "dense-101",
+  "dir": "UP",
+  "cat": "Held-out",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: ok",
+  "checker": []
+ },
+ {
+  "src": "img/fuzz/realistic-small-202-LEFT.png",
+  "name": "realistic-small-202",
+  "dir": "LEFT",
+  "cat": "Held-out",
+  "ok": true,
+  "fails": [],
+  "notes": "fixture: ok",
+  "checker": []
+ }
+]

@@ -1,0 +1,11 @@
+# Fuzz repro (auto-promoted): label-label-overlap in DOWN; profile multi-edge, seed 1284351491, run seed 1, base a16c189.
+# Minimal: 4 nodes, 6 edges, 0 groups. signature label-label-overlap:4ed09b86
+a[Broker Scheduler]
+b[Payments]
+c[Parser Parser]
+c -> b : read poll no
+b -> c : rollback notify no
+b -> c : update batch write
+b -> c
+b -> c : x
+a -> d

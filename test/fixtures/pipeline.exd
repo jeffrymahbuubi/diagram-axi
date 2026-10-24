@@ -1,0 +1,7 @@
+# CI pipeline, top to bottom (default direction)
+title "CI pipeline"
+commit[Commit] -> build[Build\nimage] -> test(Run tests) -> deploy[Deploy]; deploy -> prod[(Prod)]
+lint[Lint] :teal ; lint -> build
+report[Report] :orange,dashed
+test <-> report
+build -- notes[Notes] : "see #42"

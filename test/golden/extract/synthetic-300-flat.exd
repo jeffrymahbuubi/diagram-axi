@@ -1,0 +1,55 @@
+title "imports: src (300 of 300 files)"
+dir DOWN
+
+d_pkg00_s0[pkg00/s0/ (5 files)\nused by 120] :red
+d_pkg00_s2[pkg00/s2/ (5 files)\nused by 33] :red
+d_pkg00_s3[pkg00/s3/ (5 files)\nused by 26] :red
+r_pkg00[pkg00/ +10 more files\nused by 44] :red
+d_pkg01[pkg01/ (25 files)\nused by 34] :yellow
+d_pkg02[pkg02/ (25 files)\nused by 47] :yellow
+d_pkg03[pkg03/ (25 files)]
+d_pkg04[pkg04/ (25 files)]
+d_pkg05[pkg05/ (25 files)]
+d_pkg06[pkg06/ (25 files)]
+d_pkg07[pkg07/ (25 files)]
+d_pkg08[pkg08/ (25 files)]
+d_pkg09[pkg09/ (25 files)]
+d_pkg10[pkg10/ (25 files)]
+d_pkg11[pkg11/ (25 files)]
+
+d_pkg04 -> d_pkg03 : x5
+d_pkg05 -> d_pkg03 : x6
+d_pkg05 -> d_pkg04 : x2
+d_pkg06 -> d_pkg03
+d_pkg06 -> d_pkg04 : x6
+d_pkg06 -> d_pkg05 : x2
+d_pkg07 -> d_pkg03 : x4
+d_pkg07 -> d_pkg04 : x3
+d_pkg07 -> d_pkg05 : x4
+d_pkg07 -> d_pkg06 : x4
+d_pkg08 -> d_pkg03
+d_pkg08 -> d_pkg04 : x5
+d_pkg08 -> d_pkg05 : x6
+d_pkg08 -> d_pkg06 : x6
+d_pkg08 -> d_pkg07 : x3
+d_pkg09 -> d_pkg03 : x4
+d_pkg09 -> d_pkg04 : x5
+d_pkg09 -> d_pkg05 : x3
+d_pkg09 -> d_pkg06 : x3
+d_pkg09 -> d_pkg07 : x4
+d_pkg09 -> d_pkg08 : x5
+d_pkg10 -> d_pkg03
+d_pkg10 -> d_pkg04 : x2
+d_pkg10 -> d_pkg05 : x2
+d_pkg10 -> d_pkg06 : x5
+d_pkg10 -> d_pkg07 : x2
+d_pkg10 -> d_pkg08 : x7
+d_pkg10 -> d_pkg09 : x2
+d_pkg11 -> d_pkg03 : x2
+d_pkg11 -> d_pkg04 : x2
+d_pkg11 -> d_pkg05 : x3
+d_pkg11 -> d_pkg06
+d_pkg11 -> d_pkg07 : x2
+d_pkg11 -> d_pkg08 : x6
+d_pkg11 -> d_pkg09
+d_pkg11 -> d_pkg10 : x4

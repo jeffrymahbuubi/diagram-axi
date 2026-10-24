@@ -1,0 +1,56 @@
+title "Platform services"
+gateway[Gateway]
+auth[Auth]
+users[Users]
+profiles[Profiles]
+orders[Orders]
+cart[Cart]
+checkout[Checkout]
+payments[Payments]
+invoicing[Invoicing]
+inventory[Inventory]
+catalog[Catalog]
+pricing[Pricing]
+promotions[Promotions]
+search[Search]
+recommendations[Recommendations]
+reviews[Reviews]
+notifications[Notifications]
+email[Email]
+sms[SMS]
+shipping[Shipping]
+tracking[Tracking]
+returns[Returns]
+fraud[Fraud]
+analytics[Analytics]
+reporting[Reporting]
+audit[Audit]
+config[Config]
+scheduler[Scheduler]
+gateway -> auth
+gateway -> users
+gateway -> catalog
+gateway -> cart
+gateway -> checkout
+gateway -> search
+users -> profiles
+catalog -> pricing -> promotions
+catalog -> inventory
+search -> recommendations -> reviews
+cart -> checkout
+checkout -> orders
+checkout -> payments
+payments -> fraud
+payments -> invoicing
+orders -> inventory
+orders -> shipping
+shipping -> tracking
+shipping -> returns
+orders -> notifications
+notifications -> email
+notifications -> sms
+orders -> analytics -> reporting
+audit -> payments
+audit -> orders
+scheduler -> reporting
+scheduler -> config

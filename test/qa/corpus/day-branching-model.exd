@@ -1,0 +1,16 @@
+# Day-to-day: source-control branching model: main, develop, feature, release, hotfix with merge back-edges.
+title "Branching model"
+dir RIGHT
+main[main] :green
+develop[develop] :blue
+feat[feature/login] :purple
+rel[release/1.2] :orange
+hot[hotfix/1.2.1] :red
+develop -> feat : branch
+feat -> develop : merge PR
+develop -> rel : cut release
+rel -> main : merge + tag
+rel -> develop : back-merge
+main -> hot : branch
+hot -> main : merge + tag
+hot -> develop : merge

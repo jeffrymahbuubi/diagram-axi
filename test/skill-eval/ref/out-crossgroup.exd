@@ -1,0 +1,29 @@
+title "Three groups"
+group front "Frontend" :blue {
+  web[Web app]
+  mobile[Mobile app]
+  admin[Admin console]
+}
+group svc "Services" :purple {
+  auth[Auth]
+  orders[Orders]
+  billing[Billing]
+  search[Search]
+}
+group data "Data" :green {
+  usersdb[(Users DB)]
+  ordersdb[(Orders DB)]
+  cache[(Cache)]
+}
+web -> auth
+web -> orders
+web -> search
+mobile -> auth
+mobile -> orders
+admin -> billing
+admin -> orders
+auth -> usersdb
+orders -> ordersdb
+billing -> ordersdb
+search -> cache
+orders -> billing

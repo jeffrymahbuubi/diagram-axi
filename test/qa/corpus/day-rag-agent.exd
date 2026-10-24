@@ -1,0 +1,15 @@
+# Day-to-day + known bug class: RAG agent with reciprocal user<->agent arrows (question/answer) between
+# vertically aligned nodes; labels overlapped and sat on foreign arrows in the original render.
+title "RAG agent"
+dir DOWN
+user(User)
+agent[Agent loop] :purple
+group tools "Tools" :green {
+  search[Web search]
+  vdb[(Vector DB)]
+}
+user -> agent : question
+agent -> search : query
+agent -> vdb : embed + retrieve
+search, vdb --> agent : context
+agent -> user : answer

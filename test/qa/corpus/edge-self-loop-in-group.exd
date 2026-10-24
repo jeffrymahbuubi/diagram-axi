@@ -1,0 +1,8 @@
+# Edge case [T5, G11, H]: self-loop on the only node of a small group, plus an edge from outside. Loop points must not escape the zone or cross the zone title.
+dir DOWN
+group g "Pool" :blue {
+  w[Worker]
+}
+src[Source]
+w -> w : heartbeat
+src -> w

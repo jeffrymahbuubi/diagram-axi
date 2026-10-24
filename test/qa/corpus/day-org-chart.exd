@@ -1,0 +1,17 @@
+# Day-to-day: org chart: tree with fan-out at every level and no edge labels.
+title "Engineering org"
+dir DOWN
+cto[CTO] :purple
+vpe[VP Engineering]
+vpp[VP Product]
+em1[EM Platform]
+em2[EM Apps]
+em3[EM Data]
+pm1[PM Growth]
+pm2[PM Core]
+cto -> vpe, vpp
+vpe -> em1, em2, em3
+vpp -> pm1, pm2
+em1 -> a1[SRE 1], a2[SRE 2]
+em2 -> b1[iOS dev], b2[Android dev], b3[Web dev]
+em3 -> c1[Data eng], c2[Analyst]

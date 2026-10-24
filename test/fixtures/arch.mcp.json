@@ -1,0 +1,20 @@
+[
+  {"type":"cameraUpdate","width":1200,"height":900,"x":-40,"y":-60},
+  {"type":"text","id":"title","x":20,"y":0,"text":"Order pipeline","fontSize":24,"strokeColor":"#1e1e1e"},
+  {"type":"rectangle","id":"edge","x":20,"y":40,"width":220,"height":300,"backgroundColor":"#dbe4ff","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#4a9eed","strokeWidth":1,"opacity":30},
+  {"type":"text","id":"edgel","x":36,"y":48,"text":"Edge","fontSize":16,"strokeColor":"#2563eb"},
+  {"type":"rectangle","id":"web","x":50,"y":90,"width":160,"height":70,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#4a9eed","label":{"text":"Web app","fontSize":18}},
+  {"type":"rectangle","id":"mobile","x":50,"y":230,"width":160,"height":70,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#4a9eed","label":{"text":"Mobile app","fontSize":18}},
+  {"type":"rectangle","id":"api","x":340,"y":155,"width":170,"height":80,"backgroundColor":"#d0bfff","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#8b5cf6","label":{"text":"API Gateway","fontSize":18}},
+  {"type":"arrow","id":"a1","x":210,"y":125,"width":130,"height":54,"points":[[0,0],[130,54]],"endArrowhead":"arrow","startBinding":{"elementId":"web","fixedPoint":[1,0.5]},"endBinding":{"elementId":"api","fixedPoint":[0,0.3]},"label":{"text":"HTTPS","fontSize":16}},
+  {"type":"arrow","id":"a2","x":210,"y":265,"width":130,"height":-54,"points":[[0,0],[130,-54]],"endArrowhead":"arrow","startBinding":{"elementId":"mobile","fixedPoint":[1,0.5]},"endBinding":{"elementId":"api","fixedPoint":[0,0.7]},"label":{"text":"HTTPS","fontSize":16}},
+  {"type":"diamond","id":"auth","x":620,"y":40,"width":170,"height":110,"backgroundColor":"#fff3bf","fillStyle":"solid","strokeColor":"#f59e0b","label":{"text":"Auth?","fontSize":18}},
+  {"type":"arrow","id":"a3","x":510,"y":171,"width":110,"height":-76,"points":[[0,0],[110,-76]],"endArrowhead":"arrow","startBinding":{"elementId":"api","fixedPoint":[1,0.2]},"endBinding":{"elementId":"auth","fixedPoint":[0,0.5]},"label":{"text":"JWT","fontSize":16}},
+  {"type":"arrow","id":"a4","x":705,"y":150,"width":-195,"height":69,"points":[[0,0],[-195,69]],"endArrowhead":"arrow","strokeStyle":"dashed","startBinding":{"elementId":"auth","fixedPoint":[0.5,1]},"endBinding":{"elementId":"api","fixedPoint":[1,0.8]},"label":{"text":"401","fontSize":16}},
+  {"type":"rectangle","id":"orders","x":620,"y":250,"width":170,"height":70,"backgroundColor":"#b2f2bb","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#22c55e","label":{"text":"Order svc","fontSize":18}},
+  {"type":"arrow","id":"a5","x":510,"y":195,"width":110,"height":90,"points":[[0,0],[110,90]],"endArrowhead":"arrow","startBinding":{"elementId":"api","fixedPoint":[1,0.5]},"endBinding":{"elementId":"orders","fixedPoint":[0,0.5]}},
+  {"type":"ellipse","id":"db","x":900,"y":240,"width":170,"height":90,"backgroundColor":"#c3fae8","fillStyle":"solid","strokeColor":"#06b6d4","label":{"text":"Orders DB","fontSize":18}},
+  {"type":"arrow","id":"a6","x":790,"y":285,"width":110,"height":0,"points":[[0,0],[110,0]],"endArrowhead":"arrow","startBinding":{"elementId":"orders","fixedPoint":[1,0.5]},"endBinding":{"elementId":"db","fixedPoint":[0,0.5]}},
+  {"type":"ellipse","id":"cache","x":620,"y":380,"width":170,"height":80,"backgroundColor":"#ffc9c9","fillStyle":"solid","strokeColor":"#ef4444","label":{"text":"Redis","fontSize":18}},
+  {"type":"arrow","id":"a7","x":425,"y":235,"width":195,"height":185,"points":[[0,0],[195,185]],"endArrowhead":"arrow","strokeStyle":"dashed","startBinding":{"elementId":"api","fixedPoint":[0.5,1]},"endBinding":{"elementId":"cache","fixedPoint":[0,0.5]},"label":{"text":"read-through","fontSize":16}}
+]

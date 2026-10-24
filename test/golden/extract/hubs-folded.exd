@@ -1,0 +1,13 @@
+title "imports: src (15 of 15 files)"
+dir DOWN
+
+group g_shared "shared/" {
+  f_shared_ast_ts[ast.ts]
+  f_shared_util_ts[util.ts]
+}
+d_feat[feat/ (12 files)]
+f_main_ts[main.ts]
+
+d_feat -> f_shared_ast_ts : x12
+d_feat -> f_shared_util_ts : x3
+f_main_ts -> d_feat : x2

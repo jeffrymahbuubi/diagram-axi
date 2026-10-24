@@ -1,0 +1,4 @@
+title "Gateway and services"
+clients[Clients] -> gw[API gateway]
+gw -> users[Users], orders[Orders], payments[Payments], inventory[Inventory], shipping[Shipping]
+gw -> search[Search], notifications[Notifications], reviews[Reviews], recommendations[Recommendations], analytics[Analytics]

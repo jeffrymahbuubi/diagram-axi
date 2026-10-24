@@ -1,0 +1,11 @@
+# Fuzz repro (auto-promoted): arrows-collinear-overlap in RIGHT; profile labels-heavy, seed 3662134782, run seed 1, base ddb7a4b.
+# Minimal: 6 nodes, 7 edges, 0 groups. signature arrows-collinear-overlap:537d610c
+a{Planner Storage Storage Config Users}
+b[Registry Index\nShipping\nRegistry Client]
+a -> c : no ack no sync read sync request timeout no request trigger
+a -> b
+b -> d
+e -> d : enqueue ok emit request ack validate every 5s emit write poll
+a -> d
+d -> f
+b -> f

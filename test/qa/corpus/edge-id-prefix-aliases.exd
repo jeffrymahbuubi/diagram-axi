@@ -1,0 +1,17 @@
+# Edge case [D10, M]: node ids that look like checker prefixes or share prefixes (node, cap, zone_x, a, a1, a_1) and a group group_a. Checker nodeKey strips node-/cap- prefixes so aliasing is possible; a checker-id-collision false result would show here.
+dir DOWN
+group group_a "Group A" :blue {
+  a[A]
+  a1[A1]
+}
+node[Node]
+cap[Cap]
+zone_x[Zone X]
+a_1[A underscore 1]
+node -> cap : one
+cap -> zone_x : two
+zone_x -> a : three
+a -> a1 : four
+a1 -> a_1 : five
+a_1 -> node : six
+node -> a1 : seven

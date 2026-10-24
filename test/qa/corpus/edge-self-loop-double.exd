@@ -1,0 +1,9 @@
+# Edge case [T5, H]: two labeled self-loops on one node that also has an incoming and an outgoing edge. The two loops must not overlap each other or the other edges.
+dir DOWN
+w[Worker]
+in[Input]
+out[Output]
+w -> w : retry
+w -> w : poll
+in -> w
+w -> out

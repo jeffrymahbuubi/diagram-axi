@@ -1,0 +1,11 @@
+# Edge case [G5, G7, H]: group title much longer than its single small node (needW widening path) and a nested group whose only sibling is one node (title vs node overlap).
+dir DOWN
+group g "A zone title far longer than the single small node inside" :green {
+  n[N]
+}
+group h "Parent" :blue {
+  group i "Child with a long title" :purple {
+    m[M]
+  }
+}
+n -> m : x

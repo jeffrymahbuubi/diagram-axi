@@ -1,0 +1,5 @@
+# Edge case [X2, H]: edge labels (~300 px) far wider than the 60 px rank gap between nodes. Warns long-label (> 40 chars) twice on purpose. Label must not land on nodes or the other edge.
+dir DOWN
+a[A] -> b[B] : This label is far wider than the sixty pixel rank gap between the nodes
+b -> c[C] : and so is this one, placed between two adjacent ranks
+a -> c : short

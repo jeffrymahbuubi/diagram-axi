@@ -1,0 +1,13 @@
+# kind: sequence
+shape: sequence_diagram
+user: User
+app: App
+idp: Identity provider
+user -> app: open dashboard
+app -> idp: redirect with client id
+idp -> user: show login form
+user -> idp: submit credentials
+idp -> app: authorization code
+app -> idp: exchange code for token
+idp -> app: access token
+app -> user: dashboard

@@ -1,0 +1,13 @@
+# kind: sequence
+shape: sequence_diagram
+customer: Customer
+shop: Web shop
+pay: Payment service
+bank: Bank
+customer -> shop: place order
+shop -> pay: charge card
+pay -> bank: authorize 49.00
+bank -> pay: approved
+pay -> shop: payment confirmed
+shop -> customer: order receipt
+shop -> shop: reserve stock

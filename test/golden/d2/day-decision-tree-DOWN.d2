@@ -1,0 +1,101 @@
+direction: down
+d2_title: "Which database?" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+q1: "Relational data?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+q2: "Need strong\nconsistency?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+q3: "Mostly key lookups?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+q4: "Graph queries?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+pg: "PostgreSQL" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+spanner: "Distributed SQL" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+kv: "Key-value store" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+graph: "Graph DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+doc: "Document DB" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+q1 -> q2: "yes" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q1 -> q3: "no" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q2 -> pg: "single node" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q2 -> spanner: "global" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q3 -> kv: "yes" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q3 -> q4: "no" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q4 -> graph: "yes" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+q4 -> doc: "no" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}

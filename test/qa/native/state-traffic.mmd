@@ -1,0 +1,10 @@
+%% kind: state
+stateDiagram-v2
+  [*] --> Red
+  Red --> Green : timer
+  Green --> Yellow : timer
+  Yellow --> Red : timer
+  Red --> Flashing : fault
+  Green --> Flashing : fault
+  Flashing --> Red : reset
+  Flashing --> [*] : power off

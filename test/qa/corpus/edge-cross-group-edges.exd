@@ -1,0 +1,24 @@
+# Edge case: sibling and nested groups with edges between nodes living in different groups, both directions, labeled.
+dir RIGHT
+group front "Frontend" :blue {
+  web[Web]
+  group edge "Edge" :orange {
+    cdn[CDN]
+    waf[WAF]
+  }
+}
+group back "Backend" :green {
+  api[API]
+  group data "Data" :purple {
+    pg[(Postgres)]
+    redis[(Redis)]
+  }
+}
+web -> cdn : assets
+web -> waf : requests
+waf -> api : filtered
+api -> waf : response
+api -> pg : query
+pg -> api : rows
+api -> redis : cache
+cdn -> redis : purge

@@ -1,0 +1,47 @@
+---
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_hub["Hub"]:::c_purple
+  n_n1["Blue"]:::c_blue
+  n_n2(["Green"]):::c_green
+  n_n3{"Orange"}:::c_orange
+  n_n4[("Purple")]:::c_purple
+  n_n5["Red"]:::c_red
+  n_n6(["Yellow"]):::c_yellow
+  n_n7["Teal"]:::c_teal
+  n_n8["Pink"]:::c_pink
+  n_hub -->|"solid"| n_n1
+  n_hub -.->|"dashed"| n_n2
+  n_hub -.->|"dotted"| n_n3
+  n_hub ---|"plain"| n_n4
+  n_hub <-->|"both"| n_n5
+  n_n6 -->|"in"| n_hub
+  n_n7 -.->|"in dashed"| n_hub
+  n_n8 -.->|"in dotted"| n_hub
+  style n_hub stroke-width:4px
+  style n_n2 stroke-dasharray:8 5
+  style n_n3 stroke-dasharray:2 4
+  style n_n5 stroke-width:4px
+  style n_n7 stroke-dasharray:8 5
+  linkStyle 1 stroke-dasharray:8 5
+  linkStyle 2 stroke-dasharray:2 4
+  linkStyle 6 stroke-dasharray:8 5
+  linkStyle 7 stroke-dasharray:2 4

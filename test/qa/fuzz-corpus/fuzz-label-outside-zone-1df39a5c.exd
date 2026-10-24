@@ -1,0 +1,7 @@
+# Fuzz repro (auto-promoted): label-outside-zone in DOWN; profile labels-heavy, seed 2349167375, run seed 2, base ddb7a4b.
+# Minimal: 2 nodes, 1 edges, 1 groups. signature label-outside-zone:1df39a5c
+group g1 {
+  a[A]
+  b[A]
+}
+a -> b : every 5s request subscribe ok emit request notify route upda

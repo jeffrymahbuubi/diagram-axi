@@ -1,0 +1,23 @@
+# Day-to-day: API gateway fronting several microservices, each with its own datastore, plus a message bus.
+title "Microservices"
+dir RIGHT
+client(Client)
+gw[API Gateway] :purple
+auth[Auth service]
+orders[Order service]
+billing[Billing service]
+inventory[Inventory service]
+bus{Event bus} :yellow
+odb[(Orders DB)]
+bdb[(Billing DB)]
+idb[(Inventory DB)]
+client -> gw : REST
+gw -> auth : verify token
+gw -> orders
+gw -> inventory
+orders -> odb
+billing -> bdb
+inventory -> idb
+orders -> bus : OrderPlaced
+bus -> billing : OrderPlaced
+bus -> inventory : OrderPlaced

@@ -1,0 +1,5 @@
+{
+  "name": "ambiguous-pkg",
+  "type": "module",
+  "exports": "./dist/main.js"
+}

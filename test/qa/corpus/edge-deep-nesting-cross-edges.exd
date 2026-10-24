@@ -1,0 +1,26 @@
+# Edge case: three levels of group nesting (check warns >2) with edges crossing every group boundary.
+dir DOWN
+title "Deep nesting"
+group l1 "Region" :blue {
+  r1[Region gateway]
+  group l2 "Zone A" :green {
+    z1[Zone router]
+    group l3 "Rack 1" :purple {
+      s1[Server 1]
+      s2[Server 2]
+    }
+  }
+  group l2b "Zone B" :orange {
+    z2[Replica router]
+    s3[Server 3]
+  }
+}
+ext(Outside client)
+ext -> r1 : enter
+r1 -> z1 : route
+z1 -> s1 : place
+z1 -> s2 : place
+s1 -> s3 : replicate
+s2 -> z2 : replicate
+z2 -> s3
+s3 -> ext : response

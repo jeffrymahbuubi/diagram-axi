@@ -1,0 +1,5 @@
+{
+  "name": "sourcemap-pkg",
+  "type": "module",
+  "main": "./build/bundle.js"
+}

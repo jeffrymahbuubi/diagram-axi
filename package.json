@@ -1,0 +1,68 @@
+{
+  "name": "diagram-axi",
+  "version": "0.1.0",
+  "description": "Token-efficient AXI CLI: turn a compact boxes-and-arrows text DSL into an editable diagram file (Excalidraw today) plus PNG/SVG renders, offline.",
+  "keywords": ["axi", "cli", "diagram", "diagrams", "excalidraw", "ai-agents"],
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "diagram-axi": "bin/diagram-axi.js",
+    "dg-axi": "bin/dg-axi.js"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "skills",
+    "README.md",
+    "NOTICE"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/build-renderer.mjs && node scripts/build-font-metrics.mjs --copy && node scripts/build-mermaid.mjs",
+    "build:mermaid": "node scripts/build-mermaid.mjs",
+    "pretest": "npm run build",
+    "test": "vitest run",
+    "test:render": "npm run build && vitest run test/render.test.ts --passWithNoTests",
+    "skill:gen": "node scripts/gen-skill.mjs",
+    "skill:check": "node scripts/gen-skill.mjs --check",
+    "skill-eval": "node scripts/skill-eval.mjs",
+    "skill-eval:emit": "node scripts/skill-eval.mjs emit",
+    "validate": "axi-axi validate \"node bin/diagram-axi.js\" --dir .",
+    "metrics": "node scripts/build-font-metrics.mjs",
+    "tokens": "node scripts/token-compare.mjs",
+    "qa": "node scripts/qa.mjs",
+    "qa:png": "node scripts/qa.mjs --png",
+    "qa:d2": "node scripts/qa.mjs --engine d2",
+    "qa:mermaid": "node scripts/qa.mjs --engine mermaid",
+    "fuzz": "node scripts/fuzz.mjs",
+    "fuzz:ci": "node scripts/fuzz.mjs --count 10 --jobs 2",
+    "shrink": "node scripts/shrink.mjs",
+    "promote": "node scripts/promote.mjs",
+    "qa:extract": "node scripts/qa/extract.mjs --jobs 3",
+    "qa:extract:holdout": "node scripts/qa/extract.mjs --set holdout --jobs 3",
+    "vision-score": "node scripts/qa/vision-score.mjs",
+    "extract-eval": "node scripts/extract-eval.mjs",
+    "extract-eval:emit": "node scripts/extract-eval.mjs emit",
+    "qa:compliance": "node scripts/qa/compliance.mjs --report out/fuzz-s3/report.json,out/fuzz-s4/report.json"
+  },
+  "dependencies": {
+    "@d2lang/d2": "0.1.34",
+    "@dagrejs/dagre": "3.1.1",
+    "oxc-parser": "0.155.0",
+    "oxc-resolver": "11.24.2",
+    "playwright-core": "1.64.1"
+  },
+  "devDependencies": {
+    "@excalidraw/utils": "0.1.7",
+    "@mermaid-js/layout-elk": "1.0.1",
+    "@types/node": "^22.10.0",
+    "axi-axi": "0.1.0",
+    "esbuild": "0.28.2",
+    "mermaid": "12.2.0",
+    "opentype.js": "2.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "5.0.5"
+  }
+}

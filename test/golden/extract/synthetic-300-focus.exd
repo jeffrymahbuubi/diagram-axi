@@ -1,0 +1,72 @@
+title "imports: src (126 of 300 files)"
+dir DOWN
+
+group g_pkg00 "pkg00/" {
+  d_pkg00_s0[s0/ (4 files)\nused by 109\n... +11 more] :red
+  d_pkg00_s1[s1/ (4 files)\n... +16 more] :red
+  d_pkg00_s3[s3/ (4 files)\nused by 9\n... +16 more] :red
+  group g_pkg00_s2 "s2/" {
+    f_pkg00_s2_f1_ts[f1.ts] :red
+    f_pkg00_s2_f2_ts[f2.ts] :red
+    f_pkg00_s2_f3_ts[f3.ts] :red
+    s_file_pkg00_s2_f1_ts(... +8 more)
+    s_file_pkg00_s2_f2_ts(... +6 more)
+    s_file_pkg00_s2_f3_ts(... +1 more)
+  }
+}
+d_pkg03[pkg03/ (17 files)\nfocus: f2.ts\n... +21 more] :green
+d_pkg01[pkg01/ (13 files)\n... +25 more]
+d_pkg02[pkg02/ (11 files)\nused by 15\n... +28 more] :yellow
+d_pkg04[pkg04/ (7 files)\n... +20 more]
+d_pkg05[pkg05/ (8 files)\n... +20 more]
+d_pkg06[pkg06/ (8 files)\n... +19 more]
+d_pkg07[pkg07/ (11 files)\n... +22 more]
+d_pkg08[pkg08/ (10 files)\n... +27 more]
+d_pkg09[pkg09/ (10 files)\n... +23 more]
+d_pkg10[pkg10/ (10 files)\n... +19 more]
+d_pkg11[pkg11/ (6 files)\n... +15 more]
+
+d_pkg00_s0 -> d_pkg00_s1 : x2
+d_pkg00_s0 -> f_pkg00_s2_f1_ts
+d_pkg00_s0 -> f_pkg00_s2_f2_ts
+d_pkg00_s0 -> f_pkg00_s2_f3_ts
+d_pkg00_s1 -> f_pkg00_s2_f1_ts
+d_pkg00_s1 -> f_pkg00_s2_f2_ts
+d_pkg00_s1 -> f_pkg00_s2_f3_ts : x2
+d_pkg00_s3 -> d_pkg00_s1
+d_pkg01 -> f_pkg00_s2_f1_ts
+d_pkg01 -> f_pkg00_s2_f2_ts
+d_pkg01 -> f_pkg00_s2_f3_ts
+d_pkg02 -> d_pkg00_s1 : x2
+d_pkg02 -> d_pkg01
+d_pkg02 -> f_pkg00_s2_f1_ts
+d_pkg02 -> f_pkg00_s2_f2_ts
+d_pkg02 -> f_pkg00_s2_f3_ts
+d_pkg03 -> d_pkg00_s0 : x14
+d_pkg03 -> d_pkg00_s1
+d_pkg03 -> d_pkg00_s3
+d_pkg03 -> d_pkg01 : x6
+d_pkg03 -> d_pkg02 : x7
+d_pkg04 -> d_pkg03
+d_pkg06 -> d_pkg00_s1
+d_pkg07 -> d_pkg03
+d_pkg07 -> d_pkg06
+d_pkg07 -> f_pkg00_s2_f1_ts
+d_pkg08 -> d_pkg03
+d_pkg08 -> d_pkg06
+d_pkg08 -> d_pkg07
+d_pkg09 -> d_pkg01
+d_pkg09 -> d_pkg06
+d_pkg09 -> d_pkg08
+d_pkg10 -> d_pkg05
+d_pkg10 -> d_pkg06
+d_pkg10 -> d_pkg07
+d_pkg10 -> d_pkg08 : x2
+d_pkg10 -> f_pkg00_s2_f3_ts
+d_pkg11 -> d_pkg07
+d_pkg11 -> d_pkg10
+f_pkg00_s2_f2_ts -> f_pkg00_s2_f1_ts
+f_pkg00_s2_f3_ts -> f_pkg00_s2_f1_ts
+f_pkg00_s2_f1_ts -- s_file_pkg00_s2_f1_ts
+f_pkg00_s2_f2_ts -- s_file_pkg00_s2_f2_ts
+f_pkg00_s2_f3_ts -- s_file_pkg00_s2_f3_ts

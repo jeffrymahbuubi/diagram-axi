@@ -1,0 +1,225 @@
+---
+// Static overview of every round: acceptance per set, failed V-checks, fuzz pass rates, visual-rule agreement.
+// Data comes from src/generated/{stats,meta}.json (scripts/gen-pages.mjs). No client JS.
+import stats from '../generated/stats.json';
+import meta from '../generated/meta.json';
+import type { RoundStats, Meta } from '../lib/types';
+
+const rounds = (stats as RoundStats[]).slice().reverse(); // latest round first
+const m = meta as Meta;
+const fmt = (p: number | null | undefined) => (p === null || p === undefined ? '-' : `${p.toFixed(1)}%`);
+const setPage = (roundId: string, setId: string) => `/review/${roundId}/${setId}/`;
+const maxFail = (r: RoundStats) => Math.max(1, ...r.sets.flatMap((s) => Object.values(s.fails)));
+---
+
+<p class="ov-lead">
+  How the reviewer's verdicts compare with the automated checker, per set of renders. "Reviewer accepted" is V10
+  (a human would accept the render as-is); "checker pass" means no HARD finding in the QA or fuzz report.
+</p>
+
+<h2 id="round-comparison">Round comparison</h2>
+<p class="ov-note">The per-set columns show the reviewer-accepted percentage and the accepted count.</p>
+<div class="table-wrap">
+  <table class="ov-table">
+    <caption class="sr-only">Reviewer-accepted percentage per round and per set</caption>
+    <thead>
+      <tr>
+        <th scope="col">Round</th>
+        <th scope="col">Engine</th>
+        <th scope="col" class="num">Renders</th>
+        <th scope="col" class="num">Accepted</th>
+        <th scope="col" class="num">Checker pass</th>
+        {m.sets.map((s) => <th scope="col" class="num">{s.label}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {
+        (stats as RoundStats[]).map((r) => (
+          <tr>
+            <th scope="row"><a href={`#${r.id}`}>{r.label}</a>{r.fixture && <span class="ov-sub"> synthetic fixture</span>}</th>
+            <td>{r.engine ? <code>{r.engine}</code> : <span class="ov-sub">-</span>}</td>
+            <td class="num">{r.total}</td>
+            <td class="num">{fmt(r.acceptedPct)}</td>
+            <td class="num">{fmt(r.checkerPct)}</td>
+            {r.sets.map((s) => <td class="num">{fmt(s.acceptedPct)} <span class="ov-sub">{s.accepted}/{s.n}</span></td>)}
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+<p class="ov-note">
+  One row per round; add a round in <code>kit.config.json</code> and it appears here after <code>npm run gen:pages</code>.
+  Per-engine rounds carry an <code>engine</code> field; a configured round whose data folder does not exist yet is skipped{m.skippedRounds.length ? <> (now skipped: {m.skippedRounds.map((s) => s.label).join(', ')})</> : null}.
+</p>
+
+{
+  rounds.map((r) => (
+    <section class="ov-round" aria-labelledby={`h-${r.id}`}>
+      <h2 id={r.id}><span id={`h-${r.id}`}>{r.label}</span>{r.engine && <> <code>{r.engine}</code></>}</h2>
+      {r.fixture && <p class="ov-note">Synthetic fixture data for the dashboard check, not a real QA round.</p>}
+
+      <div class="ov-stats">
+        <div class="ov-stat"><span class="ov-stat-n">{r.total}</span><span class="ov-stat-l">renders reviewed</span></div>
+        <div class="ov-stat"><span class="ov-stat-n">{fmt(r.acceptedPct)}</span><span class="ov-stat-l">reviewer accepted ({r.accepted})</span></div>
+        <div class="ov-stat"><span class="ov-stat-n">{r.rejected}</span><span class="ov-stat-l">reviewer rejected</span></div>
+        <div class="ov-stat"><span class="ov-stat-n">{fmt(r.checkerPct)}</span><span class="ov-stat-l">checker pass ({r.checkerPass}/{r.checkerKnown})</span></div>
+      </div>
+
+      <h3 id={`${r.id}-acceptance`}>Acceptance per set</h3>
+      <div class="table-wrap">
+        <table class="ov-table">
+          <caption class="sr-only">Reviewer accepted versus checker pass per set in {r.label}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Set</th>
+              <th scope="col" class="num">Renders</th>
+              <th scope="col">Reviewer accepted</th>
+              <th scope="col">Checker pass</th>
+              <th scope="col" class="num">Rejected</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              r.sets.map((s) => (
+                <tr>
+                  <th scope="row"><a href={setPage(r.id, s.id)}>{s.title}</a></th>
+                  <td class="num">{s.n}</td>
+                  <td>
+                    <div class="bar-cell">
+                      <div class="bar" role="img" aria-label={`${fmt(s.acceptedPct)} accepted`}><span class="bar-fill bar-fill--review" style={`width:${s.acceptedPct ?? 0}%`} /></div>
+                      <span class="bar-val">{fmt(s.acceptedPct)}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="bar-cell">
+                      <div class="bar" role="img" aria-label={`${fmt(s.checkerPct)} checker pass`}><span class="bar-fill bar-fill--checker" style={`width:${s.checkerPct ?? 0}%`} /></div>
+                      <span class="bar-val">{fmt(s.checkerPct)}</span>
+                    </div>
+                  </td>
+                  <td class="num">{s.rejected}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="ov-note">
+        The gap between the two bars is the point of the review: renders the checker passes that a human would still reject.
+      </p>
+
+      <h3 id={`${r.id}-vchecks`}>Reviewer fail count per V-check</h3>
+      <div class="table-wrap">
+        <table class="ov-table ov-heat">
+          <caption class="sr-only">Renders where the reviewer marked each V-check fail, per set in {r.label}</caption>
+          <thead>
+            <tr>
+              <th scope="col">V-check</th>
+              {r.sets.map((s) => <th scope="col" class="num">{s.label}</th>)}
+              <th scope="col" class="num">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              m.vchecks.slice(0, 9).map((c) => (
+                <tr>
+                  <th scope="row"><strong>{c.id}</strong> <span class="ov-sub">{c.meaning}</span></th>
+                  {r.sets.map((s) => <td class="num" style={`--heat:${(s.fails[c.id] ?? 0) / maxFail(r)}`}>{s.fails[c.id] ?? 0}</td>)}
+                  <td class="num"><strong>{r.fails[c.id] ?? 0}</strong></td>
+                </tr>
+              ))
+            }
+            <tr class="ov-total">
+              <th scope="row"><strong>V10</strong> <span class="ov-sub">{m.vchecks[9]?.meaning} (rejected = no)</span></th>
+              {r.sets.map((s) => <td class="num">{s.rejected}</td>)}
+              <td class="num"><strong>{r.rejected}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {r.fuzz.length > 0 && (
+        <>
+          <h3 id={`${r.id}-fuzz`}>Fuzz pass rate per profile</h3>
+          <div class="table-wrap">
+            <table class="ov-table">
+              <caption class="sr-only">Fuzz run pass rate per profile for each report of {r.label}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Profile</th>
+                  {r.fuzz.map((f) => <th scope="col" class="num">{f.label}</th>)}
+                  <th scope="col">Top HARD code</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  (r.fuzz[0]?.profiles ?? []).map((p) => (
+                    <tr>
+                      <th scope="row">{p.profile}{!p.gated && <span class="ov-sub"> report only</span>}</th>
+                      {r.fuzz.map((f) => {
+                        const q = f.profiles.find((x) => x.profile === p.profile);
+                        return <td class="num">{q ? <>{fmt(q.passRate)} <span class="ov-sub">{q.passed}/{q.renders}</span></> : '-'}</td>;
+                      })}
+                      <td>{r.fuzz.map((f) => f.profiles.find((x) => x.profile === p.profile)?.topCode).filter(Boolean).filter((c, i, a) => a.indexOf(c) === i).map((c) => <code>{c}</code>)}</td>
+                    </tr>
+                  ))
+                }
+                <tr class="ov-total">
+                  <th scope="row">All gated profiles</th>
+                  {r.fuzz.map((f) => <td class="num"><strong>{fmt(Number(f.summary.gatedPassRate))}</strong> <span class="ov-sub">{f.summary.gatedPassed}/{f.summary.gatedRenders}</span></td>)}
+                  <td />
+                </tr>
+                <tr>
+                  <th scope="row">HARD findings (all profiles)</th>
+                  {r.fuzz.map((f) => <td class="num">{f.summary.hard}</td>)}
+                  <td />
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      <h3 id={`${r.id}-visual`}>New SOFT visual rules versus the reviewer</h3>
+      {
+        r.visual.analysed === 0 ? (
+          <p class="ov-note">No scene was analysed. Set <code>analyzerPath</code> to the built <code>dist/quality/analyze.js</code> of the main repo.</p>
+        ) : (
+          <>
+            <p class="ov-note">
+              Analysed {r.visual.analysed} scenes ({r.visual.rejectedAnalysed} rejected by the reviewer). At least one visual rule fired on {r.visual.anyFired}
+              ; {r.visual.anyFiredRejected} of those were rejected (precision {fmt(r.visual.precisionPct)}), and the rules catch {fmt(r.visual.recallPct)} of the rejected renders.
+            </p>
+            <div class="table-wrap">
+              <table class="ov-table">
+                <caption class="sr-only">Firings of each visual rule split by reviewer verdict in {r.label}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Rule</th>
+                    <th scope="col" class="num">Fired</th>
+                    <th scope="col" class="num">On rejected</th>
+                    <th scope="col" class="num">On accepted</th>
+                    <th scope="col" class="num">Precision</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    r.visual.perRule.map((v) => (
+                      <tr>
+                        <th scope="row"><code>{v.code}</code></th>
+                        <td class="num">{v.fired}</td>
+                        <td class="num">{v.firedRejected}</td>
+                        <td class="num">{v.firedAccepted}</td>
+                        <td class="num">{fmt(v.precisionPct)}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </>
+        )
+      }
+    </section>
+  ))
+}

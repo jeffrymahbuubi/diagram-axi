@@ -1,0 +1,47 @@
+---
+title: "Network topology"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart TD
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_net(["Internet"]):::c_blue
+  n_fw["Firewall"]:::c_red
+  subgraph g_dmz ["DMZ"]
+    n_web["Web server"]:::c_blue
+    n_proxy["Reverse proxy"]:::c_blue
+  end
+  subgraph g_lan ["Internal LAN"]
+    n_sw["Core switch"]:::c_blue
+    n_app["App server"]:::c_blue
+    n_db[("Database")]:::c_teal
+    n_nas[("NAS")]:::c_teal
+    n_pc1["Workstation 1"]:::c_blue
+    n_pc2["Workstation 2"]:::c_blue
+  end
+  n_net --- n_fw
+  n_fw --- n_proxy
+  n_proxy --- n_web
+  n_fw --- n_sw
+  n_sw --- n_app
+  n_sw --- n_nas
+  n_sw --- n_pc1
+  n_sw --- n_pc2
+  n_app --- n_db
+  style g_dmz fill:#ffd8a855,stroke:#8c775c,color:#1e1e1e
+  style g_lan fill:#a5d8ff55,stroke:#5b778c,color:#1e1e1e

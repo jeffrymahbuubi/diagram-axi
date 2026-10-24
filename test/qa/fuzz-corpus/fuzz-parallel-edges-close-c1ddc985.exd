@@ -1,0 +1,13 @@
+# Fuzz repro (auto-promoted): parallel-edges-close in DOWN; profile multi-edge, seed 3893149427, run seed 1, base a16c189.
+# Minimal: 3 nodes, 11 edges, 0 groups. signature parallel-edges-close:c1ddc985
+a -> b
+b -> a
+a -> c
+a -> c : approve commit batch a: b
+a -> c : on error subscribe
+b -> c
+c -> b : subscribe
+c -> b : fail poll query
+a -> c : dispatch
+c -> a
+a -> c : timeout

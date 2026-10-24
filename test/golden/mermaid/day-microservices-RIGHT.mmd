@@ -1,0 +1,42 @@
+---
+title: "Microservices"
+config:
+  layout: elk
+  look: classic
+  theme: base
+  themeVariables:
+    primaryColor: "#a5d8ff"
+    primaryBorderColor: "#1e1e1e"
+    lineColor: "#1e1e1e"
+    primaryTextColor: "#1e1e1e"
+    edgeLabelBackground: "#ffffff"
+---
+flowchart LR
+  classDef c_blue fill:#a5d8ff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_green fill:#b2f2bb,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_orange fill:#ffd8a8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_purple fill:#d0bfff,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_red fill:#ffc9c9,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_yellow fill:#fff3bf,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_teal fill:#c3fae8,stroke:#1e1e1e,color:#1e1e1e
+  classDef c_pink fill:#eebefa,stroke:#1e1e1e,color:#1e1e1e
+  n_client(["Client"]):::c_blue
+  n_gw["API Gateway"]:::c_purple
+  n_auth["Auth service"]:::c_blue
+  n_orders["Order service"]:::c_blue
+  n_billing["Billing service"]:::c_blue
+  n_inventory["Inventory service"]:::c_blue
+  n_bus{"Event bus"}:::c_yellow
+  n_odb[("Orders DB")]:::c_teal
+  n_bdb[("Billing DB")]:::c_teal
+  n_idb[("Inventory DB")]:::c_teal
+  n_client -->|"REST"| n_gw
+  n_gw -->|"verify token"| n_auth
+  n_gw --> n_orders
+  n_gw --> n_inventory
+  n_orders --> n_odb
+  n_billing --> n_bdb
+  n_inventory --> n_idb
+  n_orders -->|"OrderPlaced"| n_bus
+  n_bus -->|"OrderPlaced"| n_billing
+  n_bus -->|"OrderPlaced"| n_inventory

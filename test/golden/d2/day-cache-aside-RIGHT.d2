@@ -1,0 +1,61 @@
+direction: right
+d2_title: "Cache-aside" {
+  shape: text
+  near: top-center
+  style.font-size: 28
+  style.bold: true
+}
+app: "Application" {
+  shape: rectangle
+  style.fill: "#d0bfff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+hit: "Cache hit?" {
+  shape: diamond
+  style.fill: "#fff3bf"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+cache: "Cache" {
+  shape: cylinder
+  style.fill: "#ffd8a8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+db: "Database" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+app -> cache: "GET key" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+cache -> hit: "value or nil" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+hit -> app: "hit, return" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+hit -> db: "miss, query" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+db -> app: "row" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+app -> cache: "SET key" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}

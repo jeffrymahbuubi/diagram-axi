@@ -1,0 +1,19 @@
+# Day-to-day: order lifecycle state machine with back-edges (cancel, refund, lost parcel).
+title "Order states"
+dir RIGHT
+created(Created)
+paid(Paid)
+packed(Packed)
+shipped(Shipped)
+delivered(Delivered) :green
+cancelled(Cancelled) :red
+refunded(Refunded) :orange
+created -> paid : pay
+paid -> packed : pick
+packed -> shipped : dispatch
+shipped -> delivered : arrive
+created -> cancelled : cancel
+paid -> cancelled : cancel
+cancelled -> refunded : refund
+delivered -> refunded : return
+shipped --> packed : lost parcel

@@ -1,0 +1,9 @@
+# Edge case [X1, H]: 1-char node next to a very long single-line label and a 4-line label, in a 3-cycle plus a chord, all edges labeled. Stresses rank/node size mixes and port positions on very different widths. Warns long-label on u (intended).
+dir DOWN
+t[X]
+u[A very long node label that spans most of the row width here]
+v[L1\nL2\nL3\nL4]
+t -> u : m
+u -> v : n
+v -> t : o
+t -> v : p

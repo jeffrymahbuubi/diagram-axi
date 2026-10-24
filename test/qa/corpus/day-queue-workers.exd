@@ -1,0 +1,14 @@
+# Day-to-day: producer, queue, worker pool, dead-letter queue; fan-out from the queue, fan-in to the DB and DLQ.
+title "Queue and workers"
+dir RIGHT
+producer[Producer]
+queue{Job queue} :yellow
+w1[Worker 1]
+w2[Worker 2]
+w3[Worker 3]
+db[(Results DB)] :teal
+dlq{Dead-letter queue} :red
+producer -> queue : enqueue
+queue -> w1, w2, w3 : dequeue
+w1, w2, w3 -> db : store
+w1, w2, w3 --> dlq : failed

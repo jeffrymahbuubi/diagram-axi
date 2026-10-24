@@ -1,0 +1,9 @@
+# Edge case [T3, T4, D2, H]: five edges between one pair mixing solid, dashed, dotted, bidirectional and a reverse edge; all labeled. Stresses lane allocation and arrowheads at both ends of the same pair.
+dir DOWN
+a[Sender]
+b[Receiver]
+a -> b : solid
+a --> b : dashed
+a -.-> b : dotted
+a <-> b : both
+b -> a : back

@@ -1,0 +1,48 @@
+# Fuzz repro (auto-promoted): zone-intrusion in DOWN; profile stress-60, seed 2861825391, run seed 1, base ddb7a4b.
+# Minimal: 24 nodes, 16 edges, 3 groups. signature zone-intrusion:c6cfa56f
+group g0 {
+  task[A]
+  stage[A]
+  store[A]
+  api[A]
+  step[A]
+  stage4[A]
+  cache4[A]
+  group g1 {
+    mon[A]
+    dns2[A]
+    log[A]
+    store2[A]
+    log2[A]
+    lb-3[A]
+  }
+  group g2 {
+    node_a2[A]
+    svc[A]
+    svc-3[A]
+    app-3[A]
+  }
+}
+dns[A]
+node_a[A]
+cache[A]
+db[A]
+store-3[A]
+mon-3[A]
+task-3[A]
+mon -> stage
+node_a -> dns2
+dns -> node_a2
+mon -> store
+task -> log
+task -> svc
+node_a -> store2
+store -> cache
+store2 -> db
+stage -> store-3
+app-3 -> task-3
+dns -> log
+cache -> api
+mon-3 -> step
+log -> log2
+svc-3 -> lb-3

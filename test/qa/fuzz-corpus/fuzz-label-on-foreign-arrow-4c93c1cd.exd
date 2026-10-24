@@ -1,0 +1,9 @@
+# Fuzz repro (auto-promoted): label-on-foreign-arrow in DOWN; profile labels-heavy, seed 234689402, run seed 1, base ddb7a4b.
+# Minimal: 3 nodes, 2 edges, 1 groups. signature label-on-foreign-arrow:4c93c1cd
+group g1 {
+  a[A]
+  b[A]
+  c[A]
+}
+b -> c : fail rollback response dispatch poll fetch query
+a -> c : commit subscribe retry timeout fetch validate retry fetch re

@@ -1,0 +1,26 @@
+# Day-to-day: network topology: internet, firewall, DMZ and LAN zones with switches and hosts (plain lines).
+title "Network topology"
+dir DOWN
+net(Internet)
+fw[Firewall] :red
+group dmz "DMZ" :orange {
+  web[Web server]
+  proxy[Reverse proxy]
+}
+group lan "Internal LAN" :blue {
+  sw[Core switch]
+  app[App server]
+  db[(Database)]
+  nas[(NAS)]
+  pc1[Workstation 1]
+  pc2[Workstation 2]
+}
+net -- fw
+fw -- proxy
+proxy -- web
+fw -- sw
+sw -- app
+sw -- nas
+sw -- pc1
+sw -- pc2
+app -- db

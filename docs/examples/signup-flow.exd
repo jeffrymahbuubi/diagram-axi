@@ -1,0 +1,13 @@
+title "Sign-up flow"
+dir DOWN
+start(Visitor)
+form[Sign-up form]
+valid{Email valid?}
+err[Show error] :red
+send[Send verify email] :yellow
+done(Account active) :green
+start -> form -> valid
+valid --> err : no
+err -> form
+valid -> send : yes
+send -> done : link clicked

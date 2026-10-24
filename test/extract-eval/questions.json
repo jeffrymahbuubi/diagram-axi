@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "note": "Expected answers are derived from the RawGraph (extract --format json) by `node scripts/extract-eval.mjs derive`; counting convention: value imports only, test files ignored.",
+  "bar": {
+    "pass": 12,
+    "total": 15,
+    "entryAllAgents": true
+  },
+  "sources": {
+    "self": {
+      "path": "src",
+      "commit": "1abed8c1c1b70001d925f1a707aa104c102e8f95",
+      "srcTree": "734fc16c576dfa265f8e05c63234a129dea605e7",
+      "files": 111
+    },
+    "hono": {
+      "repo": "honojs/hono",
+      "tag": "v4.13.13",
+      "commit": "08a023cbfde55b434fb0fb30fae35d42e4bf20aa",
+      "path": "src",
+      "files": 188
+    }
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "repo": "self",
+      "type": "one",
+      "entry": true,
+      "prompt": "Where should you start reading to follow the `draw` command? Name one file.",
+      "expected": [
+        "index.ts",
+        "commands/draw.ts"
+      ],
+      "derivedBy": "the root file that imports cli/router.ts (the CLI entry) and the file that implements the command, commands/draw.ts"
+    },
+    {
+      "id": "q02",
+      "repo": "self",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which file is the CLI entry point inside src/ (no other file in src/ imports it)?",
+      "expected": [
+        "index.ts"
+      ],
+      "derivedBy": "the one file with no importers that imports cli/router.ts"
+    },
+    {
+      "id": "q03",
+      "repo": "self",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which top-level folder of src/ is imported by the most other top-level folders? Answer with the folder name.",
+      "expected": [
+        "output"
+      ],
+      "derivedBy": "distinct importing top-level folders per target folder"
+    },
+    {
+      "id": "q04",
+      "repo": "self",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which top-level folder imports dsl/ the most (number of import statements)? Answer with the folder name.",
+      "expected": [
+        "lint"
+      ],
+      "derivedBy": "import statements from each other top-level folder into dsl/"
+    },
+    {
+      "id": "q05",
+      "repo": "self",
+      "type": "number",
+      "entry": false,
+      "prompt": "How many files does the layout/ folder have (test files not counted)?",
+      "expected": 18,
+      "derivedBy": "non-test files under layout/"
+    },
+    {
+      "id": "q06",
+      "repo": "self",
+      "type": "set",
+      "entry": false,
+      "prompt": "The diagram marks one import cycle (red boxes). Name the boxes that are in it (as the folder or file path).",
+      "expected": [
+        "engines/cache.ts",
+        "render"
+      ],
+      "derivedBy": "Tarjan SCC over the raw value edges collapsed to the default view's boxes; equals the sidecar's hidden.sccs"
+    },
+    {
+      "id": "q07",
+      "repo": "self",
+      "type": "set",
+      "entry": false,
+      "prompt": "Which files outside extract/ does the extract/ folder import (value imports)? List the files.",
+      "expected": [
+        "lint/rules.ts"
+      ],
+      "derivedBy": "raw edges leaving extract/"
+    },
+    {
+      "id": "q08",
+      "repo": "self",
+      "type": "number",
+      "entry": false,
+      "prompt": "How many different top-level folders (and root files) import something from output/?",
+      "expected": 6,
+      "derivedBy": "distinct top-level importers of output/ (the hub; its incoming arrows are listed in the sidecar under hubEdges)"
+    },
+    {
+      "id": "q09",
+      "repo": "hono",
+      "type": "one",
+      "entry": true,
+      "prompt": "Where should you start reading to follow how `new Hono()` is built? Name one file.",
+      "expected": [
+        "index.ts",
+        "hono.ts",
+        "hono-base.ts"
+      ],
+      "derivedBy": "the chain index.ts -> hono.ts -> hono-base.ts (public entry, class Hono, base class)"
+    },
+    {
+      "id": "q10",
+      "repo": "hono",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which top-level folder of src/ is imported by the most other top-level folders (root files count as one importer)? Answer with the folder name.",
+      "expected": [
+        "utils"
+      ],
+      "derivedBy": "distinct importing top-level folders per target folder"
+    },
+    {
+      "id": "q11",
+      "repo": "hono",
+      "type": "number",
+      "entry": false,
+      "prompt": "How many files does the middleware/ folder have (test files not counted)?",
+      "expected": 36,
+      "derivedBy": "non-test files under middleware/"
+    },
+    {
+      "id": "q12",
+      "repo": "hono",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which top-level folder imports utils/ the most (number of import statements)? Answer with the folder name.",
+      "expected": [
+        "middleware"
+      ],
+      "derivedBy": "import statements from each other top-level folder into utils/"
+    },
+    {
+      "id": "q13",
+      "repo": "hono",
+      "type": "set",
+      "entry": false,
+      "prompt": "Which router implementation folders (under router/) does preset/quick.ts import? List them.",
+      "expected": [
+        "router/linear-router",
+        "router/smart-router",
+        "router/trie-router"
+      ],
+      "derivedBy": "raw edges from preset/quick.ts into router/<name>/"
+    },
+    {
+      "id": "q14",
+      "repo": "hono",
+      "type": "one",
+      "entry": false,
+      "prompt": "Between adapter/ and helper/, one imports the other and not the reverse. Which one is the importer? Answer with the folder name.",
+      "expected": [
+        "adapter"
+      ],
+      "derivedBy": "raw edge counts adapter->helper vs helper->adapter"
+    },
+    {
+      "id": "q15",
+      "repo": "hono",
+      "type": "one",
+      "entry": false,
+      "prompt": "Which file that sits directly in src/ (not in a subfolder) does validator/ import?",
+      "expected": [
+        "http-exception.ts"
+      ],
+      "derivedBy": "raw edges from validator/ to root-level files"
+    }
+  ]
+}

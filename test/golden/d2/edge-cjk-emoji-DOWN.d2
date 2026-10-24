@@ -1,0 +1,58 @@
+direction: down
+db: "数据库 💾" {
+  shape: cylinder
+  style.fill: "#c3fae8"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+ok: "成功? ✅" {
+  shape: diamond
+  style.fill: "#a5d8ff"
+  style.stroke: "#1e1e1e"
+  style.font-color: "#1e1e1e"
+}
+zone: "中文区域 🌏" {
+  label.near: top-left
+  style.font-size: 16
+  style.fill: "#dbe4ff"
+  style.stroke: "#868e96"
+  style.font-color: "#1e1e1e"
+  user: "用户 👤" {
+    shape: oval
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+  api: "接口服务 🚀" {
+    shape: rectangle
+    style.fill: "#a5d8ff"
+    style.stroke: "#1e1e1e"
+    style.font-color: "#1e1e1e"
+  }
+}
+zone.user -> zone.api: "请求 📨" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+zone.api -> db: "查询" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+db -> ok: "结果 ✔" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+ok -> zone.user: "是 🎉" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+}
+ok -> zone.api: "否 ❌" {
+  style.stroke: "#1e1e1e"
+  style.font-size: 14
+  style.font-color: "#1e1e1e"
+  style.stroke-dash: 5
+}

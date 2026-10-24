@@ -1,0 +1,9 @@
+# Fuzz repro (auto-promoted): arrows-collinear-overlap in LEFT; profile groups-nested, seed 3525736669, run seed 2, base ddb7a4b.
+# Minimal: 3 nodes, 3 edges, 1 groups. signature arrows-collinear-overlap:81bedb05
+group g1 {
+  a{A}
+  b[(A)]
+}
+a -> b : batch ok write
+a -> c
+a -> a : update reject

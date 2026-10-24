@@ -1,0 +1,49 @@
+{
+ "summary": {
+  "engine": "d2",
+  "seed": 4,
+  "renders": 2,
+  "hard": 0,
+  "gatedRenders": 1,
+  "gatedPassed": 1,
+  "gatedPassRate": 100,
+  "reportOnly": [
+   "dense"
+  ],
+  "synthetic": true
+ },
+ "byCode": [],
+ "profiles": [
+  {
+   "profile": "dense",
+   "renders": 1,
+   "passed": 1,
+   "passRate": 100,
+   "topCode": "",
+   "gated": false
+  },
+  {
+   "profile": "realistic-small",
+   "renders": 1,
+   "passed": 1,
+   "passRate": 100,
+   "topCode": "",
+   "gated": true
+  }
+ ],
+ "cases": [
+  {
+   "case": "dense/101",
+   "dir": "UP",
+   "profile": "dense",
+   "seed": 101
+  },
+  {
+   "case": "realistic-small/202",
+   "dir": "LEFT",
+   "profile": "realistic-small",
+   "seed": 202
+  }
+ ],
+ "findings": []
+}

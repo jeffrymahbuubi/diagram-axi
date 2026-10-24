@@ -1,0 +1,35 @@
+title "imports: src (7 of 15 files)"
+dir DOWN
+
+group g_cli "cli/" {
+  f_cli_main_ts[main.ts]
+  s_file_cli_main_ts(... +2 more)
+}
+group g_core "core/" {
+  f_core_engine_ts[engine.ts\nfocus] :green
+  f_core_emit_ts[emit.ts] :red
+  f_core_parse_ts[parse.ts] :red
+  s_file_core_emit_ts(... +1 more)
+}
+group g_util "util/" {
+  f_util_log_ts[log.ts]
+  f_util_path_ts[path.ts]
+  s_file_util_log_ts(... +2 more)
+  s_file_util_path_ts(... +1 more)
+}
+f_index_ts[index.ts]
+
+f_cli_main_ts -> f_core_engine_ts
+f_cli_main_ts -> f_util_log_ts
+f_core_emit_ts -> f_core_parse_ts
+f_core_engine_ts -> f_core_emit_ts
+f_core_engine_ts -> f_core_parse_ts
+f_core_engine_ts -> f_util_log_ts
+f_core_engine_ts -> f_util_path_ts
+f_core_parse_ts -> f_core_emit_ts : x2
+f_index_ts -> f_cli_main_ts
+f_index_ts -> f_core_engine_ts
+s_file_cli_main_ts -- f_cli_main_ts
+f_util_log_ts -- s_file_util_log_ts
+f_core_emit_ts -- s_file_core_emit_ts
+f_util_path_ts -- s_file_util_path_ts

@@ -1,0 +1,12 @@
+{
+  "name": "source-key-pkg",
+  "type": "module",
+  "exports": {
+    "./extra": { "default": "./dist/extra.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "custom-source": "./src/entry.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}
