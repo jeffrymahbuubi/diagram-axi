@@ -1,0 +1,152 @@
+{
+  "description": "Ground truth for the authoring eval (scripts/skill-author.mjs). An agent that has only SKILL.md plus a shell must write a diagram source, draw it and render a PNG. expect.engine is the engine the skill points to; expect.allowedEngines lists other acceptable ones (default: just engine). minNodes/maxNodes bound the node count the CLI reports (reported, not part of the pass bar). mustContain lists labels that must appear in the source (case-insensitive substring, 'a|b' = either; _ and - read as spaces). files lists the extensions that must exist in the task folder. input.copy names a repo folder copied into the task folder at prepare time.",
+  "bar": { "pass": 10, "total": 12 },
+  "tasks": [
+    {
+      "id": "web-arch",
+      "prompt": "Sketch the architecture of our web app for the team wiki. Browsers go through a CDN to a load balancer. The load balancer spreads traffic over an API server and a static web server. The API server talks to a Postgres database and a Redis cache, and it puts jobs on a queue that a background worker reads.",
+      "expect": {
+        "engine": "excalidraw",
+        "kind": "graph",
+        "minNodes": 8,
+        "maxNodes": 14,
+        "mustContain": ["browser", "cdn", "load balancer|lb", "api", "postgres", "redis", "queue", "worker"],
+        "files": [".exd", ".excalidraw", ".png"]
+      }
+    },
+    {
+      "id": "ci-pipeline",
+      "prompt": "Draw our CI/CD pipeline in Excalidraw, I want to tweak it by hand afterwards. A git push triggers the pipeline. Lint and unit tests run in parallel, then both feed the Docker image build. The image is pushed to the registry, deployed to staging, and smoke tests run there. After a manual approval it is deployed to production.",
+      "expect": {
+        "engine": "excalidraw",
+        "kind": "graph",
+        "minNodes": 8,
+        "maxNodes": 14,
+        "mustContain": ["push", "lint", "unit test", "build", "registry", "staging", "smoke", "approval", "production|prod"],
+        "files": [".exd", ".excalidraw", ".png"]
+      }
+    },
+    {
+      "id": "login-flow",
+      "prompt": "I need a flowchart of the login flow for the docs. The user opens the login page and enters email and password. If the credentials are valid we create a session and show the dashboard. If not, we show an error. After three failed attempts the account is locked, otherwise the user tries again.",
+      "expect": {
+        "engine": "excalidraw",
+        "kind": "graph",
+        "minNodes": 7,
+        "maxNodes": 13,
+        "mustContain": ["login", "valid", "session", "dashboard", "error", "lock", "attempt"],
+        "files": [".exd", ".excalidraw", ".png"]
+      }
+    },
+    {
+      "id": "event-driven",
+      "prompt": "Draw our event-driven order system. The services that publish events (Order service, Payment service, Inventory service) belong together in one box labelled Producers. They all publish to an event bus. The Notification service, the Analytics service and the Shipping service each consume from the event bus. Analytics writes to a data warehouse.",
+      "expect": {
+        "engine": "excalidraw",
+        "kind": "graph",
+        "minNodes": 8,
+        "maxNodes": 14,
+        "mustContain": ["producers", "order service", "payment service", "inventory service", "event bus", "notification", "analytics", "shipping", "warehouse"],
+        "files": [".exd", ".excalidraw", ".png"]
+      }
+    },
+    {
+      "id": "data-pipeline",
+      "prompt": "Make an editable Excalidraw picture of our data pipeline. Three sources (CRM, web logs, payments API) are ingested by Kafka into a raw data lake. A Spark job cleans the lake data and loads the warehouse. The BI dashboard and the ML feature store both read from the warehouse.",
+      "expect": {
+        "engine": "excalidraw",
+        "kind": "graph",
+        "minNodes": 8,
+        "maxNodes": 13,
+        "mustContain": ["crm", "web logs", "payments api", "kafka", "lake", "spark", "warehouse", "bi dashboard|dashboard", "feature store"],
+        "files": [".exd", ".excalidraw", ".png"]
+      }
+    },
+    {
+      "id": "gateway-hub",
+      "prompt": "Show how our API gateway fans out to the eleven backend services it fronts: auth, users, orders, payments, inventory, shipping, notifications, search, reviews, recommendations and analytics. Keep all eleven as their own boxes; the picture goes in an internal design doc.",
+      "expect": {
+        "engine": "d2",
+        "kind": "graph",
+        "minNodes": 12,
+        "maxNodes": 14,
+        "mustContain": ["gateway", "auth", "users", "orders", "payments", "inventory", "shipping", "notifications", "search", "reviews", "recommendations", "analytics"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "platform-30",
+      "prompt": "Diagram our whole platform on one page. Clients: web app, iOS app, Android app. Edge: CDN, WAF, API gateway. Services: auth, users, orders, payments, inventory, shipping, notifications, search, recommendations. Data stores: users DB, orders DB, inventory DB, payments DB, search index, Redis cache, object storage. Messaging and third parties: event bus, email provider, SMS provider. Operations: metrics, log aggregator, alerting, admin dashboard, feature flags. Show who calls whom: clients reach the edge, the gateway reaches the services, services use their stores and the event bus, notifications uses the email and SMS providers, and every service reports to metrics and the log aggregator.",
+      "expect": {
+        "engine": "d2",
+        "kind": "graph",
+        "minNodes": 26,
+        "maxNodes": 34,
+        "mustContain": ["web app", "ios", "android", "cdn", "waf", "gateway", "recommendations", "orders db", "redis", "event bus", "sms", "log aggregator", "feature flags"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "checkout-calls",
+      "prompt": "Use D2 to draw what happens when a customer checks out, as a sequence of calls over time. The browser sends the order to the web server. The web server asks the payment API to charge the card, and the payment API answers. Then the web server tells the inventory service to reserve the stock, and finally the web server returns a confirmation to the browser.",
+      "expect": {
+        "engine": "d2",
+        "kind": "sequence",
+        "minNodes": 4,
+        "maxNodes": 6,
+        "mustContain": ["browser", "web server", "payment", "inventory", "confirmation|confirm"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "blog-schema",
+      "prompt": "Give me an ER diagram of our blog database. users has id, email and name. posts has id, user_id, title and body. comments has id, post_id, user_id and body. A user writes many posts and many comments, and a post has many comments. Show the foreign keys.",
+      "expect": {
+        "engine": "d2",
+        "kind": "erd",
+        "minNodes": 3,
+        "maxNodes": 5,
+        "mustContain": ["users", "posts", "comments", "email", "user_id", "post_id"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "order-lifecycle",
+      "prompt": "Draw the lifecycle of an order as a state machine in Mermaid. A new order is Created. Payment moves it to Paid, and a failed payment moves it to Cancelled. A Paid order is Shipped and then Delivered. A Paid order can also be Refunded, and a Delivered order can be Refunded within 30 days.",
+      "expect": {
+        "engine": "mermaid",
+        "kind": "state",
+        "minNodes": 6,
+        "maxNodes": 8,
+        "mustContain": ["created", "paid", "cancelled", "shipped", "delivered", "refunded"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "readme-signup",
+      "prompt": "Add a diagram of our sign-up flow to the README. It has to render right on GitHub without any image file in the repo. The browser posts the form to the API, the API creates the user in the database, then asks the email service to send a welcome mail, and the API answers the browser with a success message.",
+      "expect": {
+        "engine": "mermaid",
+        "kind": "sequence",
+        "minNodes": 4,
+        "maxNodes": 6,
+        "mustContain": ["browser", "api", "database|db", "email"],
+        "files": [".png"]
+      }
+    },
+    {
+      "id": "learn-codebase",
+      "prompt": "I just joined this project and need to get my bearings. The TypeScript source is in the src folder next to you. Draw me a picture of how its parts depend on each other so I can see how the code is organised.",
+      "input": { "copy": "src" },
+      "expect": {
+        "engine": "d2",
+        "allowedEngines": ["excalidraw"],
+        "kind": "graph",
+        "minNodes": 12,
+        "maxNodes": 40,
+        "mustContain": ["commands", "engines", "layout", "render"],
+        "files": [".png"]
+      }
+    }
+  ]
+}

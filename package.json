@@ -48,6 +48,8 @@
     "skill:check": "node scripts/gen-skill.mjs --check",
     "skill-eval": "node scripts/skill-eval.mjs",
     "skill-eval:emit": "node scripts/skill-eval.mjs emit",
+    "skill-author:prepare": "node scripts/skill-author.mjs prepare --out out/skill-author",
+    "skill-author:score": "node scripts/skill-author.mjs score out/skill-author",
     "validate": "axi-axi validate \"node bin/diagram-axi.js\" --dir .",
     "metrics": "node scripts/build-font-metrics.mjs",
     "tokens": "node scripts/token-compare.mjs",
