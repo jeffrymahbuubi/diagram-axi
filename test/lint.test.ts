@@ -352,6 +352,30 @@ describe("check command", () => {
   });
 });
 
+describe("edge-color-label", () => {
+  it("`a -> b :purple` is a label; the warning says edges take no color and how to color a node", () => {
+    const src = "a[A]\nb[B]\na -> b :purple\n";
+    const d = only(src, "edge-color-label");
+    expect(d).toMatchObject({ line: 3, severity: "warning" });
+    expect(d.message).toContain("edges take no color");
+    expect(d.suggestion).toBe("drop it and color a node instead: put ':purple' after the node's declaration on its own line (api[API] :purple)");
+    expect(codes(src)).toEqual(["edge-color-label"]);
+  });
+
+  it("also with style flags, other colors and case", () => {
+    expect(codes("a[A]\nb[B]\na -> b : teal,bold\n")).toEqual(["edge-color-label"]);
+    expect(codes("a[A]\nb[B]\na -> b : Red , dashed\n")).toEqual(["edge-color-label"]);
+    for (const c of ["blue", "green", "orange", "purple", "red", "yellow", "teal", "pink"]) expect(codes(`a[A]\nb[B]\na -> b :${c}\n`)).toEqual(["edge-color-label"]);
+  });
+
+  it("ordinary labels, color words inside longer labels and a bare flag are silent; parsing is unchanged", () => {
+    expect(codes("a[A]\nb[B]\na -> b : red alert\n")).toEqual([]);
+    expect(codes("a[A]\nb[B]\na -> b : purple haze\n")).toEqual([]);
+    expect(codes("a[A]\nb[B]\na -> b : bold\n")).toEqual([]);
+    expect(parsed("a[A]\nb[B]\na -> b :purple\n").graph.edges[0]?.label).toBe("purple");
+  });
+});
+
 describe("corpus: every curated and fuzz case exits 0 without --strict", () => {
   const dirs = ["qa/corpus", "qa/fuzz-corpus"].map((d) => fileURLToPath(new URL(`./${d}/`, import.meta.url)));
 

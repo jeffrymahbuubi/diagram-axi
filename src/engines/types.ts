@@ -72,6 +72,8 @@ export interface TranslateOptions {
   title?: string;
   layout?: string;
   sketch?: boolean;
+  /** Dark render: engines whose source carries explicit inks (d2) switch them to a light ink. Default light. */
+  theme?: "light" | "dark";
   target?: "markdown" | "github" | "editable";
 }
 

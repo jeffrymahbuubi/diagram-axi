@@ -16,6 +16,9 @@ const PALETTE: Record<ColorName, string> = {
   pink: "#eebefa",
 };
 const STROKE = "#1e1e1e";
+// --theme dark: lines and edge-label chips sit on the dark canvas (#1e1e1e), so they cannot keep the light-theme ink/white.
+const DARK_LINE = "#cdd6f4";
+const DARK_LABEL_BG = "#1e1e1e";
 const DIR: Record<Direction, string> = { DOWN: "TD", RIGHT: "LR", UP: "BT", LEFT: "RL" };
 
 /**
@@ -68,6 +71,7 @@ export function translate(graph: Graph, o: TranslateOptions = {}): { source: str
   };
 
   const dir = graph.direction ?? o.direction ?? "DOWN";
+  const dark = o.theme === "dark";
   const layout = o.layout ?? "elk";
   const look = o.sketch ? "handDrawn" : "classic";
   const title = o.title ?? graph.title;
@@ -89,9 +93,9 @@ export function translate(graph: Graph, o: TranslateOptions = {}): { source: str
   L.push("  themeVariables:");
   L.push('    primaryColor: "#a5d8ff"');
   L.push('    primaryBorderColor: "#1e1e1e"');
-  L.push('    lineColor: "#1e1e1e"');
+  L.push(`    lineColor: "${dark ? DARK_LINE : "#1e1e1e"}"`);
   L.push('    primaryTextColor: "#1e1e1e"');
-  L.push('    edgeLabelBackground: "#ffffff"');
+  L.push(`    edgeLabelBackground: "${dark ? DARK_LABEL_BG : "#ffffff"}"`);
   L.push("---");
   L.push("flowchart " + DIR[dir]);
 

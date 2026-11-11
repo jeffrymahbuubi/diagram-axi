@@ -52,6 +52,7 @@ export async function drawEngine(i: DrawEngineInput): Promise<number> {
       ...(i.direction ? { direction: i.direction } : {}),
       ...(layoutFlag ? { layout: layoutFlag } : {}),
       ...(flagBool(flags, "sketch") ? { sketch: true } : {}),
+      ...(i.opts.theme ? { theme: i.opts.theme } : {}),
       ...(target ? { target } : {}),
     });
     source = tr.source;

@@ -99,6 +99,22 @@ function wordyEdge(e: Edge, label: string): Diagnostic | undefined {
   return makeWarning("wordy-edge-label", e.line, e.col, message, suggestion);
 }
 
+/** An edge label that is just a color name (plus optional style flags): `a -> b :purple` labels the edge "purple". */
+const COLOR_LABEL = /^(blue|green|orange|purple|red|yellow|teal|pink)(\s*,\s*(dashed|dotted|bold|sketchy))*$/i;
+
+function edgeColorLabel(e: Edge, label: string): Diagnostic | undefined {
+  const m = COLOR_LABEL.exec(label.trim());
+  if (!m) return undefined;
+  const color = (m[1] as string).toLowerCase();
+  return makeWarning(
+    "edge-color-label",
+    e.line,
+    e.col,
+    `edge ${e.from} -> ${e.to} is labeled "${label.trim()}": ':' starts a label and edges take no color`,
+    `drop it and color a node instead: put ':${color}' after the node's declaration on its own line (api[API] :${color})`,
+  );
+}
+
 function parallelAndReciprocal(graph: Graph): Diagnostic[] {
   const out: Diagnostic[] = [];
   const pairs = new Map<string, Edge[]>();
@@ -279,6 +295,8 @@ export function lint(graph: Graph): Diagnostic[] {
 
   for (const e of graph.edges) {
     if (e.label === undefined) continue;
+    const c = edgeColorLabel(e, e.label);
+    if (c) out.push(c);
     const w = wordyEdge(e, e.label);
     if (w) out.push(w);
   }

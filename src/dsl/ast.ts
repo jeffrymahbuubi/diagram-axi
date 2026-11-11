@@ -87,6 +87,7 @@ export type DiagnosticCode =
   | "diamond-hub"
   | "dense-graph"
   | "wordy-edge-label"
+  | "edge-color-label"
   | "reciprocal-pair"
   | "many-nodes"
   | "cross-group-edges";

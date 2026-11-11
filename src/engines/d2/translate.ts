@@ -27,6 +27,18 @@ const ZONE_FILL: Record<ColorName, string> = {
   pink: "#ffdeeb",
 };
 const STROKE = "#1e1e1e";
+// Dark theme (D2 Dark Mauve, canvas #1E1E2E). Whatever sits straight on the canvas or on a zone (edges, edge labels, zone
+// titles) gets a light ink; node text stays dark because node fills stay light pastels. Zone fills are the light tints mixed
+// into the canvas, so the light ink is readable on them too (edge labels are drawn on the zone fill).
+export const D2_DARK_CANVAS = "#1e1e2e";
+export const D2_DARK_INK = "#cdd6f4";
+const DARK_ZONE_MIX = 0.2;
+function mixHex(tint: string, base: string, amount: number): string {
+  const ch = (h: string, i: number) => parseInt(h.slice(1 + 2 * i, 3 + 2 * i), 16);
+  let out = "#";
+  for (let i = 0; i < 3; i++) out += Math.round(ch(base, i) * (1 - amount) + ch(tint, i) * amount).toString(16).padStart(2, "0");
+  return out;
+}
 const ZONE_STROKE = "#868e96";
 const SHAPE: Record<ShapeKind, string> = { rect: "rectangle", ellipse: "oval", diamond: "diamond", cylinder: "cylinder" };
 const DIR: Record<Direction, string> = { DOWN: "down", RIGHT: "right", UP: "up", LEFT: "left" };
@@ -102,6 +114,8 @@ export interface TranslateResult {
 
 export function translateGraph(graph: Graph, opts: TranslateOptions = {}): TranslateResult {
   const direction = opts.direction ?? graph.direction ?? "DOWN";
+  const dark = opts.theme === "dark";
+  const ink = dark ? D2_DARK_INK : STROKE;
   const losses: Loss[] = [];
 
   const nodeById = new Map<string, Node>(graph.nodes.map((n) => [n.id, n]));
@@ -166,12 +180,13 @@ export function translateGraph(graph: Graph, opts: TranslateOptions = {}): Trans
       losses.push({ code: "empty-group", detail: `group ${g.id} has no members; D2 draws it as a plain box`, line: g.line, col: g.col });
     }
     scan(g.title, g);
-    const fill = ZONE_FILL[g.color ?? "blue"];
+    const tint = ZONE_FILL[g.color ?? "blue"];
+    const fill = dark ? mixHex(tint, D2_DARK_CANVAS, DARK_ZONE_MIX) : tint;
     out.push(`${ind}${key(g.id)}: ${str(wrap(g.title ?? g.id, ZONE_WRAP))} {`);
     out.push(`${ind}  label.near: top-left`, `${ind}  style.font-size: ${ZONE_FONT}`);
     out.push(`${ind}  style.fill: "${fill}"`);
     out.push(`${ind}  style.stroke: "${ZONE_STROKE}"`);
-    out.push(`${ind}  style.font-color: "${STROKE}"`);
+    out.push(`${ind}  style.font-color: "${ink}"`);
     out.push(...flagStyle(g.flags, ind + "  ", `group ${g.id}`, g));
     for (const nid of g.children) emitNode(nodeById.get(nid)!, ind + "  ");
     for (const gid of g.groups) emitGroup(groupById.get(gid)!, ind + "  ");
@@ -191,8 +206,8 @@ export function translateGraph(graph: Graph, opts: TranslateOptions = {}): Trans
       scan(e.label, e);
       line += `: ${str(wrap(e.label, EDGE_WRAP))}`;
     } else line += ":";
-    const st = [`  style.stroke: "${STROKE}"`];
-    if (e.label) st.push(`  style.font-size: ${EDGE_LABEL_FONT}`, `  style.font-color: "${STROKE}"`);
+    const st = [`  style.stroke: "${ink}"`];
+    if (e.label) st.push(`  style.font-size: ${EDGE_LABEL_FONT}`, `  style.font-color: "${ink}"`);
     if (e.arrow === "dashed") st.push("  style.stroke-dash: 5");
     if (e.arrow === "dotted") st.push("  style.stroke-dash: 2");
     out.push(`${line} {`, ...st, "}");
