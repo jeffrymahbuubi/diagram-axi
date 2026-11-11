@@ -11,7 +11,7 @@ import { readFileSync } from "node:fs";
 
 // Edit these two lines per project.
 const PLAN_PATH = /docs\/plans\/[^\s'"]+\.md/;
-const ALLOWED_HELPERS = new Set(["Explore", "claude-code-guide", "fork", "statusline-setup"]);
+const ALLOWED_HELPERS = new Set(["Explore", "claude-code-guide", "fork", "statusline-setup", "vision-reviewer"]);
 const ROLES = {
   "fable-planner": { model: "fable" },
   "sonnet-implementer": { model: "sonnet", needsPlan: true },
