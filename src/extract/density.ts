@@ -17,6 +17,9 @@ import { layeringOf } from "./layering.js";
 //   accepted on excalidraw: commander n8 m14 (1.75, in 4), self-max15 n14 m24 (1.71, in 6), excalidraw-max15 n13 m22 (1.69, in 5),
 //                           zod n19 m24 (1.26, in 5), zod-none round 3 (W 7, 2515x1082)
 //   accepted on d2:         hono-default n24 m44 (1.83)
+//   round 6: vitest-max15 n11 m29 (2.64, in 7) slipped under the 12-box floor (4 edge-less boxes) and was rejected by both
+//                           reviewers on excalidraw; the d2 views hono-max15 (2.00), fastify-max15 (1.86), excalidraw-max15
+//                           (1.87) and self-max15 (1.71) of 14-15 boxes were accepted
 // so from 12 connected boxes on, more than 1.5 edges per box is too dense for excalidraw (the 1.69-1.75 graphs that were
 // accepted at 12-14 boxes move to d2 too: one line instead of two); 7 arrows landing on one box stack their arrowheads
 // whatever the ratio (accepted views peak at 6); and a layer wider than 7 boxes spreads the excalidraw router over long
@@ -25,6 +28,10 @@ import { layeringOf } from "./layering.js";
 export const EXTRACT_DENSE_MIN_NODES = 12;
 export const EXTRACT_DENSE_RATIO = 1.5;
 export const EXTRACT_DENSE_IN_DEGREE = 7;
+/** Small views: more than this many edges per box ... */
+export const EXTRACT_SMALL_RATIO = 2.0;
+/** ... from this many connected boxes on go to d2 even below the 12-box floor. */
+export const EXTRACT_SMALL_MIN_NODES = 8;
 /** A layer with more boxes than this is too wide for excalidraw (layering.ts). */
 export const EXTRACT_MAX_WIDTH = 7;
 /** The automatic budget never goes below this many boxes. */
@@ -66,9 +73,13 @@ export function crowded(d: Density): boolean {
 /** A short reason (`dense: 43 edges on 23 boxes`) when the view is too dense or too wide for excalidraw, else undefined. */
 export function denseReason(view: DensityInput): string | undefined {
   const d = densityOf(view);
-  if (d.boxes < EXTRACT_DENSE_MIN_NODES) return undefined;
   if (crowded(d)) return `dense: ${d.edges} edges on ${d.boxes} boxes`;
+  // 7 arrows into one box stack their arrowheads at any box count; a small view with more than 2 edges per box is too dense too.
   if (d.peak >= EXTRACT_DENSE_IN_DEGREE) return `dense: ${d.peak} arrows into one box`;
+  if (d.boxes >= EXTRACT_SMALL_MIN_NODES && d.edges > EXTRACT_SMALL_RATIO * d.boxes) {
+    return `dense: ${d.edges} edges on ${d.boxes} boxes`;
+  }
+  if (d.boxes < EXTRACT_DENSE_MIN_NODES) return undefined;
   const w = layeringOf(view).width;
   return w > EXTRACT_MAX_WIDTH ? `wide: ${w} boxes side by side` : undefined;
 }

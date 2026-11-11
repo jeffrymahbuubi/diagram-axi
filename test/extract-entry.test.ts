@@ -2,7 +2,7 @@
 
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { EXTRACT_DENSE_MIN_NODES, EXTRACT_DENSE_RATIO, denseReason } from "../src/extract/density.js";
+import { EXTRACT_DENSE_MIN_NODES, EXTRACT_DENSE_RATIO, EXTRACT_SMALL_MIN_NODES, EXTRACT_SMALL_RATIO, denseReason } from "../src/extract/density.js";
 import { candidates, detectEntry, entryCandidates, exportLeaves, importLeaves, sourcemapSources } from "../src/extract/entry.js";
 import { tsExtractor } from "../src/extract/ts/scan.js";
 import { fixture, tempDir, write } from "./helpers/run.js";
@@ -61,7 +61,19 @@ describe("denseReason", () => {
     expect(denseReason(view(14, 22))).toBe("dense: 22 edges on 14 boxes");
     expect(denseReason(view(16, 24))).toBeUndefined();
     expect(denseReason(view(16, 25))).toBe("dense: 25 edges on 16 boxes");
-    expect(denseReason(view(11, 40))).toBeUndefined();
+    expect(denseReason(view(11, 22))).toBeUndefined();
+  });
+  it("small views: more than EXTRACT_SMALL_RATIO edges per box from EXTRACT_SMALL_MIN_NODES boxes are dense (vitest-max15)", () => {
+    expect(EXTRACT_SMALL_RATIO).toBe(2.0);
+    expect(EXTRACT_SMALL_MIN_NODES).toBe(8);
+    expect(denseReason(view(11, 29))).toBe("dense: 29 edges on 11 boxes");
+    expect(denseReason(view(11, 23))).toBe("dense: 23 edges on 11 boxes");
+    expect(denseReason(view(11, 22))).toBeUndefined();
+    expect(denseReason(view(8, 17))).toBe("dense: 17 edges on 8 boxes");
+    expect(denseReason(view(8, 16))).toBeUndefined();
+    expect(denseReason(view(8, 14))).toBeUndefined();
+    expect(denseReason(view(8, 12))).toBeUndefined();
+    expect(denseReason(view(7, 40))).toBeUndefined();
   });
   it("the QA round 1-3 numbers: rejected views are dense, accepted ones are not", () => {
     for (const [n, m] of [[23, 43], [18, 32], [14, 29], [25, 50], [15, 30], [24, 38], [14, 24], [13, 22]] as const) expect(denseReason(view(n, m)), `${n}/${m}`).toBeDefined();
@@ -76,6 +88,16 @@ describe("denseReason", () => {
     });
     expect(denseReason(into(7))).toBe("dense: 7 arrows into one box");
     expect(denseReason(into(6))).toBeUndefined();
+  });
+  it("the in-degree line holds below the 12-box floor too: 7 arrows into one of 9 boxes are dense, 6 are not", () => {
+    const small = (k: number) => ({
+      edges: [
+        ...Array.from({ length: k }, (_, i) => ({ from: `a${i}`, to: "hub", stub: false })),
+        ...Array.from({ length: 9 - k - 1 }, (_, i) => ({ from: `b${i}`, to: `b${i + 1}`, stub: false })),
+      ],
+    });
+    expect(denseReason(small(7))).toBe("dense: 7 arrows into one box");
+    expect(denseReason(small(6))).toBeUndefined();
   });
   it("stub lines do not count", () => {
     expect(denseReason({ edges: [...view(12, 18).edges, ...Array.from({ length: 10 }, (_, i) => ({ from: "n0", to: `s${i}`, stub: true }))] })).toBeUndefined();
