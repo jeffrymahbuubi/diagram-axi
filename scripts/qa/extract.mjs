@@ -25,10 +25,10 @@ import { join, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { RULES, analyzeScene } from "./analyze.mjs";
 import { maskFindings, readEngineGeometry, sceneOf, svgProblem } from "./engines.mjs";
-import { visionPacket } from "./extract-packet.mjs";
+import { laneBundles, visionPacket } from "./extract-packet.mjs";
 import { ROOT, pool, requireBuild, runDraw, summarize, table } from "./run.mjs";
 
-export { visionPacket };
+export { laneBundles, visionPacket };
 
 /**
  * Pinned corpus. `sha` is the release tag's commit (peeled), `sub` the folder scanned, `entry` the --focus target
@@ -282,6 +282,7 @@ async function runCase(c, o, dirs) {
   }
   const a = analyzeScene(scene);
   res.stats = a.stats;
+  res.laneBundles = laneBundles(scene.elements);
   res.rulesSkipped = geometry ? [...geometry.rules_skipped].sort() : [];
   res.findings.push(...(geometry ? maskFindings(a.findings, geometry.rules_skipped) : a.findings));
   return res;
@@ -311,12 +312,14 @@ export function observations(results) {
   const withHubs = results.filter((r) => r.hubs);
   const sum = (f) => withHubs.reduce((n, r) => n + f(r), 0);
   const tall = results.filter((r) => r.draw?.scaleTo !== undefined);
+  const withBundles = results.filter((r) => r.laneBundles > 0);
   const verytall = results.filter((r) => r.draw?.height && r.draw?.width && r.draw.height / r.draw.width >= 1.5);
   return {
     hubIslands: { cases: withHubs.filter((r) => r.hubs.islands > 0).length, total: sum((r) => r.hubs.islands), of: withHubs.length, hubsTotal: sum((r) => r.hubs.hubs), where: withHubs.filter((r) => r.hubs.islands > 0).map((r) => `${r.case}(${r.hubs.islandLabels.join("; ")})`) },
     crowdedHubLabels: { cases: withHubs.filter((r) => r.hubs.crowded > 0).length, total: sum((r) => r.hubs.crowded), of: withHubs.length, where: withHubs.filter((r) => r.hubs.crowded > 0).map((r) => `${r.case}(${r.hubs.crowdedLabels.join("; ")})`) },
     scaleReduced: { cases: tall.length, of: results.length, min: tall.length ? Math.min(...tall.map((r) => r.draw.scaleTo)) : null, where: tall.map((r) => `${r.case}(${r.draw.width}x${r.draw.height} -> ${r.draw.scaleTo})`) },
     tallPx: { cases: results.filter((r) => r.draw?.height >= 2500).length, of: results.length, where: results.filter((r) => r.draw?.height >= 2500).map((r) => `${r.case}(${r.draw.width}x${r.draw.height}, ${r.draw.engine})`) },
+    laneBundles: { cases: withBundles.length, total: withBundles.reduce((n, r) => n + r.laneBundles, 0), of: results.length, where: withBundles.map((r) => `${r.case}(${r.laneBundles})`) },
     tallScenes: { cases: verytall.length, of: results.length, where: verytall.map((r) => `${r.case}(${r.draw.width}x${r.draw.height})`) },
   };
 }
@@ -349,6 +352,7 @@ export function toon(results, ev, obs, meta) {
   out.push(`  scale_reduced: ${obs.scaleReduced.cases}/${obs.scaleReduced.of} cases${obs.scaleReduced.min === null ? "" : `, min scale ${obs.scaleReduced.min}`}`);
   out.push(`  tall_scenes_h_over_1.5w: ${obs.tallScenes.cases}/${obs.tallScenes.of} cases`);
   out.push(`  scene_height_2500px_or_more: ${obs.tallPx.cases}/${obs.tallPx.of} cases (${obs.tallPx.where.join("; ")})`);
+  out.push(`  lane_bundles: ${obs.laneBundles.total} in ${obs.laneBundles.cases}/${obs.laneBundles.of} cases (${obs.laneBundles.where.join("; ")})`);
   out.push(`account_active: ${meta.accountEnd}`);
   return out.join("\n");
 }
@@ -434,6 +438,7 @@ async function runSet(setName, prepared, o, relOut) {
       check: r.check,
       draw: r.draw,
       hubs: r.hubs,
+      laneBundles: r.laneBundles,
       ...(r.duplicateOf ? { duplicateOf: r.duplicateOf } : {}),
       stats: r.stats,
       rulesSkipped: r.rulesSkipped,

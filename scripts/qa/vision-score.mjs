@@ -12,7 +12,8 @@
 //   V3  cases rejected by BOTH reviewers (listed)                              core bar: 0
 //   V4  (--holdout) generality: V1 mean >= 85% and V3 = 0                      held-out bar
 //
-// Prints TOON; exit 0 when the bars of the chosen corpus pass, 1 when one fails, 2 on unreadable input.
+// Prints TOON; exit 0 when the bars of the chosen corpus pass, 1 when one fails, 2 on unreadable input or when the two
+// files are byte-identical (the reviews are not independent). The summary lists the split cases (one reviewer rejected).
 
 import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
@@ -101,6 +102,7 @@ export function renderScore(score, { holdout = false } = {}) {
   out.push(`  v2_defaults_accepted_by_both: ${score.v2.n}/${score.v2.of}`);
   out.push(`  v3_rejected_by_both: ${score.v3.length}${score.v3.length ? ` (${score.v3.join(", ")})` : ""}`);
   out.push(`  split_one_reviewer: ${score.single}`);
+  out.push(`  split_cases: ${score.single}/${score.cases.length}${score.single ? ` (${score.cases.filter((c) => c.result === "split").map((c) => c.case).join(", ")})` : ""}`);
   if (holdout) out.push(`  v4_holdout_mean_yes: ${f1(score.v1)}`);
   return out.join("\n");
 }
@@ -114,17 +116,27 @@ function main(argv) {
     return 2;
   }
   const dir = resolve(rest[0]);
-  const read = (name) => {
+  const raw = (name) => {
     const file = join(dir, name);
     if (!existsSync(file)) throw new Error(`${name} not found in ${dir}`);
+    return readFileSync(file);
+  };
+  const parse = (name, buf) => {
     try {
-      return JSON.parse(readFileSync(file, "utf8"));
+      return JSON.parse(buf.toString("utf8"));
     } catch (err) {
       throw new Error(`${name}: not valid JSON (${err.message})`);
     }
   };
   try {
-    const score = scoreVerdicts(read("verdicts-1.json"), read("verdicts-2.json"), { holdout });
+    const raw1 = raw("verdicts-1.json");
+    const raw2 = raw("verdicts-2.json");
+    // two independent reviewers never reply with the same bytes: identical files mean one reply was copied (stabilize plan 1.4)
+    if (raw1.equals(raw2)) {
+      process.stdout.write(`error: verdicts-1.json and verdicts-2.json are byte-identical (${raw1.length} bytes), so they cannot be two independent reviews\nsuggestion: store each reviewer's raw reply verbatim as its own file; never copy one reply to both\n`);
+      return 2;
+    }
+    const score = scoreVerdicts(parse("verdicts-1.json", raw1), parse("verdicts-2.json", raw2), { holdout });
     process.stdout.write(renderScore(score, { holdout }) + "\n");
     return score.ok ? 0 : 1;
   } catch (err) {

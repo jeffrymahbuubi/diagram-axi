@@ -3,7 +3,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { HOLDOUT, REPOS, SETS, VIEWS, hubStats, visionPacket } from "../scripts/qa/extract.mjs";
+import { HOLDOUT, REPOS, SETS, VIEWS, hubStats, laneBundles, visionPacket } from "../scripts/qa/extract.mjs";
 import { tempDir } from "./helpers/run.js";
 
 describe("qa extract corpora", () => {
@@ -50,7 +50,9 @@ describe("vision packet text", () => {
     expect(packet).toContain("focus: <file>");
     expect(packet).toContain("plain line without an arrowhead");
     expect(packet).not.toContain("uses K (M shown)");
-    expect(packet).toContain("verdicts-1.json / verdicts-2.json");
+    expect(packet).toContain("stored verbatim, byte for byte");
+    expect(packet).toContain("verdicts-1.json or verdicts-2.json");
+    expect(packet).toContain("refuses two identical files");
   });
 
   it("lists PNGs by absolute path inside the output folder actually used", () => {
@@ -61,5 +63,33 @@ describe("vision packet text", () => {
     const text = visionPacket(results, out, [{ name: "axios", entry: "lib/axios.js" }]);
     expect(text).toContain(join(out, "png", "axios-default.png").split("\\").join("/"));
     expect(resolve(out)).toBe(out);
+  });
+});
+
+describe("laneBundles", () => {
+  const arrow = (id: string, x: number, y: number, points: number[][]) => ({ type: "arrow", id, x, y, points });
+
+  it("counts pairs of different arrows running parallel closer than 24 px for more than 150 px", () => {
+    // two vertical lanes 18 px apart for 300 px, one 30 px apart (too far), one 18 px apart for 100 px (too short)
+    const els = [
+      arrow("a", 0, 0, [[0, 0], [0, 300]]),
+      arrow("b", 18, 0, [[0, 0], [0, 300]]),
+      arrow("c", 48, 0, [[0, 0], [0, 300]]),
+      arrow("d", 0, 500, [[0, 0], [0, 100]]),
+      arrow("e", 18, 500, [[0, 0], [0, 100]]),
+    ];
+    expect(laneBundles(els)).toBe(1);
+  });
+
+  it("counts an arrow pair once, ignores the same arrow, perpendicular segments and non-arrows", () => {
+    const els = [
+      arrow("a", 0, 0, [[0, 0], [0, 300], [200, 300]]),
+      arrow("b", 10, 0, [[0, 0], [0, 300], [200, 310]]),
+      arrow("c", 0, 0, [[0, 0], [0, 10], [0, 400]]), // two collinear stretches of one arrow
+      { type: "rectangle", id: "r", x: 0, y: 0 },
+    ];
+    expect(laneBundles(els)).toBe(3); // a|b, a|c, b|c
+    expect(laneBundles([arrow("a", 0, 0, [[0, 0], [0, 300]])])).toBe(0);
+    expect(laneBundles([arrow("a", 0, 0, [[0, 0], [300, 0]]), arrow("b", 0, 10, [[0, 0], [0, 300]])])).toBe(0);
   });
 });

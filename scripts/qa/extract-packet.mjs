@@ -7,6 +7,38 @@ import { join, resolve } from "node:path";
 
 const posix = (p) => p.split("\\").join("/");
 
+/** laneBundles thresholds: lanes of different edges closer than BUNDLE_GAP px, parallel for more than BUNDLE_RUN px. */
+export const BUNDLE_GAP = 24;
+export const BUNDLE_RUN = 150;
+
+/**
+ * Report-only observation (stabilize plan U-S2): the number of pairs of different arrows that run parallel closer than
+ * BUNDLE_GAP px for more than BUNDLE_RUN px. Such bundled lanes make labels hard to attribute although the checker's
+ * `track-spacing` line (18 px) stays silent. Only horizontal/vertical segments of `arrow` elements (absolute = x/y + point) count.
+ */
+export function laneBundles(elements, { gap = BUNDLE_GAP, run = BUNDLE_RUN } = {}) {
+  const segs = [];
+  for (const e of elements) {
+    if (e.type !== "arrow" || !Array.isArray(e.points)) continue;
+    const p = e.points.map(([x, y]) => [e.x + x, e.y + y]);
+    for (let i = 1; i < p.length; i++) {
+      const [a, b] = [p[i - 1], p[i]];
+      if (a[1] === b[1] && a[0] !== b[0]) segs.push({ id: e.id, horizontal: true, at: a[1], lo: Math.min(a[0], b[0]), hi: Math.max(a[0], b[0]) });
+      else if (a[0] === b[0] && a[1] !== b[1]) segs.push({ id: e.id, horizontal: false, at: a[0], lo: Math.min(a[1], b[1]), hi: Math.max(a[1], b[1]) });
+    }
+  }
+  const pairs = new Set();
+  for (let i = 0; i < segs.length; i++) {
+    for (let j = i + 1; j < segs.length; j++) {
+      const a = segs[i];
+      const b = segs[j];
+      if (a.id === b.id || a.horizontal !== b.horizontal || Math.abs(a.at - b.at) >= gap) continue;
+      if (Math.min(a.hi, b.hi) - Math.max(a.lo, b.lo) > run) pairs.add(a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`);
+    }
+  }
+  return pairs.size;
+}
+
 export const CHECKLIST = [
   ["V1", "every arrow visibly starts at and ends on its nodes"],
   ["V2", "no arrowhead hidden"],
@@ -87,6 +119,6 @@ Reply with one JSON array, nothing else, one object per image in the table order
 \`\`\`
 
 For every fail give the failing rule, what you see and where in the \`note\` (for example "V4: 'used by 30' overlaps arrow label x4 near the top-left").
-Save nothing; the caller stores the reply as verdicts-1.json / verdicts-2.json next to this packet (scripts/qa/vision-score.mjs scores them).
+Save nothing. Your reply is stored verbatim, byte for byte, as your own verdict file (verdicts-1.json or verdicts-2.json next to this packet) and scored by scripts/qa/vision-score.mjs, which refuses two identical files: judge every image yourself and reply with the JSON array only.
 `;
 }

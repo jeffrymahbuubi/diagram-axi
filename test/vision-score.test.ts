@@ -88,14 +88,23 @@ describe("vision-score cli", () => {
     const dir = tempDir();
     writeFileSync(join(dir, "verdicts-1.json"), JSON.stringify(verdicts()));
     writeFileSync(join(dir, "verdicts-2.json"), JSON.stringify(verdicts()));
+    // byte-identical files are not two independent reviews: refused with exit 2, even though every case passes
+    const same = run([dir]);
+    expect(same.status).toBe(2);
+    expect(same.stdout).toContain("byte-identical");
+    // the same verdicts with different bytes (key order, whitespace) are two files: scored
+    writeFileSync(join(dir, "verdicts-2.json"), JSON.stringify(verdicts(), null, 2));
     const ok = run([dir]);
     expect(ok.status).toBe(0);
     expect(ok.stdout).toContain("vision-score: PASS, core, 28 cases, 2 reviewers");
     expect(ok.stdout).toContain("reviewers[2]{reviewer,yes,cases,rate}:");
+    expect(ok.stdout).toContain("split_cases: 0/28");
     expect(run([dir, "--holdout"]).stdout).toContain("vision-score: PASS, holdout");
 
     writeFileSync(join(dir, "verdicts-2.json"), JSON.stringify(verdicts(["a-default"])));
-    expect(run([dir]).status).toBe(1);
+    const failing = run([dir]);
+    expect(failing.status).toBe(1);
+    expect(failing.stdout).toContain("split_cases: 1/28 (a-default)");
 
     expect(run([join(dir, "missing")]).status).toBe(2);
     expect(run([dir, "--bogus"]).status).toBe(2);
