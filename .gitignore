@@ -16,3 +16,4 @@ dashboard/kit.config.local.json
 dashboard/.review-shots/
 .swarm/
 .claude/memory.db
+.claude/settings.local.json
