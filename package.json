@@ -1,6 +1,6 @@
 {
   "name": "diagram-axi",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Token-efficient AXI CLI: turn a compact boxes-and-arrows text DSL into an editable diagram file (Excalidraw today) plus PNG/SVG renders, offline.",
   "keywords": [
     "axi",

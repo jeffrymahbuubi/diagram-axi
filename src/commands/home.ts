@@ -140,7 +140,7 @@ export const homeCommand: CommandModule = {
   },
   async run(parsed) {
     if (parsed.flags["version"]) {
-      print("diagram-axi: 0.1.0");
+      print("diagram-axi: 0.1.1");
       return 0;
     }
     print(renderHomeView(process.argv[1] ?? "diagram-axi", scanScenes(process.cwd()), "diagram-axi", await enginesLine()));
